@@ -37,8 +37,8 @@ public class HuffmanTool
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
 	/// <returns>解码后的字符数组</returns>
-	/// <exception cref="HuffmanForHPACKHaveEOSTag">识别到不应出现的EOS标识</exception>
-	/// <exception cref="HuffmanForHPACKPaddingInaccuracy">填充格式不正确</exception>
+	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
+	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
 	public static char[]? Decoder(byte[] data)
 	{
 		if (data.Length == 0) return null;
@@ -3592,7 +3592,7 @@ public class HuffmanTool
 																																																															//11111111|11111111|11111111|111111
 																																																															case 1:
 																																																															{
-																																																																throw new HuffmanForHPACKHaveEOSTag(); 
+																																																																throw new HuffmanForHPACKHaveEOSTagException(); 
 																																																															}
 																																																														}
 																																																														break;
@@ -3695,13 +3695,13 @@ public class HuffmanTool
 		catch(HuffmanForHPACKEOF){
 			if (oleight)
 			{
-				throw new HuffmanForHPACKPaddingInaccuracy();
+				throw new HuffmanForHPACKPaddingInaccuracyException();
 			}
 		}
 
 		if (have_zero)
 		{
-			throw new HuffmanForHPACKPaddingInaccuracy();
+			throw new HuffmanForHPACKPaddingInaccuracyException();
 		}
 
 		return bc.ToArray();
