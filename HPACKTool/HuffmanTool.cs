@@ -1,9 +1,11 @@
 ﻿
 
+using System.Diagnostics.CodeAnalysis;
+
 namespace HPACKTool;
 
 
-public class HuffmanTool
+public partial class HuffmanTool
 {
 	// private static readonly byte[] bbbf = 
 	// [
@@ -39,7 +41,7 @@ public class HuffmanTool
 	/// <returns>解码后的字符数组</returns>
 	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
 	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
-	public static char[]? Decoder(byte[] data)
+	public static byte[]? Decoder(byte[] data)
 	{
 		if (data.Length == 0) return null;
 		//当前处在在的位反过来的索引    真实值 = 7 - i
@@ -48,7 +50,7 @@ public class HuffmanTool
 		int i2 = 0;
 		//当前处在的byet
 		byte at = data[0];
-		List<char> bc = new List<char>();
+		List<byte> bc = new List<byte>();
 		//文档要求，末尾用1填充，若违反需要报错，这个变量是用来记录的
 		//如果我理解错了，请向我提交issue
 		bool have_zero = false;
@@ -93,6 +95,7 @@ public class HuffmanTool
 			{
 				
 				//下面的内容超长，没耐心的请别展开，不过就算不展开也可能会很卡
+				//这些都是我手写的，注释可能会写错，看到了的话可以提issue告诉我
 				#region DecoderSwitch
 
 				oleight = false;
@@ -122,13 +125,13 @@ public class HuffmanTool
 													//00000
 													case 0:
 													{
-														bc.Add('0');
+														bc.Add((byte)'0');
 														break;
 													}
 													//00001
 													case 1:
 													{
-														bc.Add('1');
+														bc.Add((byte)'1');
 														break;
 													}
 												}
@@ -142,13 +145,13 @@ public class HuffmanTool
 													//00010
 													case 0:
 													{
-														bc.Add('2');
+														bc.Add((byte)'2');
 														break;
 													}
 													//00011
 													case 1:
 													{
-														bc.Add('a');
+														bc.Add((byte)'a');
 														break;
 													}
 												}
@@ -170,13 +173,13 @@ public class HuffmanTool
 													//00100
 													case 0:
 													{
-														bc.Add('c');
+														bc.Add((byte)'c');
 														break;
 													}
 													//00101
 													case 1:
 													{
-														bc.Add('e');
+														bc.Add((byte)'e');
 														break;
 													}
 												}
@@ -190,13 +193,13 @@ public class HuffmanTool
 													//00110
 													case 0:
 													{
-														bc.Add('i');
+														bc.Add((byte)'i');
 														break;
 													}
 													//00111
 													case 1:
 													{
-														bc.Add('o');
+														bc.Add((byte)'o');
 														break;
 													}
 												}
@@ -226,13 +229,13 @@ public class HuffmanTool
 													//01000
 													case 0:
 													{
-														bc.Add('s');
+														bc.Add((byte)'s');
 														break;
 													}
 													//01001
 													case 1:
 													{
-														bc.Add('t');
+														bc.Add((byte)'t');
 														break;
 													}
 												}
@@ -251,13 +254,13 @@ public class HuffmanTool
 															//010100
 															case 0:
 															{
-																bc.Add(' ');
+																bc.Add((byte)' ');
 																break;
 															}
 															//0101001
 															case 1:
 															{
-																bc.Add('%');
+																bc.Add((byte)'%');
 																break;
 															}
 														}
@@ -271,13 +274,13 @@ public class HuffmanTool
 															//010110
 															case 0:
 															{
-																bc.Add('-');
+																bc.Add((byte)'-');
 																break;
 															}
 															//010111
 															case 1:
 															{
-																bc.Add('.');
+																bc.Add((byte)'.');
 																break;
 															}
 														}
@@ -307,13 +310,13 @@ public class HuffmanTool
 															//011000
 															case 0:
 															{
-																bc.Add('/');
+																bc.Add((byte)'/');
 																break;
 															}
 															//011001
 															case 1:
 															{
-																bc.Add('3');
+																bc.Add((byte)'3');
 																break;
 															}
 														}
@@ -327,13 +330,13 @@ public class HuffmanTool
 															//011010
 															case 0:
 															{
-																bc.Add('4');
+																bc.Add((byte)'4');
 																break;
 															}
 															//011011
 															case 1:
 															{
-																bc.Add('5');
+																bc.Add((byte)'5');
 																break;
 															}
 														}
@@ -355,13 +358,13 @@ public class HuffmanTool
 															//011100
 															case 0:
 															{
-																bc.Add('6');
+																bc.Add((byte)'6');
 																break;
 															}
 															//011101
 															case 1:
 															{
-																bc.Add('7');
+																bc.Add((byte)'7');
 																break;
 															}
 														}
@@ -375,13 +378,13 @@ public class HuffmanTool
 															//011110
 															case 0:
 															{
-																bc.Add('8');
+																bc.Add((byte)'8');
 																break;
 															}
 															//011111
 															case 1:
 															{
-																bc.Add('9');
+																bc.Add((byte)'9');
 																break;
 															}
 														}
@@ -427,13 +430,13 @@ public class HuffmanTool
 															//100000
 															case 0:
 															{
-																bc.Add('=');
+																bc.Add((byte)'=');
 																break;
 															}
 															//100001
 															case 1:
 															{
-																bc.Add('A');
+																bc.Add((byte)'A');
 																break;
 															}
 														}
@@ -447,13 +450,13 @@ public class HuffmanTool
 															//100010
 															case 0:
 															{
-																bc.Add('_');
+																bc.Add((byte)'_');
 																break;
 															}
 															//100011
 															case 1:
 															{
-																bc.Add('b');
+																bc.Add((byte)'b');
 																break;
 															}
 														}
@@ -475,13 +478,13 @@ public class HuffmanTool
 															//100100
 															case 0:
 															{
-																bc.Add('d');
+																bc.Add((byte)'d');
 																break;
 															}
 															//100101
 															case 1:
 															{
-																bc.Add('f');
+																bc.Add((byte)'f');
 																break;
 															}
 														}
@@ -495,13 +498,13 @@ public class HuffmanTool
 															//100110
 															case 0:
 															{
-																bc.Add('g');
+																bc.Add((byte)'g');
 																break;
 															}
 															//100111
 															case 1:
 															{
-																bc.Add('h');
+																bc.Add((byte)'h');
 																break;
 															}
 														}
@@ -531,13 +534,13 @@ public class HuffmanTool
 															//101000
 															case 0:
 															{
-																bc.Add('l');
+																bc.Add((byte)'l');
 																break;
 															}
 															//101001
 															case 1:
 															{
-																bc.Add('m');
+																bc.Add((byte)'m');
 																break;
 															}
 														}
@@ -551,13 +554,13 @@ public class HuffmanTool
 															//101010
 															case 0:
 															{
-																bc.Add('n');
+																bc.Add((byte)'n');
 																break;
 															}
 															//101011
 															case 1:
 															{
-																bc.Add('p');
+																bc.Add((byte)'p');
 																break;
 															}
 														}
@@ -579,13 +582,13 @@ public class HuffmanTool
 															//101100
 															case 0:
 															{
-																bc.Add('r');
+																bc.Add((byte)'r');
 																break;
 															}
 															//101101
 															case 1:
 															{
-																bc.Add('u');
+																bc.Add((byte)'u');
 																break;
 															}
 														}
@@ -604,13 +607,13 @@ public class HuffmanTool
 																	//1011100
 																	case 0:
 																	{
-																		bc.Add(':');
+																		bc.Add((byte)':');
 																		break;
 																	}
 																	//1011101
 																	case 1:
 																	{
-																		bc.Add('B');
+																		bc.Add((byte)'B');
 																		break;
 																	}
 																}
@@ -624,13 +627,13 @@ public class HuffmanTool
 																	//1011110
 																	case 0:
 																	{
-																		bc.Add('C');
+																		bc.Add((byte)'C');
 																		break;
 																	}
 																	//1011111
 																	case 1:
 																	{
-																		bc.Add('D');
+																		bc.Add((byte)'D');
 																		break;
 																	}
 																}
@@ -676,13 +679,13 @@ public class HuffmanTool
 																	//1100000
 																	case 0:
 																	{
-																		bc.Add('E');
+																		bc.Add((byte)'E');
 																		break;
 																	}
 																	//1100001
 																	case 1:
 																	{
-																		bc.Add('F');
+																		bc.Add((byte)'F');
 																		break;
 																	}
 																}
@@ -696,13 +699,13 @@ public class HuffmanTool
 																	//1100010
 																	case 0:
 																	{
-																		bc.Add('G');
+																		bc.Add((byte)'G');
 																		break;
 																	}
 																	//1100011
 																	case 1:
 																	{
-																		bc.Add('H');
+																		bc.Add((byte)'H');
 																		break;
 																	}
 																}
@@ -724,13 +727,13 @@ public class HuffmanTool
 																	//110010
 																	case 0:
 																	{
-																		bc.Add('I');
+																		bc.Add((byte)'I');
 																		break;
 																	}
 																	//110011
 																	case 1:
 																	{
-																		bc.Add('J');
+																		bc.Add((byte)'J');
 																		break;
 																	}
 																}
@@ -744,13 +747,13 @@ public class HuffmanTool
 																	//1100110
 																	case 0:
 																	{
-																		bc.Add('K');
+																		bc.Add((byte)'K');
 																		break;
 																	}
 																	//1100111
 																	case 1:
 																	{
-																		bc.Add('L');
+																		bc.Add((byte)'L');
 																		break;
 																	}
 																}
@@ -780,13 +783,13 @@ public class HuffmanTool
 																	//1101000
 																	case 0:
 																	{
-																		bc.Add('M');
+																		bc.Add((byte)'M');
 																		break;
 																	}
 																	//1101010
 																	case 1:
 																	{
-																		bc.Add('N');
+																		bc.Add((byte)'N');
 																		break;
 																	}
 																}
@@ -800,13 +803,13 @@ public class HuffmanTool
 																	//1101010
 																	case 0:
 																	{
-																		bc.Add('O');
+																		bc.Add((byte)'O');
 																		break;
 																	}
 																	//1101011
 																	case 1:
 																	{
-																		bc.Add('P');
+																		bc.Add((byte)'P');
 																		break;
 																	}
 																}
@@ -828,13 +831,13 @@ public class HuffmanTool
 																	//1101100
 																	case 0:
 																	{
-																		bc.Add('Q');
+																		bc.Add((byte)'Q');
 																		break;
 																	}
 																	//1101101
 																	case 1:
 																	{
-																		bc.Add('R');
+																		bc.Add((byte)'R');
 																		break;
 																	}
 																}
@@ -848,13 +851,13 @@ public class HuffmanTool
 																	//1101110
 																	case 0:
 																	{
-																		bc.Add('S');
+																		bc.Add((byte)'S');
 																		break;
 																	}
 																	//1101111
 																	case 1:
 																	{
-																		bc.Add('T');
+																		bc.Add((byte)'T');
 																		break;
 																	}
 																}
@@ -892,13 +895,13 @@ public class HuffmanTool
 																	//1110000
 																	case 0:
 																	{
-																		bc.Add('U');
+																		bc.Add((byte)'U');
 																		break;
 																	}
 																	//1110001
 																	case 1:
 																	{
-																		bc.Add('V');
+																		bc.Add((byte)'V');
 																		break;
 																	}
 																}
@@ -912,13 +915,13 @@ public class HuffmanTool
 																	//1110010
 																	case 0:
 																	{
-																		bc.Add('W');
+																		bc.Add((byte)'W');
 																		break;
 																	}
 																	//1110011
 																	case 1:
 																	{
-																		bc.Add('Y');
+																		bc.Add((byte)'Y');
 																		break;
 																	}
 																}
@@ -940,13 +943,13 @@ public class HuffmanTool
 																	//1110100
 																	case 0:
 																	{
-																		bc.Add('j');
+																		bc.Add((byte)'j');
 																		break;
 																	}
 																	//1110101
 																	case 1:
 																	{
-																		bc.Add('k');
+																		bc.Add((byte)'k');
 																		break;
 																	}
 																}
@@ -960,13 +963,13 @@ public class HuffmanTool
 																	//1110110
 																	case 0:
 																	{
-																		bc.Add('q');
+																		bc.Add((byte)'q');
 																		break;
 																	}
 																	//1110111
 																	case 1:
 																	{
-																		bc.Add('v');
+																		bc.Add((byte)'v');
 																		break;
 																	}
 																}
@@ -996,13 +999,13 @@ public class HuffmanTool
 																	//1111010
 																	case 0:
 																	{
-																		bc.Add('w');
+																		bc.Add((byte)'w');
 																		break;
 																	}
 																	//1111011
 																	case 1:
 																	{
-																		bc.Add('x');
+																		bc.Add((byte)'x');
 																		break;
 																	}
 																}
@@ -1016,13 +1019,13 @@ public class HuffmanTool
 																	//1111010
 																	case 0:
 																	{
-																		bc.Add('y');
+																		bc.Add((byte)'y');
 																		break;
 																	}
 																	//1111011
 																	case 1:
 																	{
-																		bc.Add('z');
+																		bc.Add((byte)'z');
 																		break;
 																	}
 																}
@@ -1049,13 +1052,13 @@ public class HuffmanTool
 																			//11111000
 																			case 0:
 																			{
-																				bc.Add('&');
+																				bc.Add((byte)'&');
 																				break;
 																			}
 																			//11111001
 																			case 1:
 																			{
-																				bc.Add('*');
+																				bc.Add((byte)'*');
 																				break;
 																			}
 																		}
@@ -1069,13 +1072,13 @@ public class HuffmanTool
 																			//11111010
 																			case 0:
 																			{
-																				bc.Add(',');
+																				bc.Add((byte)',');
 																				break;
 																			}
 																			//11111011
 																			case 1:
 																			{
-																				bc.Add(';');
+																				bc.Add((byte)';');
 																				break;
 																			}
 																		}
@@ -1097,13 +1100,13 @@ public class HuffmanTool
 																			//11111100
 																			case 0:
 																			{
-																				bc.Add('X');
+																				bc.Add((byte)'X');
 																				break;
 																			}
 																			//11111101
 																			case 1:
 																			{
-																				bc.Add('Z');
+																				bc.Add((byte)'Z');
 																				break;
 																			}
 																		}
@@ -1127,13 +1130,13 @@ public class HuffmanTool
 																							//11111110|00
 																							case 0:
 																							{
-																								bc.Add('!');
+																								bc.Add((byte)'!');
 																								break;
 																							}
 																							//11111110|01
 																							case 1:
 																							{
-																								bc.Add('"');
+																								bc.Add((byte)'"');
 																								break;
 																							}
 																						}
@@ -1147,13 +1150,13 @@ public class HuffmanTool
 																							//11111110|10
 																							case 0:
 																							{
-																								bc.Add('(');
+																								bc.Add((byte)'(');
 																								break;
 																							}
 																							//11111110|11
 																							case 1:
 																							{
-																								bc.Add(')');
+																								bc.Add((byte)')');
 																								break;
 																							}
 																						}
@@ -1176,7 +1179,7 @@ public class HuffmanTool
 																							//11111111|00
 																							case 0:
 																							{
-																								bc.Add('?');
+																								bc.Add((byte)'?');
 																								break;
 																							}
 																							//11111111|01
@@ -1187,13 +1190,13 @@ public class HuffmanTool
 																									//11111111|010
 																									case 0:
 																									{
-																										bc.Add('\'');
+																										bc.Add((byte)'\'');
 																										break;
 																									}
 																									//11111111|011
 																									case 1:
 																									{
-																										bc.Add('+');
+																										bc.Add((byte)'+');
 																										break;
 																									}
 																								}
@@ -1215,7 +1218,7 @@ public class HuffmanTool
 																									//11111111|100
 																									case 0:
 																									{
-																										bc.Add('|');
+																										bc.Add((byte)'|');
 																										break;
 																									}
 																									//11111111|101
@@ -1226,13 +1229,13 @@ public class HuffmanTool
 																											//11111111|1010
 																											case 0:
 																											{
-																												bc.Add('#');
+																												bc.Add((byte)'#');
 																												break;
 																											}
 																											//11111111|1011
 																											case 1:
 																											{
-																												bc.Add('>');
+																												bc.Add((byte)'>');
 																												break;
 																											}
 																										}
@@ -1259,13 +1262,13 @@ public class HuffmanTool
 																													//11111111|11000
 																													case 0:
 																													{
-																														bc.Add((char)0);
+																														bc.Add(0);
 																														break;
 																													}
 																													//11111111|11001
 																													case 1:
 																													{
-																														bc.Add('$');
+																														bc.Add((byte)'$');
 																														break;
 																													}
 																												}
@@ -1279,13 +1282,13 @@ public class HuffmanTool
 																													//11111111|11010
 																													case 0:
 																													{
-																														bc.Add('@');
+																														bc.Add((byte)'@');
 																														break;
 																													}
 																													//11111111|11011
 																													case 1:
 																													{
-																														bc.Add('[');
+																														bc.Add((byte)'[');
 																														break;
 																													}
 																												}
@@ -1307,13 +1310,13 @@ public class HuffmanTool
 																													//11111111|11100
 																													case 0:
 																													{
-																														bc.Add(']');
+																														bc.Add((byte)']');
 																														break;
 																													}
 																													//11111111|11101
 																													case 1:
 																													{
-																														bc.Add('~');
+																														bc.Add((byte)'~');
 																														break;
 																													}
 																												}
@@ -1332,13 +1335,13 @@ public class HuffmanTool
 																															//11111111|111100
 																															case 0:
 																															{
-																																bc.Add('^');
+																																bc.Add((byte)'^');
 																																break;
 																															}
 																															//11111111|111101
 																															case 1:
 																															{
-																																bc.Add('}');
+																																bc.Add((byte)'}');
 																																break;
 																															}
 																														}
@@ -1357,13 +1360,13 @@ public class HuffmanTool
 																																	//11111111|1111100
 																																	case 0:
 																																	{
-																																		bc.Add('<');
+																																		bc.Add((byte)'<');
 																																		break;
 																																	}
 																																	//11111111|1111101
 																																	case 1:
 																																	{
-																																		bc.Add('`');
+																																		bc.Add((byte)'`');
 																																		break;
 																																	}
 																																}
@@ -1377,7 +1380,7 @@ public class HuffmanTool
 																																	//11111111|1111110
 																																	case 0:
 																																	{
-																																		bc.Add('{');
+																																		bc.Add((byte)'{');
 																																		break;
 																																	}
 																																	//11111111|1111111
@@ -1403,13 +1406,13 @@ public class HuffmanTool
 																																									//11111111|11111110|000
 																																									case 0:
 																																									{
-																																										bc.Add('\\');
+																																										bc.Add((byte)'\\');
 																																										break;
 																																									}
 																																									//11111111|11111110|001
 																																									case 1:
 																																									{
-																																										bc.Add((char)195);
+																																										bc.Add(195);
 																																										break;
 																																									}
 																																								}
@@ -1423,7 +1426,7 @@ public class HuffmanTool
 																																									//11111111|11111110|010
 																																									case 0:
 																																									{
-																																										bc.Add((char)208);
+																																										bc.Add(208);
 																																										break;
 																																									}
 																																									//11111111|11111110|011
@@ -1434,13 +1437,13 @@ public class HuffmanTool
 																																											//11111111|11111110|0110
 																																											case 0:
 																																											{
-																																												bc.Add((char)128);
+																																												bc.Add(128);
 																																												break;
 																																											}
 																																											//11111111|11111110|0111
 																																											case 1:
 																																											{
-																																												bc.Add((char)130);
+																																												bc.Add(130);
 																																												break;
 																																											}
 																																										}
@@ -1470,13 +1473,13 @@ public class HuffmanTool
 																																											//11111111|11111110|1000
 																																											case 0:
 																																											{
-																																												bc.Add((char)131);
+																																												bc.Add(131);
 																																												break;
 																																											}
 																																											//11111111|11111110|1001
 																																											case 1:
 																																											{
-																																												bc.Add((char)162);
+																																												bc.Add(162);
 																																												break;
 																																											}
 																																										}
@@ -1490,13 +1493,13 @@ public class HuffmanTool
 																																											//11111111|111111110|1010
 																																											case 0:
 																																											{
-																																												bc.Add((char)184);
+																																												bc.Add(184);
 																																												break;
 																																											}
 																																											//11111111|11111110|1011
 																																											case 1:
 																																											{
-																																												bc.Add((char)194);
+																																												bc.Add(194);
 																																												break;
 																																											}
 																																										}
@@ -1518,13 +1521,13 @@ public class HuffmanTool
 																																											//11111111|11111110|1100
 																																											case 0:
 																																											{
-																																												bc.Add((char)224);
+																																												bc.Add(224);
 																																												break;
 																																											}
 																																											//11111111|11111110|1101
 																																											case 1:
 																																											{
-																																												bc.Add((char)226);
+																																												bc.Add(226);
 																																												break;
 																																											}
 																																										}
@@ -1543,13 +1546,13 @@ public class HuffmanTool
 																																													//11111111|11111110|11100
 																																													case 0:
 																																													{
-																																														bc.Add((char)153);
+																																														bc.Add(153);
 																																														break;
 																																													}
 																																													//11111111|11111110|11101
 																																													case 1:
 																																													{
-																																														bc.Add((char)161);
+																																														bc.Add(161);
 																																														break;
 																																													}
 																																												}
@@ -1563,13 +1566,13 @@ public class HuffmanTool
 																																													//11111111|11111110|11110
 																																													case 0:
 																																													{
-																																														bc.Add((char)167);
+																																														bc.Add(167);
 																																														break;
 																																													}
 																																													//11111111|11111110|
 																																													case 1:
 																																													{
-																																														bc.Add((char)172);
+																																														bc.Add(172);
 																																														break;
 																																													}
 																																												}
@@ -1615,13 +1618,13 @@ public class HuffmanTool
 																																													//11111111|11111111|00000
 																																													case 0:
 																																													{
-																																														bc.Add((char)176);
+																																														bc.Add(176);
 																																														break;
 																																													}
 																																													//11111111|11111111|00001
 																																													case 1:
 																																													{
-																																														bc.Add((char)177);
+																																														bc.Add(177);
 																																														break;
 																																													}
 																																												}
@@ -1635,13 +1638,13 @@ public class HuffmanTool
 																																													//11111111|11111111|00010
 																																													case 0:
 																																													{
-																																														bc.Add((char)179);
+																																														bc.Add(179);
 																																														break;
 																																													}
 																																													//11111111|11111111|
 																																													case 1:
 																																													{
-																																														bc.Add((char)209);
+																																														bc.Add(209);
 																																														break;
 																																													}
 																																												}
@@ -1663,13 +1666,13 @@ public class HuffmanTool
 																																													//11111111|11111111|00100
 																																													case 0:
 																																													{
-																																														bc.Add((char)216);
+																																														bc.Add(216);
 																																														break;
 																																													}
 																																													//11111111|11111111|
 																																													case 1:
 																																													{
-																																														bc.Add((char)217);
+																																														bc.Add(217);
 																																														break;
 																																													}
 																																												}
@@ -1683,13 +1686,13 @@ public class HuffmanTool
 																																													//11111111|11111111|00110
 																																													case 0:
 																																													{
-																																														bc.Add((char)227);
+																																														bc.Add(227);
 																																														break;
 																																													}
 																																													//11111111|11111111|
 																																													case 1:
 																																													{
-																																														bc.Add((char)229);
+																																														bc.Add(229);
 																																														break;
 																																													}
 																																												}	
@@ -1719,7 +1722,7 @@ public class HuffmanTool
 																																													//11111111|11111111|01000
 																																													case 0:
 																																													{
-																																														bc.Add((char)230);
+																																														bc.Add(230);
 																																														break;
 																																													}
 																																													//11111111|11111111|01001
@@ -1730,13 +1733,13 @@ public class HuffmanTool
 																																															//11111111|11111111|010010
 																																															case 0:
 																																															{
-																																																bc.Add((char)129);
+																																																bc.Add(129);
 																																																break;
 																																															}
 																																															//11111111|11111111|010011
 																																															case 1:
 																																															{
-																																																bc.Add((char)132);
+																																																bc.Add(132);
 																																																break;
 																																															}
 																																														}
@@ -1758,13 +1761,13 @@ public class HuffmanTool
 																																															//11111111|11111111|010100
 																																															case 0:
 																																															{
-																																																bc.Add((char)133);
+																																																bc.Add(133);
 																																																break;
 																																															}
 																																															//11111111|11111111|010101
 																																															case 1:
 																																															{
-																																																bc.Add((char)134);
+																																																bc.Add(134);
 																																																break;
 																																															}
 																																														}
@@ -1778,13 +1781,13 @@ public class HuffmanTool
 																																															//11111111|11111111|010110
 																																															case 0:
 																																															{
-																																																bc.Add((char)136);
+																																																bc.Add(136);
 																																																break;
 																																															}
 																																															//11111111|11111111|010111
 																																															case 1:
 																																															{
-																																																bc.Add((char)146);
+																																																bc.Add(146);
 																																																break;
 																																															}
 																																														}
@@ -1814,13 +1817,13 @@ public class HuffmanTool
 																																															//11111111|11111111|011000
 																																															case 0:
 																																															{
-																																																bc.Add((char)154);
+																																																bc.Add(154);
 																																																break;
 																																															}
 																																															//11111111|11111111|011001
 																																															case 1:
 																																															{
-																																																bc.Add((char)156);
+																																																bc.Add(156);
 																																																break;
 																																															}
 																																														}
@@ -1834,13 +1837,13 @@ public class HuffmanTool
 																																															//11111111|11111111|011010
 																																															case 0:
 																																															{
-																																																bc.Add((char)160);
+																																																bc.Add(160);
 																																																break;
 																																															}
 																																															//11111111|11111111|011011
 																																															case 1:
 																																															{
-																																																bc.Add((char)163);
+																																																bc.Add(163);
 																																																break;
 																																															}
 																																														}
@@ -1862,13 +1865,13 @@ public class HuffmanTool
 																																															//11111111|11111111|011100
 																																															case 0:
 																																															{
-																																																bc.Add((char)164);
+																																																bc.Add(164);
 																																																break;
 																																															}
 																																															//11111111|11111111|
 																																															case 1:
 																																															{
-																																																bc.Add((char)169);
+																																																bc.Add(169);
 																																																break;
 																																															}
 																																														}
@@ -1882,13 +1885,13 @@ public class HuffmanTool
 																																															//11111111|11111111|011110
 																																															case 0:
 																																															{
-																																																bc.Add((char)170);
+																																																bc.Add(170);
 																																																break;
 																																															}
 																																															//11111111|11111111|011111
 																																															case 1:
 																																															{
-																																																bc.Add((char)173);
+																																																bc.Add(173);
 																																																break;
 																																															}
 																																														}
@@ -1934,13 +1937,13 @@ public class HuffmanTool
 																																															//11111111|11111111|100000
 																																															case 0:
 																																															{
-																																																bc.Add((char)178);
+																																																bc.Add(178);
 																																																break;
 																																															}
 																																															//11111111|11111111|100001
 																																															case 1:
 																																															{
-																																																bc.Add((char)181);
+																																																bc.Add(181);
 																																																break;
 																																															}
 																																														}
@@ -1954,13 +1957,13 @@ public class HuffmanTool
 																																															//11111111|11111111|100010
 																																															case 0:
 																																															{
-																																																bc.Add((char)185);
+																																																bc.Add(185);
 																																																break;
 																																															}
 																																															//11111111|11111111|100011
 																																															case 1:
 																																															{
-																																																bc.Add((char)186);
+																																																bc.Add(186);
 																																																break;
 																																															}
 																																														}
@@ -1982,13 +1985,13 @@ public class HuffmanTool
 																																															//11111111|11111111|100100
 																																															case 0:
 																																															{
-																																																bc.Add((char)187);
+																																																bc.Add(187);
 																																																break;
 																																															}
 																																															//11111111|11111111|
 																																															case 1:
 																																															{
-																																																bc.Add((char)189);
+																																																bc.Add(189);
 																																																break;
 																																															}
 																																														}
@@ -2002,13 +2005,13 @@ public class HuffmanTool
 																																															//11111111|11111111|100110
 																																															case 0:
 																																															{
-																																																bc.Add((char)190);
+																																																bc.Add(190);
 																																																break;
 																																															}
 																																															//11111111|11111111|100111
 																																															case 1:
 																																															{
-																																																bc.Add((char)196);
+																																																bc.Add(196);
 																																																break;
 																																															}
 																																														}
@@ -2038,13 +2041,13 @@ public class HuffmanTool
 																																															//11111111|11111111|101000
 																																															case 0:
 																																															{
-																																																bc.Add((char)198);
+																																																bc.Add(198);
 																																																break;
 																																															}
 																																															//11111111|11111111|101001
 																																															case 1:
 																																															{
-																																																bc.Add((char)228);
+																																																bc.Add(228);
 																																																break;
 																																															}
 																																														}
@@ -2058,13 +2061,13 @@ public class HuffmanTool
 																																															//11111111|11111111|101010
 																																															case 0:
 																																															{
-																																																bc.Add((char)232);
+																																																bc.Add(232);
 																																																break;
 																																															}
 																																															//11111111|11111111|101011
 																																															case 1:
 																																															{
-																																																bc.Add((char)233);
+																																																bc.Add(233);
 																																																break;
 																																															}
 																																														}
@@ -2091,13 +2094,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1011000
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)1);
+																																																		bc.Add(1);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)135);
+																																																		bc.Add(135);
 																																																		break;
 																																																	}
 																																																}
@@ -2111,13 +2114,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1011010
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)137);
+																																																		bc.Add(137);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011011
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)138);
+																																																		bc.Add(138);
 																																																		break;
 																																																	}
 																																																}
@@ -2139,13 +2142,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1011100
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)139);
+																																																		bc.Add(139);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011101
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)140);
+																																																		bc.Add(140);
 																																																		break;
 																																																	}
 																																																}
@@ -2159,13 +2162,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1011110
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)141);
+																																																		bc.Add(141);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011111
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)143);
+																																																		bc.Add(143);
 																																																		break;
 																																																	}
 																																																}
@@ -2211,13 +2214,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1100000
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)147);
+																																																		bc.Add(147);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100001
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)149);
+																																																		bc.Add(149);
 																																																		break;
 																																																	}
 																																																}
@@ -2231,13 +2234,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1100010
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)150);
+																																																		bc.Add(150);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100011
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)151);
+																																																		bc.Add(151);
 																																																		break;
 																																																	}
 																																																}
@@ -2259,13 +2262,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1100100
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)152);
+																																																		bc.Add(152);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)155);
+																																																		bc.Add(155);
 																																																		break;
 																																																	}
 																																																}
@@ -2279,13 +2282,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1100110
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)157);
+																																																		bc.Add(157);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100111
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)158);
+																																																		bc.Add(158);
 																																																		break;
 																																																	}
 																																																}
@@ -2315,13 +2318,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1101000
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)165);
+																																																		bc.Add(165);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)166);
+																																																		bc.Add(166);
 																																																		break;
 																																																	}
 																																																}
@@ -2335,13 +2338,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1101010
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)168);
+																																																		bc.Add(168);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1101011
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)174);
+																																																		bc.Add(174);
 																																																		break;
 																																																	}
 																																																}
@@ -2363,13 +2366,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1101100
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)175);
+																																																		bc.Add(175);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|11011101
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)180);
+																																																		bc.Add(180);
 																																																		break;
 																																																	}
 																																																}
@@ -2383,13 +2386,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1101110
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)182);
+																																																		bc.Add(182);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)183);
+																																																		bc.Add(183);
 																																																		break;
 																																																	}
 																																																}
@@ -2427,13 +2430,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1110000
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)188);
+																																																		bc.Add(188);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110001
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)191);
+																																																		bc.Add(191);
 																																																		break;
 																																																	}
 																																																}
@@ -2447,13 +2450,13 @@ public class HuffmanTool
 																																																	//11111111|11111111|1110010
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)197);
+																																																		bc.Add(197);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110011
 																																																	case 1:
 																																																	{
-																																																		bc.Add((char)231);
+																																																		bc.Add(231);
 																																																		break;
 																																																	}
 																																																}
@@ -2475,7 +2478,7 @@ public class HuffmanTool
 																																																	//11111111|11111111|1110100
 																																																	case 0:
 																																																	{
-																																																		bc.Add((char)239);
+																																																		bc.Add(239);
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110101
@@ -2486,13 +2489,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11101010
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)9);
+																																																				bc.Add(9);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11101011
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)142);
+																																																				bc.Add(142);
 																																																				break;
 																																																			}
 																																																		}
@@ -2514,13 +2517,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11101100
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)144);
+																																																				bc.Add(144);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)145);
+																																																				bc.Add(145);
 																																																				break;
 																																																			}
 																																																		}
@@ -2534,13 +2537,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11101110
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)148);
+																																																				bc.Add(148);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11101111
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)159);
+																																																				bc.Add(159);
 																																																				break;
 																																																			}
 																																																		}
@@ -2578,13 +2581,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11110000
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)171);
+																																																				bc.Add(171);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)206);
+																																																				bc.Add(206);
 																																																				break;
 																																																			}
 																																																		}
@@ -2598,13 +2601,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11110010
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)215);
+																																																				bc.Add(215);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|1111011
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)225);
+																																																				bc.Add(225);
 																																																				break;
 																																																			}
 																																																		}
@@ -2626,13 +2629,13 @@ public class HuffmanTool
 																																																			//11111111|11111111|11110100
 																																																			case 0:
 																																																			{
-																																																				bc.Add((char)236);
+																																																				bc.Add(236);
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11110101
 																																																			case 1:
 																																																			{
-																																																				bc.Add((char)237);
+																																																				bc.Add(237);
 																																																				break;
 																																																			}
 																																																		}
@@ -2651,13 +2654,13 @@ public class HuffmanTool
 																																																					//11111111|11111111|11110110|0
 																																																					case 0:
 																																																					{
-																																																						bc.Add((char)199);
+																																																						bc.Add(199);
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|
 																																																					case 1:
 																																																					{
-																																																						bc.Add((char)207);
+																																																						bc.Add(207);
 																																																						break;
 																																																					}
 																																																				}
@@ -2671,13 +2674,13 @@ public class HuffmanTool
 																																																					//11111111|11111111|11110111|0
 																																																					case 0:
 																																																					{
-																																																						bc.Add((char)234);
+																																																						bc.Add(234);
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|111101111|1
 																																																					case 1:
 																																																					{
-																																																						bc.Add((char)235);
+																																																						bc.Add(235);
 																																																						break;
 																																																					}
 																																																				}
@@ -2720,13 +2723,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111000|00
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)192);
+																																																								bc.Add(192);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111000|01
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)193);
+																																																								bc.Add(193);
 																																																								break;
 																																																							}
 																																																						}
@@ -2740,13 +2743,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111000|10
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)200);
+																																																								bc.Add(200);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111000|11
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)201);
+																																																								bc.Add(201);
 																																																								break;
 																																																							}
 																																																						}
@@ -2768,13 +2771,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111001|00
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)202);
+																																																								bc.Add(202);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111001|01
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)205);
+																																																								bc.Add(205);
 																																																								break;
 																																																							}
 																																																						}
@@ -2788,13 +2791,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111001|10
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)210);
+																																																								bc.Add(210);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111001|11
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)213);
+																																																								bc.Add(213);
 																																																								break;
 																																																							}
 																																																						}
@@ -2824,13 +2827,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111010|00
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)218);
+																																																								bc.Add(218);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111010|01
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)219);
+																																																								bc.Add(219);
 																																																								break;
 																																																							}
 																																																						}	
@@ -2844,13 +2847,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111010|10
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)238);
+																																																								bc.Add(238);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111010|11
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)240);
+																																																								bc.Add(240);
 																																																								break;
 																																																							}
 																																																						}	
@@ -2872,13 +2875,13 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111011|00
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)242);
+																																																								bc.Add(242);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111011|01
 																																																							case 1:
 																																																							{
-																																																								bc.Add((char)243);
+																																																								bc.Add(243);
 																																																								break;
 																																																							}
 																																																						}	
@@ -2892,7 +2895,7 @@ public class HuffmanTool
 																																																							//11111111|11111111|11111011|10
 																																																							case 0:
 																																																							{
-																																																								bc.Add((char)255);
+																																																								bc.Add(255);
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111011|11
@@ -2903,13 +2906,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111011|110
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)203);
+																																																										bc.Add(203);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111011|111
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)204);
+																																																										bc.Add(204);
 																																																										break;
 																																																									}
 																																																								}	
@@ -2955,13 +2958,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111100|000
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)211);
+																																																										bc.Add(211);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|111111
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)212);
+																																																										bc.Add(212);
 																																																										break;
 																																																									}
 																																																								}	
@@ -2975,13 +2978,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111100|010
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)214);
+																																																										bc.Add(214);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|011
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)221);
+																																																										bc.Add(221);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3003,13 +3006,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111100|100
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)222);
+																																																										bc.Add(222);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|101
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)223);
+																																																										bc.Add(223);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3023,13 +3026,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111100|110
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)241);
+																																																										bc.Add(241);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|111
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)244);
+																																																										bc.Add(244);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3059,13 +3062,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111101|000
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)245);
+																																																										bc.Add(245);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|001
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)246);
+																																																										bc.Add(246);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3079,13 +3082,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111101|010
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)247);
+																																																										bc.Add(247);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|011
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)248);
+																																																										bc.Add(248);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3107,13 +3110,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111101|100
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)250);
+																																																										bc.Add(250);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|101
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)251);
+																																																										bc.Add(251);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3127,13 +3130,13 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111101|110
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)252);
+																																																										bc.Add(252);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|111
 																																																									case 1:
 																																																									{
-																																																										bc.Add((char)253);
+																																																										bc.Add(253);
 																																																										break;
 																																																									}
 																																																								}	
@@ -3171,7 +3174,7 @@ public class HuffmanTool
 																																																									//11111111|11111111|11111110|000
 																																																									case 0:
 																																																									{
-																																																										bc.Add((char)254);
+																																																										bc.Add(254);
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111110|001
@@ -3182,13 +3185,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|0010
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)2);
+																																																												bc.Add(2);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0011
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)3);
+																																																												bc.Add(3);
 																																																												break;
 																																																											}
 																																																										}
@@ -3210,13 +3213,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|0100
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)4);
+																																																												bc.Add(4);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0101
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)5);
+																																																												bc.Add(5);
 																																																												break;
 																																																											}
 																																																										}
@@ -3230,13 +3233,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|0110
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)6);
+																																																												bc.Add(6);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0111
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)7);
+																																																												bc.Add(7);
 																																																												break;
 																																																											}
 																																																										}
@@ -3266,13 +3269,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|1000
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)8);
+																																																												bc.Add(8);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1001
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)11);
+																																																												bc.Add(11);
 																																																												break;
 																																																											}
 																																																										}
@@ -3284,15 +3287,16 @@ public class HuffmanTool
 																																																										switch ((nexto() & at) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|1010
+																																																											//11111111|11111111|11111110|000
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)12);
+																																																												bc.Add(12);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1011
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)14);
+																																																												bc.Add(14);
 																																																												break;
 																																																											}
 																																																										}
@@ -3314,13 +3318,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|1100
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)15);
+																																																												bc.Add(15);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1101
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)16);
+																																																												bc.Add(16);
 																																																												break;
 																																																											}
 																																																										}
@@ -3334,13 +3338,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111110|1110
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)17);
+																																																												bc.Add(17);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1111
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)18);
+																																																												bc.Add(18);
 																																																												break;
 																																																											}
 																																																										}
@@ -3378,13 +3382,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|0000
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)19);
+																																																												bc.Add(19);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0001
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)20);
+																																																												bc.Add(20);
 																																																												break;
 																																																											}
 																																																										}
@@ -3398,13 +3402,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|0010
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)21);
+																																																												bc.Add(21);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0011
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)23);
+																																																												bc.Add(23);
 																																																												break;
 																																																											}
 																																																										}
@@ -3426,13 +3430,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|0100
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)24);
+																																																												bc.Add(24);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0101
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)25);
+																																																												bc.Add(25);
 																																																												break;
 																																																											}
 																																																										}
@@ -3446,13 +3450,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|0110
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)26);
+																																																												bc.Add(26);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0111
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)27);
+																																																												bc.Add(27);
 																																																												break;
 																																																											}
 																																																										}
@@ -3482,13 +3486,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|1000
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)28);
+																																																												bc.Add(28);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1001
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)29);
+																																																												bc.Add(29);
 																																																												break;
 																																																											}
 																																																										}
@@ -3502,13 +3506,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|1010
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)30);
+																																																												bc.Add(30);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1011
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)31);
+																																																												bc.Add(31);
 																																																												break;
 																																																											}
 																																																										}
@@ -3530,13 +3534,13 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|1100
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)127);
+																																																												bc.Add(127);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1101
 																																																											case 1:
 																																																											{
-																																																												bc.Add((char)220);
+																																																												bc.Add(220);
 																																																												break;
 																																																											}
 																																																										}
@@ -3550,7 +3554,7 @@ public class HuffmanTool
 																																																											//11111111|11111111|11111111|1110
 																																																											case 0:
 																																																											{
-																																																												bc.Add((char)249);
+																																																												bc.Add(249);
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1111
@@ -3566,13 +3570,13 @@ public class HuffmanTool
 																																																															//11111111|11111111|11111111|111100
 																																																															case 0:
 																																																															{
-																																																																bc.Add((char)10);
+																																																																bc.Add(10);
 																																																																break;
 																																																															}
 																																																															//11111111|11111111|11111111|111101
 																																																															case 1:
 																																																															{
-																																																																bc.Add((char)13);
+																																																																bc.Add(13);
 																																																																break;
 																																																															}
 																																																														}
@@ -3586,7 +3590,7 @@ public class HuffmanTool
 																																																															//11111111|11111111|11111111|111110
 																																																															case 0:
 																																																															{
-																																																																bc.Add((char)22);
+																																																																bc.Add(22);
 																																																																break;
 																																																															}
 																																																															//11111111|11111111|11111111|111111
@@ -3707,9 +3711,4 @@ public class HuffmanTool
 		return bc.ToArray();
 	}
 	
-
-	// public static byte[] Encoder(char[] data)
-	// {
-	// 	
-	// }
 }
