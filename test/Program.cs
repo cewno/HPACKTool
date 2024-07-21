@@ -72,6 +72,13 @@ internal class Program
 		{
 			ushort eandd = 40000;
 			int lastl = 0;
+			long mine = 0;
+			long maxe = 0;
+			long mind = 0;
+			long maxd = 0;
+			long alle = 0;
+			long alld = 0;
+			long nl;
 			for (ushort i = 0; i < eandd; i++)
 			{
 				for (int j = 0; j < lastl; j++)
@@ -84,8 +91,22 @@ internal class Program
 				int l = new Random().Next(1,1000);
 				byte[] buff = new byte[l];
 				new Random().NextBytes(buff);
+				start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 				byte[]? encoder = HuffmanTool.Encoder(buff);
+				end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+				nl = end - start;
+				mine = Math.Min(mine, nl);
+				maxe = Math.Max(maxe, nl);
+				alle += nl;
+				
+				
+				start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 				byte[]? bytes = HuffmanTool.Decoder(encoder);
+				end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+				nl = end - start;
+				mind = Math.Min(mind, nl);
+				maxd = Math.Max(maxd, nl);
+				alld += nl;
 				if (buff.Length != bytes.Length)
 				{
 					Console.WriteLine("error in test5");
@@ -101,6 +122,12 @@ internal class Program
 					}
 				}
 			}
+			for (int j = 0; j < lastl; j++)
+			{
+				Console.Write('\r');
+			}
+			Console.WriteLine($"测试2完成 共测试{eandd}组 长度：随机1~1000 编码共用时{alle}ms 平均用时{alle / (double)eandd}ms 最快{mine}ms 最慢{maxe}ms    解码共用时{alld}ms 平均用时{alld / (double)eandd}ms 最快{mind}ms 最慢{maxd}ms");
+			
 		}
 	}
 }
