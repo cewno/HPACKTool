@@ -1,6 +1,6 @@
 namespace HPACKTool;
 
-public partial class HuffmanTool
+public static partial class HuffmanTool
 {
 	public static byte[]? Encoder(string data)
 	{

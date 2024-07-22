@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace HPACKTool;
 
 
-public partial class HuffmanTool
+public static partial class HuffmanTool
 {
 	// private static readonly byte[] bbbf = 
 	// [
