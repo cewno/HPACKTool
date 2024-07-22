@@ -48,7 +48,7 @@ public partial class HuffmanTool
 		int i = 8;
 		//当前处在的byte的索引
 		int i2 = 0;
-		//当前处在的byet
+		//当前处在的byte
 		byte at = data[0];
 		List<byte> bc = new List<byte>();
 		//文档要求，末尾用1填充，若违反需要报错，这个变量是用来记录的
