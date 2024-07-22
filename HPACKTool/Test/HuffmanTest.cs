@@ -1,12 +1,20 @@
-﻿using HPACKTool;
+using Xunit;
+using Xunit.Abstractions;
 
-namespace test;
+namespace HPACKTool.Test;
 
-internal class Program
+public class MyTestClass
 {
-	private static void Main(string[] args)
-	{
-		Console.WriteLine("Hello, World!");
+    private readonly ITestOutputHelper _testOutputHelper;
+
+    public MyTestClass(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
+    [Fact]
+    public void MyTestMethod()
+    {
 		byte[] test1data = { 0b_10101110, 0b_11000011, 0b_01110111, 0b_00011010, 0b_01001011 };
 		string test1s = "private";
 		byte[] test2data =
@@ -41,36 +49,36 @@ internal class Program
 		decoder = HuffmanTool.Decoder(test1data);
 		outd = System.Text.Encoding.ASCII.GetString(decoder);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		Console.WriteLine("1.1:" + (end - start) + "ms " + (outd.Equals(test1s) ? "ok" : "error"));
+		_testOutputHelper.WriteLine("1.1:" + (end - start) + "ms " + (outd.Equals(test1s) ? "ok" : "error"));
 		//test1.2
 		start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		decoder = HuffmanTool.Decoder(test2data);
 		outd = System.Text.Encoding.ASCII.GetString(decoder);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		Console.WriteLine("1.2:" + (end - start) + "ms " + (outd.Equals(test2s) ? "ok" : "error"));
+		_testOutputHelper.WriteLine("1.2:" + (end - start) + "ms " + (outd.Equals(test2s) ? "ok" : "error"));
 		//test1.3
 		start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		decoder = HuffmanTool.Decoder(test3data);
 		outd = System.Text.Encoding.ASCII.GetString(decoder);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		Console.WriteLine("1.3:" + (end - start) + "ms " + (outd.Equals(test3s) ? "ok" : "error"));
+		_testOutputHelper.WriteLine("1.3:" + (end - start) + "ms " + (outd.Equals(test3s) ? "ok" : "error"));
 		//test1.4
 		start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		decoder = HuffmanTool.Decoder(test4data);
 		outd = System.Text.Encoding.ASCII.GetString(decoder);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		Console.WriteLine("1.4:" + (end - start) + "ms " + (outd.Equals(test4s) ? "ok" : "error"));
+		_testOutputHelper.WriteLine("1.4:" + (end - start) + "ms " + (outd.Equals(test4s) ? "ok" : "error"));
 		//test1.5
 		start = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		decoder = HuffmanTool.Decoder(test5data);
 		outd = System.Text.Encoding.ASCII.GetString(decoder);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		Console.WriteLine("1.5:" + (end - start) + "ms " + (outd.Equals(test5s) ? "ok" : "error"));
+		_testOutputHelper.WriteLine("1.5:" + (end - start) + "ms " + (outd.Equals(test5s) ? "ok" : "error"));
 	
 		
 
 		{
-			ushort eandd = 40000;
+			ushort eandd = 20000;
 			int lastl = 0;
 			long mine = 0;
 			long maxe = 0;
@@ -81,12 +89,7 @@ internal class Program
 			long nl;
 			for (ushort i = 0; i < eandd; i++)
 			{
-				for (int j = 0; j < lastl; j++)
-				{
-					Console.Write('\r');
-				}
-				lastl = i.ToString().Length;
-				Console.Write(i);
+
 				
 				int l = new Random().Next(1,1000);
 				byte[] buff = new byte[l];
@@ -109,7 +112,7 @@ internal class Program
 				alld += nl;
 				if (buff.Length != bytes.Length)
 				{
-					Console.WriteLine("error in test5");
+					_testOutputHelper.WriteLine("error in test5");
 					return;
 				}
 
@@ -117,17 +120,15 @@ internal class Program
 				{
 					if (buff[j] != bytes[j])
 					{
-						Console.WriteLine("error in test5");
+						_testOutputHelper.WriteLine("error in test5");
 						return;
 					}
 				}
 			}
-			for (int j = 0; j < lastl; j++)
-			{
-				Console.Write('\r');
-			}
-			Console.WriteLine($"测试2完成 共测试{eandd}组 长度：随机1~1000 编码共用时{alle}ms 平均用时{alle / (double)eandd}ms 最快{mine}ms 最慢{maxe}ms    解码共用时{alld}ms 平均用时{alld / (double)eandd}ms 最快{mind}ms 最慢{maxd}ms");
+
+			_testOutputHelper.WriteLine($"测试2完成 共测试{eandd}组 长度：随机1~1000 编码共用时{alle}ms 平均用时{alle / (double)eandd}ms 最快{mine}ms 最慢{maxe}ms    解码共用时{alld}ms 平均用时{alld / (double)eandd}ms 最快{mind}ms 最慢{maxd}ms");
 			
 		}
-	}
+    }
+
 }

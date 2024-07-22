@@ -2,8 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HPACKTool", "HPACKTool\HPACKTool.csproj", "{397FAE1B-3B3C-4930-96A1-3363BA299BB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{FD4BCDD9-6B86-4F8A-9A2A-F5B5476B4A0F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,11 +10,5 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{397FAE1B-3B3C-4930-96A1-3363BA299BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{397FAE1B-3B3C-4930-96A1-3363BA299BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{397FAE1B-3B3C-4930-96A1-3363BA299BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{397FAE1B-3B3C-4930-96A1-3363BA299BB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD4BCDD9-6B86-4F8A-9A2A-F5B5476B4A0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD4BCDD9-6B86-4F8A-9A2A-F5B5476B4A0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD4BCDD9-6B86-4F8A-9A2A-F5B5476B4A0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD4BCDD9-6B86-4F8A-9A2A-F5B5476B4A0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
