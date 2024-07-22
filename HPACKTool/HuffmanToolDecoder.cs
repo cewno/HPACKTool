@@ -34,22 +34,25 @@ public partial class HuffmanTool
 		0b01000000,
 		0b10000000
 	};
+	
+
 	/// <summary>
 	/// 解码HPACK算法中的Huffman算法压缩的字符串
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
+	/// <param name="offset">偏移量</param>
 	/// <returns>解码后的字符数组</returns>
 	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
 	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
-	public static byte[]? Decoder(byte[] data)
+	public static byte[]? Decoder(byte[] data, int offset = 0)
 	{
 		if (data.Length == 0) return null;
 		//当前处在在的位反过来的索引    真实值 = 7 - i
 		int i = 8;
 		//当前处在的byte的索引
-		int i2 = 0;
+		int i2 = offset;
 		//当前处在的byte
-		byte at = data[0];
+		byte at = data[offset];
 		List<byte> bc = new List<byte>();
 		//文档要求，末尾用1填充，若违反需要报错，这个变量是用来记录的
 		//如果我理解错了，请向我提交issue
