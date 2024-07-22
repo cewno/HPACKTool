@@ -79,7 +79,6 @@ public class MyTestClass
 
 		{
 			ushort eandd = 20000;
-			int lastl = 0;
 			long mine = 0;
 			long maxe = 0;
 			long mind = 0;
