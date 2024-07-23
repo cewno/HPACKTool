@@ -66,7 +66,7 @@ public static class IntegerTool
 				at = stream.ReadByte();
 				if (at < 0)
 				{
-					throw new Exception();
+					throw new IOException();
 				}
 				i |= (uint)((at & 0b_01111111) << m);
 				m += 7;
