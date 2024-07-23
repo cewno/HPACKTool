@@ -1,3 +1,4 @@
+#if DEBUG
 using Xunit;
 using Xunit.Abstractions;
 
@@ -131,3 +132,4 @@ public class MyTestClass
     }
 
 }
+#endif
