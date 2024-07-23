@@ -53,6 +53,14 @@ public static class IntegerTool
 		}
 
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static uint ReadUInt(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -87,7 +95,14 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
-
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
 	public static uint ReadUInt(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
@@ -152,6 +167,14 @@ public static class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static ulong ReadULong(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -186,7 +209,14 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
-	
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
 	public static ulong ReadULong(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
@@ -251,6 +281,14 @@ public static class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static ushort ReadUShort(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -285,6 +323,14 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
 	public static ushort ReadUShort(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
@@ -350,6 +396,14 @@ public static class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static byte ReadByte(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -384,6 +438,14 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
 	public static byte ReadByte(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
@@ -418,6 +480,14 @@ public static class IntegerTool
 	
 	
 #if NET7_0_OR_GREATER
+	
+	/// <summary>
+	/// 从双线程异步io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="asyncIo">异步io</param>
+	/// <returns>解码后的数字</returns>
 	public static UInt128 ReadUInt128(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -444,6 +514,14 @@ public static class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static UInt128 ReadUInt128(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -476,6 +554,41 @@ public static class IntegerTool
 		else
 		{
 			return (byte)at;
+		}
+	}
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	public static UInt128 ReadUInt128(byte n, byte[] buffer, int offset = 0)
+	{
+		int index = offset;
+		byte at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			ushort m = 0;
+			UInt128 i = 0;
+			do
+			{
+				at = buffer[index++];
+				i |= ((UInt128)(at & 0b_01111111)) * (UInt128)(2^m);
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			return i + Nb[n];
+		}
+		else
+		{
+			return at;
 		}
 	}
 #endif
@@ -518,6 +631,14 @@ public static class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从普通io中读取数字并解码
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="stream">流</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
 	public static BigInteger ReadBigInteger(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -553,6 +674,14 @@ public static class IntegerTool
 		}
 	}
 
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
 	public static BigInteger ReadBigInteger(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
