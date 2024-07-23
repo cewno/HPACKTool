@@ -18,6 +18,8 @@ public static class IntegerTool
 		0b_11111111  //index 8
 	};
 
+	#region rUInt
+	
 	public static uint ReadUInt(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -79,6 +81,9 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	#endregion
+
+	#region rULong
 	public static ulong ReadULong(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -139,6 +144,9 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	#endregion
+	
+	#region rUShort
 	public static ushort ReadUShort(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -199,6 +207,9 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	#endregion
+
+	#region rByte
 	public static byte ReadByte(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -259,6 +270,9 @@ public static class IntegerTool
 			return (byte)at;
 		}
 	}
+	#endregion
+
+	#region RUint128
 #if NET7_0_OR_GREATER
 	public static UInt128 ReadUInt128(byte n, AsyncIO asyncIo)
 	{
@@ -322,6 +336,10 @@ public static class IntegerTool
 	}
 #endif
 
+	
+	#endregion
+
+	#region RBigint
 	public static BigInteger ReadBigInteger(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
@@ -382,6 +400,8 @@ public static class IntegerTool
 			return at;
 		}
 	}
+
+	#endregion
 	
     
 }
