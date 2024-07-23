@@ -5,6 +5,19 @@ namespace HPACKTool;
 public static class IntegerTool
 {
 	private static readonly byte[] Nb = {0b_0,0b_00000001,0b_00000011,0b_00000111,0b_00001111,0b_00011111,0b_00111111,0b_01111111,0b_11111111};
+	private static readonly byte[] Nb = new byte[]
+	{
+		0b_0,        //index 0
+		0b_00000001, //index 1
+		0b_00000011, //index 2
+		0b_00000111, //index 3
+		0b_00001111, //index 4
+		0b_00011111, //index 5
+		0b_00111111, //index 6
+		0b_01111111, //index 7
+		0b_11111111  //index 8
+	};
+
 	public static uint ReadUInt(byte n, AsyncIO asyncIo)
 	{
 		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
