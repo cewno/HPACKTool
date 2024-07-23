@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace HPACKTool;
 
-public static class IntegerTool
+public static partial class IntegerTool
 {
 	private static readonly byte[] Nb = new byte[]
 	{
