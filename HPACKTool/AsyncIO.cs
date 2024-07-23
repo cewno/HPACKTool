@@ -3,8 +3,8 @@ namespace HPACKTool;
 public interface AsyncIO
 {
 	public byte ReadOneByte();
-	public byte Read(byte[] buffer,int offset,int length);
-	public void writeOneByte(byte d);
-	public void write(byte[] buffer,int offset,int length);
+	public int Read(byte[] buffer,int offset,int length);
+	public void WriteByte(byte d);
+	public void Write(byte[] buffer,int offset,int length);
 
 }
