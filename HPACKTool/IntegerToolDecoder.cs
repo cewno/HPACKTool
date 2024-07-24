@@ -503,7 +503,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
-				i |= ((UInt128)(at & 0b_01111111)) * (UInt128)(2^m);
+				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -545,7 +545,7 @@ public static partial class IntegerTool
 				{
 					throw new IOException();
 				}
-				i |= ((UInt128)(at & 0b_01111111)) * (UInt128)(2^m);
+				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -580,7 +580,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
-				i |= ((UInt128)(at & 0b_01111111)) * (UInt128)(2^m);
+				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -615,12 +615,12 @@ public static partial class IntegerTool
 		//	+---+---+---+-------------------+
 		if ((Nb[n] & at) == Nb[n])
 		{
-			BigInteger m = 0;
+			int m = 0;
 			BigInteger i = 0;
 			do
 			{
 				at = asyncIo.ReadOneByte();
-				i |= (at & 0b_01111111) * (2^m);
+				i |= (BigInteger)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -653,16 +653,13 @@ public static partial class IntegerTool
 		//	+---+---+---+-------------------+
 		if ((Nb[n] & at) == Nb[n])
 		{
-			BigInteger m = 0;
+			int m = 0;
 			BigInteger i = 0;
 			do
 			{
 				at = stream.ReadByte();
-				if (at < 0)
-				{
-					throw new IOException();
-				}
-				i |= (at & 0b_01111111) * (2^m);
+				if (at < 0) throw new IOException();
+				i |= (BigInteger)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -693,12 +690,12 @@ public static partial class IntegerTool
 		//	+---+---+---+-------------------+
 		if ((Nb[n] & at) == Nb[n])
 		{
-			BigInteger m = 0;
+			int m = 0;
 			BigInteger i = 0;
 			do
 			{
 				at = buffer[index++];
-				i |= (at & 0b_01111111) * (2 ^ m);
+				i |= (BigInteger)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
