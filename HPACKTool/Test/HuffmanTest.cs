@@ -4,11 +4,11 @@ using Xunit.Abstractions;
 
 namespace HPACKTool.Test;
 
-public class MyTestClass
+public class HuffmanTest
 {
     private readonly ITestOutputHelper _testOutputHelper;
 
-    public MyTestClass(ITestOutputHelper testOutputHelper)
+    public HuffmanTest(ITestOutputHelper testOutputHelper)
     {
         _testOutputHelper = testOutputHelper;
     }
