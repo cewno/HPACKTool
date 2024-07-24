@@ -21,14 +21,15 @@ public static partial class IntegerTool
 	
 	/// <summary>
 	///     从双线程异步io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
 	public static uint ReadUInt(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -41,11 +42,15 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
-				i |= (uint)((at & 0b_01111111) << m);
+				if (m == 28 && at > 0b_00001111) throw new OverflowException();
+				i |= (at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -53,22 +58,19 @@ public static partial class IntegerTool
 		}
 	}
 
-	}
 	/// <summary>
-	/// 从普通io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从普通io中读取数字并解码
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
 	public static uint ReadUInt(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
-		if (at < 0)
-		{
-			throw new IOException();
-		}
+		if (at < 0) throw new IOException();
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -82,11 +84,15 @@ public static partial class IntegerTool
 			{
 				at = stream.ReadByte();
 				if (at < 0) throw new IOException();
+				if (m == 28 && at > 0b_00001111) throw new OverflowException();
 				i |= (uint)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -96,16 +102,17 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从缓冲区中解码数字
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
 	public static uint ReadUInt(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (byte)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -118,11 +125,15 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
-				i |= (uint)((at & 0b_01111111) << m);
+				if (m == 28 && at > 0b_00001111) throw new OverflowException();
+				i |= (at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -136,14 +147,15 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从双线程异步io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ulong ReadULong(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (uint)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -156,11 +168,15 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
-				i |= (ulong)((at & 0b_01111111) << m);
+				if (m == 63 && at > 0b_00000001) throw new OverflowException();
+				i |= (ulong)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -170,12 +186,13 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从普通io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ulong ReadULong(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -193,11 +210,15 @@ public static partial class IntegerTool
 			{
 				at = stream.ReadByte();
 				if (at < 0) throw new IOException();
+				if (m == 63 && at > 0b_00000001) throw new OverflowException();
 				i |= (ulong)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -207,16 +228,17 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从缓冲区中解码数字
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ulong ReadULong(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (byte)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -229,11 +251,15 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
-				i |= (ulong)((at & 0b_01111111) << m);
+				if (m == 63 && at > 0b_00000001) throw new OverflowException();
+				i |= (at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -247,14 +273,15 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从双线程异步io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ushort ReadUShort(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -267,26 +294,31 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
+				if (m == 14 && at > 0b_00000011) throw new OverflowException();
 				i |= (ushort)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (ushort)(i + Nb[n]);
+			checked
+			{
+				return (ushort)(i + Nb[n]);
+			}
 		}
 		else
 		{
-			return at;
+			return (ushort)at;
 		}
 	}
 
 	/// <summary>
 	///     从普通io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ushort ReadUShort(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -304,11 +336,15 @@ public static partial class IntegerTool
 			{
 				at = stream.ReadByte();
 				if (at < 0) throw new IOException();
+				if (m == 14 && at > 0b_00000011) throw new OverflowException();
 				i |= (ushort)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (ushort)(i + Nb[n]);
+			checked
+			{
+				return (ushort)(i + Nb[n]);
+			}
 		}
 		else
 		{
@@ -318,16 +354,17 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从缓冲区中解码数字
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static ushort ReadUShort(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (uint)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -340,15 +377,19 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
+				if (m == 14 && at > 0b_00000011) throw new OverflowException();
 				i |= (ushort)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (ushort)(i + Nb[n]);
+			checked
+			{
+				return (ushort)(i + Nb[n]);
+			}
 		}
 		else
 		{
-			return at;
+			return (ushort)at;
 		}
 	}
 
@@ -358,14 +399,15 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从双线程异步io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static byte ReadByte(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -378,26 +420,31 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
+				if (m == 7 && at > 0b_00000001) throw new OverflowException();
 				i |= (byte)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (byte)(i + Nb[n]);
+			checked
+			{
+				return (byte)(i + Nb[n]);
+			}
 		}
 		else
 		{
-			return at;
+			return (byte)at;
 		}
 	}
 
 	/// <summary>
 	///     从普通io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static byte ReadByte(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -415,11 +462,15 @@ public static partial class IntegerTool
 			{
 				at = stream.ReadByte();
 				if (at < 0) throw new IOException();
+				if (m == 7 && at > 0b_00000001) throw new OverflowException();
 				i |= (byte)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (byte)(i + Nb[n]);
+			checked
+			{
+				return (byte)(i + Nb[n]);
+			}
 		}
 		else
 		{
@@ -429,16 +480,17 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从缓冲区中解码数字
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static byte ReadByte(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (byte)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -456,11 +508,14 @@ public static partial class IntegerTool
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return (byte)(i + Nb[n]);
+			checked
+			{
+				return (byte)(i + Nb[n]);
+			}
 		}
 		else
 		{
-			return at;
+			return (byte)at;
 		}
 	}
 
@@ -476,9 +531,10 @@ public static partial class IntegerTool
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static UInt128 ReadUInt128(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -496,7 +552,10 @@ public static partial class IntegerTool
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -511,6 +570,7 @@ public static partial class IntegerTool
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static UInt128 ReadUInt128(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -542,11 +602,14 @@ public static partial class IntegerTool
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
-			return (byte)at;
+			return (UInt128)at;
 		}
 	}
 	/// <summary>
@@ -557,10 +620,11 @@ public static partial class IntegerTool
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static UInt128 ReadUInt128(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (byte)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -581,7 +645,10 @@ public static partial class IntegerTool
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
-			return i + Nb[n];
+			checked
+			{
+				return i + Nb[n];
+			}
 		}
 		else
 		{
@@ -589,21 +656,22 @@ public static partial class IntegerTool
 		}
 	}
 #endif
-	
+
 	#endregion
 
 	#region RBigint
 
 	/// <summary>
 	///     从双线程异步io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static BigInteger ReadBigInteger(byte n, AsyncIO asyncIo)
 	{
-		byte at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
+		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -630,12 +698,13 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从普通io中读取数字并解码
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="IOException">发生io错误或数据提前结束时</exception>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static BigInteger ReadBigInteger(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
@@ -667,16 +736,17 @@ public static partial class IntegerTool
 
 	/// <summary>
 	///     从缓冲区中解码数字
-	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
 	public static BigInteger ReadBigInteger(byte n, byte[] buffer, int offset = 0)
 	{
 		int index = offset;
-		byte at = (byte)(buffer[index++] & Nb[n]);
+		uint at = (byte)(buffer[index++] & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
