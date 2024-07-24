@@ -4,7 +4,7 @@ namespace HPACKTool;
 
 public static partial class IntegerTool
 {
-	private static readonly byte[] Nb = new byte[]
+	private static readonly byte[] Nb =
 	{
 		0b_0,        //index 0
 		0b_00000001, //index 1
@@ -20,8 +20,8 @@ public static partial class IntegerTool
 	#region rUInt
 	
 	/// <summary>
-	/// 从双线程异步io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从双线程异步io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
@@ -51,6 +51,7 @@ public static partial class IntegerTool
 		{
 			return at;
 		}
+	}
 
 	}
 	/// <summary>
@@ -80,10 +81,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = stream.ReadByte();
-				if (at < 0)
-				{
-					throw new IOException();
-				}
+				if (at < 0) throw new IOException();
 				i |= (uint)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -95,9 +93,10 @@ public static partial class IntegerTool
 			return (byte)at;
 		}
 	}
+
 	/// <summary>
-	/// 从缓冲区中解码数字
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从缓冲区中解码数字
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
@@ -130,13 +129,14 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	#endregion
 
 	#region rULong
 
 	/// <summary>
-	/// 从双线程异步io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从双线程异步io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
@@ -167,9 +167,10 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	/// <summary>
-	/// 从普通io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从普通io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
@@ -178,10 +179,7 @@ public static partial class IntegerTool
 	public static ulong ReadULong(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
-		if (at < 0)
-		{
-			throw new IOException();
-		}
+		if (at < 0) throw new IOException();
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -194,11 +192,8 @@ public static partial class IntegerTool
 			do
 			{
 				at = stream.ReadByte();
-				if (at < 0)
-				{
-					throw new IOException();
-				}
-				i |= (ulong)((at & 0b_01111111) << m);
+				if (at < 0) throw new IOException();
+				i |= (ulong)(at & 0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
@@ -209,9 +204,10 @@ public static partial class IntegerTool
 			return (byte)at;
 		}
 	}
+
 	/// <summary>
-	/// 从缓冲区中解码数字
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从缓冲区中解码数字
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
@@ -244,13 +240,14 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	#endregion
-	
+
 	#region rUShort
-	
+
 	/// <summary>
-	/// 从双线程异步io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从双线程异步io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
@@ -281,9 +278,10 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	/// <summary>
-	/// 从普通io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从普通io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
@@ -292,10 +290,7 @@ public static partial class IntegerTool
 	public static ushort ReadUShort(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
-		if (at < 0)
-		{
-			throw new IOException();
-		}
+		if (at < 0) throw new IOException();
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -308,10 +303,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = stream.ReadByte();
-				if (at < 0)
-				{
-					throw new IOException();
-				}
+				if (at < 0) throw new IOException();
 				i |= (ushort)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -323,9 +315,10 @@ public static partial class IntegerTool
 			return (byte)at;
 		}
 	}
+
 	/// <summary>
-	/// 从缓冲区中解码数字
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从缓冲区中解码数字
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
@@ -358,14 +351,14 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
-	
+
 	#endregion
 
 	#region rByte
 
 	/// <summary>
-	/// 从双线程异步io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从双线程异步io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
@@ -396,9 +389,10 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	/// <summary>
-	/// 从普通io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从普通io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
@@ -407,10 +401,7 @@ public static partial class IntegerTool
 	public static byte ReadByte(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
-		if (at < 0)
-		{
-			throw new IOException();
-		}
+		if (at < 0) throw new IOException();
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -423,10 +414,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = stream.ReadByte();
-				if (at < 0)
-				{
-					throw new IOException();
-				}
+				if (at < 0) throw new IOException();
 				i |= (byte)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -438,9 +426,10 @@ public static partial class IntegerTool
 			return (byte)at;
 		}
 	}
+
 	/// <summary>
-	/// 从缓冲区中解码数字
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从缓冲区中解码数字
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
@@ -462,6 +451,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
+				if (m == 7 && at > 0b_00000001) throw new OverflowException();
 				i |= (byte)((at & 0b_01111111) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -473,14 +463,12 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
-	
+
 	#endregion
 
 	#region RUint128
-	
-	
+
 #if NET7_0_OR_GREATER
-	
 	/// <summary>
 	/// 从双线程异步io中读取数字并解码
 	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
@@ -503,6 +491,7 @@ public static partial class IntegerTool
 			do
 			{
 				at = asyncIo.ReadOneByte();
+				if (m == 126 && at > 0b_00000011) throw new OverflowException();
 				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -545,6 +534,10 @@ public static partial class IntegerTool
 				{
 					throw new IOException();
 				}
+				if (m == 126 && at > 0b_00000011)
+				{
+					throw new OverflowException();
+				}
 				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -580,6 +573,10 @@ public static partial class IntegerTool
 			do
 			{
 				at = buffer[index++];
+				if (m == 126 && at > 0b_00000011)
+				{
+					throw new OverflowException();
+				}
 				i |= (UInt128)(at &  0b_01111111) << m;
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
@@ -597,10 +594,9 @@ public static partial class IntegerTool
 
 	#region RBigint
 
-
 	/// <summary>
-	/// 从双线程异步io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从双线程异步io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="asyncIo">异步io</param>
@@ -631,9 +627,10 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+
 	/// <summary>
-	/// 从普通io中读取数字并解码
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从普通io中读取数字并解码
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="stream">流</param>
@@ -642,10 +639,7 @@ public static partial class IntegerTool
 	public static BigInteger ReadBigInteger(byte n, Stream stream)
 	{
 		int at = stream.ReadByte() & Nb[n];
-		if (at < 0)
-		{
-			throw new IOException();
-		}
+		if (at < 0) throw new IOException();
 		//	比如 n = 5 时 下面这种情况会进入if
 		//	  0   1   2   3   4   5   6   7
 		//	+---+---+---+---+---+---+---+---+
@@ -672,8 +666,8 @@ public static partial class IntegerTool
 	}
 
 	/// <summary>
-	/// 从缓冲区中解码数字
-	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	///     从缓冲区中解码数字
+	///     ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
@@ -708,6 +702,4 @@ public static partial class IntegerTool
 	}
 
 	#endregion
-	
-    
 }
