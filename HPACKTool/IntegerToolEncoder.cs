@@ -6,7 +6,7 @@ public static partial class IntegerTool
 {
 	#region wUInt
 
-	public static void WriteUInteger(uint data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(uint data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{
@@ -93,7 +93,7 @@ public static partial class IntegerTool
 
 	#region wULong
 
-	public static void WriteUInteger(ulong data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(ulong data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{
@@ -180,7 +180,7 @@ public static partial class IntegerTool
 
 	#region wUShort
 
-	public static void WriteUInteger(ushort data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(ushort data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{
@@ -268,7 +268,7 @@ public static partial class IntegerTool
 
 	#region wByte
 
-	public static void WriteUInteger(byte data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(byte data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{
@@ -353,7 +353,7 @@ public static partial class IntegerTool
 	#region wUInt128
 
 #if NET7_0_OR_GREATER
-	public static void WriteUInteger(UInt128 data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(UInt128 data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{
@@ -436,7 +436,7 @@ public static partial class IntegerTool
 
 	#region wBigInteger
 
-	public static void WriteUInteger(BigInteger data, byte n, byte head, AsyncIO asyncIO)
+	public static void WriteUInteger(BigInteger data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
 		{

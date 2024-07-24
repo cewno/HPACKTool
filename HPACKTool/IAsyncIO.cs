@@ -1,6 +1,6 @@
 namespace HPACKTool;
 
-public interface AsyncIO
+public interface IAsyncIO
 {
 	public byte ReadOneByte();
 	public int Read(byte[] buffer,int offset,int length);

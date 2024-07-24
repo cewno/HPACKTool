@@ -27,7 +27,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
-	public static uint ReadUInt(byte n, AsyncIO asyncIo)
+	public static uint ReadUInt(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
@@ -153,7 +153,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
-	public static ulong ReadULong(byte n, AsyncIO asyncIo)
+	public static ulong ReadULong(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (uint)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
@@ -279,7 +279,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
-	public static ushort ReadUShort(byte n, AsyncIO asyncIo)
+	public static ushort ReadUShort(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
@@ -405,7 +405,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
-	public static byte ReadByte(byte n, AsyncIO asyncIo)
+	public static byte ReadByte(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
@@ -532,7 +532,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
-	public static UInt128 ReadUInt128(byte n, AsyncIO asyncIo)
+	public static UInt128 ReadUInt128(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if
@@ -669,7 +669,7 @@ public static partial class IntegerTool
 	/// <param name="asyncIo">异步io</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
-	public static BigInteger ReadBigInteger(byte n, AsyncIO asyncIo)
+	public static BigInteger ReadBigInteger(byte n, IAsyncIO asyncIo)
 	{
 		uint at = (byte)(asyncIo.ReadOneByte() & Nb[n]);
 		//	比如 n = 5 时 下面这种情况会进入if

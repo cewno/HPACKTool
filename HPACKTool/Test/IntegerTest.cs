@@ -27,7 +27,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger((uint)0,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUInt(i,(AsyncIO)testReadIo) != 0)
+			if (IntegerTool.ReadUInt(i,(IAsyncIO)testReadIo) != 0)
 			{
 				throw new Exception();
 			}
@@ -40,7 +40,7 @@ public class IntegerTest
 				byte[] buffer = IntegerTool.WriteUInteger(next,i,0);
 				TestReadIO testReadIo = new TestReadIO(buffer);
 				
-				if (IntegerTool.ReadUInt(i,(AsyncIO)testReadIo) != next)
+				if (IntegerTool.ReadUInt(i,(IAsyncIO)testReadIo) != next)
 				{
 					throw new Exception();
 				}
@@ -52,7 +52,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger((ulong)0,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadULong(i,(AsyncIO)testReadIo) != 0)
+			if (IntegerTool.ReadULong(i,(IAsyncIO)testReadIo) != 0)
 			{
 				throw new Exception();
 			}
@@ -65,7 +65,7 @@ public class IntegerTest
 				byte[] buffer = IntegerTool.WriteUInteger(next,i,0);
 				TestReadIO testReadIo = new TestReadIO(buffer);
 				
-				if (IntegerTool.ReadULong(i,(AsyncIO)testReadIo) != next)
+				if (IntegerTool.ReadULong(i,(IAsyncIO)testReadIo) != next)
 				{
 					throw new Exception();
 				}
@@ -76,7 +76,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger((ushort)0,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUShort(i,(AsyncIO)testReadIo) != 0)
+			if (IntegerTool.ReadUShort(i,(IAsyncIO)testReadIo) != 0)
 			{
 				throw new Exception();
 			}
@@ -89,7 +89,7 @@ public class IntegerTest
 				byte[] buffer = IntegerTool.WriteUInteger(next,i,0);
 				TestReadIO testReadIo = new TestReadIO(buffer);
 				
-				if (IntegerTool.ReadUShort(i,(AsyncIO)testReadIo) != next)
+				if (IntegerTool.ReadUShort(i,(IAsyncIO)testReadIo) != next)
 				{
 					throw new Exception();
 				}
@@ -100,7 +100,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger((byte)0,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadByte(i,(AsyncIO)testReadIo) != 0)
+			if (IntegerTool.ReadByte(i,(IAsyncIO)testReadIo) != 0)
 			{
 				throw new Exception();
 			}
@@ -112,7 +112,7 @@ public class IntegerTest
 				byte[] buffer = IntegerTool.WriteUInteger(j,i,0);
 				TestReadIO testReadIo = new TestReadIO(buffer);
 				
-				if (IntegerTool.ReadByte(i,(AsyncIO)testReadIo) != j)
+				if (IntegerTool.ReadByte(i,(IAsyncIO)testReadIo) != j)
 				{
 					throw new Exception();
 				}
@@ -124,7 +124,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger((UInt128)0,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUInt128(i,(AsyncIO)testReadIo) != 0)
+			if (IntegerTool.ReadUInt128(i,(IAsyncIO)testReadIo) != 0)
 			{
 				throw new Exception();
 			}
@@ -138,7 +138,7 @@ public class IntegerTest
 				byte[] buffer = IntegerTool.WriteUInteger(next,i,0);
 				TestReadIO testReadIo = new TestReadIO(buffer);
 				
-				if (IntegerTool.ReadUInt128(i,(AsyncIO)testReadIo) != next)
+				if (IntegerTool.ReadUInt128(i,(IAsyncIO)testReadIo) != next)
 				{
 					throw new Exception();
 				}
@@ -166,7 +166,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger(uint.MaxValue,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUInt(i,(AsyncIO)testReadIo) != uint.MaxValue)
+			if (IntegerTool.ReadUInt(i,(IAsyncIO)testReadIo) != uint.MaxValue)
 			{
 				throw new Exception();
 			}
@@ -180,7 +180,7 @@ public class IntegerTest
 
 			try
 			{
-				if (IntegerTool.ReadUInt(i,(AsyncIO)testReadIo) != uint.MaxValue)
+				if (IntegerTool.ReadUInt(i,(IAsyncIO)testReadIo) != uint.MaxValue)
 				{
 					throw new Exception();
 				}
@@ -201,7 +201,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger(ulong.MaxValue,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadULong(i,(AsyncIO)testReadIo) != ulong.MaxValue)
+			if (IntegerTool.ReadULong(i,(IAsyncIO)testReadIo) != ulong.MaxValue)
 			{
 				throw new Exception();
 			}
@@ -215,7 +215,7 @@ public class IntegerTest
 				
 			try
 			{
-				if (IntegerTool.ReadULong(i, (AsyncIO)testReadIo) != ulong.MaxValue)
+				if (IntegerTool.ReadULong(i, (IAsyncIO)testReadIo) != ulong.MaxValue)
 				{
 					throw new Exception();
 				}
@@ -235,7 +235,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger(byte.MaxValue,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadByte(i,(AsyncIO)testReadIo) != byte.MaxValue)
+			if (IntegerTool.ReadByte(i,(IAsyncIO)testReadIo) != byte.MaxValue)
 			{
 				throw new Exception();
 			}
@@ -248,7 +248,7 @@ public class IntegerTest
 				
 			try
 			{
-				if (IntegerTool.ReadByte(i, (AsyncIO)testReadIo) != byte.MaxValue)
+				if (IntegerTool.ReadByte(i, (IAsyncIO)testReadIo) != byte.MaxValue)
 				{
 					throw new Exception();
 				}
@@ -267,7 +267,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger(ushort.MaxValue,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUShort(i,(AsyncIO)testReadIo) != ushort.MaxValue)
+			if (IntegerTool.ReadUShort(i,(IAsyncIO)testReadIo) != ushort.MaxValue)
 			{
 				throw new Exception();
 			}
@@ -280,7 +280,7 @@ public class IntegerTest
 				
 			try
 			{
-				if (IntegerTool.ReadUShort(i, (AsyncIO)testReadIo) != ushort.MaxValue)
+				if (IntegerTool.ReadUShort(i, (IAsyncIO)testReadIo) != ushort.MaxValue)
 				{
 					throw new Exception();
 				}
@@ -302,7 +302,7 @@ public class IntegerTest
 			byte[] buffer = IntegerTool.WriteUInteger(UInt128.MaxValue,i,0);
 			TestReadIO testReadIo = new TestReadIO(buffer);
 				
-			if (IntegerTool.ReadUInt128(i,(AsyncIO)testReadIo) != UInt128.MaxValue)
+			if (IntegerTool.ReadUInt128(i,(IAsyncIO)testReadIo) != UInt128.MaxValue)
 			{
 				throw new Exception();
 			}
@@ -315,7 +315,7 @@ public class IntegerTest
 				
 			try
 			{
-				if (IntegerTool.ReadUInt128(i, (AsyncIO)testReadIo) != UInt128.MaxValue)
+				if (IntegerTool.ReadUInt128(i, (IAsyncIO)testReadIo) != UInt128.MaxValue)
 				{
 					throw new Exception();
 				}
@@ -333,7 +333,7 @@ public class IntegerTest
 	}
 }
 
-internal class TestReadIO : Stream, AsyncIO
+internal class TestReadIO : Stream, IAsyncIO
 {
 	public override void Flush()
 	{
