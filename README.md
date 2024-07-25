@@ -6,4 +6,17 @@ This tool is used to decode the HTTP2 HPACK compression algorithm specified in [
 这个工具用于解码HTTP2所用的HPACK压缩算法，HPACK压缩算法由 [RFC7541](https://www.rfc-editor.org/rfc/rfc7541) 制定  
 
 If you find a Bug, feel free to file it as an [issue](https://github.com/cewno/HPACKTool/issues)  
-如果你发现Bug，请大胆的通过[issue](https://github.com/cewno/HPACKTool/issues)告诉我
+如果你发现Bug，请大胆的通过[issue](https://github.com/cewno/HPACKTool/issues)告诉我  
+# install 安装
+ dotnet:
+```
+dotnet add package cewno.HPACKTool
+```
+Package Manager:
+```
+NuGet\Install-Package cewno.HPACKTool
+```
+PackageReference:
+```
+<PackageReference Include="cewno.HPACKTool" Version="1.0.0.0" />
+```
