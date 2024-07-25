@@ -4,7 +4,7 @@ public static partial class HuffmanTool
 {
 	public static byte[]? Encoder(string data)
 	{
-		return Encoder(System.Text.Encoding.UTF8.GetBytes(data));
+		return Encoder(System.Text.Encoding.ASCII.GetBytes(data));
 	}
 
 	public static byte[]? Encoder(byte[] data)
