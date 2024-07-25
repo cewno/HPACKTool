@@ -9,14 +9,14 @@ If you find a Bug, feel free to file it as an [issue](https://github.com/cewno/H
 如果你发现Bug，请大胆的通过[issue](https://github.com/cewno/HPACKTool/issues)告诉我  
 # install 安装
  dotnet:
-```
+```shell
 dotnet add package cewno.HPACKTool
 ```
 Package Manager:
-```
+```shell
 NuGet\Install-Package cewno.HPACKTool
 ```
 PackageReference:
-```
+```xml
 <PackageReference Include="cewno.HPACKTool" Version="1.0.0.0" />
 ```
