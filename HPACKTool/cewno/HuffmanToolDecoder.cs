@@ -4,7 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace cewno.HPACKTool;
 
-
+/// <summary>
+/// 这个类包含了一套用于解码和编码适用于 HTTP2 的 Huffman 压缩算法的工具
+/// </summary>
 public static partial class HuffmanTool
 {
 	// private static readonly byte[] bbbf = 
@@ -18,7 +20,7 @@ public static partial class HuffmanTool
 	// 	0b_00000010, 
 	// 	0b_00000001];
 	/// <summary>
-	/// 用于与（&）运算提取位（bit）数据的数组
+	/// 用于与(&) 运算提取位(bit) 数据的数组
 	/// </summary>
 	//倒着来，简化运算操作
 	// ((nextz() & at) >> (7 - i)) 简化为 ((nextz() & at) >> i)

@@ -185,7 +185,7 @@ public class IntegerTest
 					throw new Exception();
 				}
 			}
-			catch (OverflowException e)
+			catch (OverflowException)
 			{
 				goto ok;
 			}
@@ -220,7 +220,7 @@ public class IntegerTest
 					throw new Exception();
 				}
 			}
-			catch (OverflowException e)
+			catch (OverflowException)
 			{
 				goto ok;
 			}
@@ -253,7 +253,7 @@ public class IntegerTest
 					throw new Exception();
 				}
 			}
-			catch (OverflowException e)
+			catch (OverflowException)
 			{
 				goto ok;
 			}
@@ -285,7 +285,7 @@ public class IntegerTest
 					throw new Exception();
 				}
 			}
-			catch (OverflowException e)
+			catch (OverflowException)
 			{
 				goto ok;
 			}
@@ -320,7 +320,7 @@ public class IntegerTest
 					throw new Exception();
 				}
 			}
-			catch (OverflowException e)
+			catch (OverflowException)
 			{
 				goto ok;
 			}

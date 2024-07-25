@@ -2,11 +2,20 @@ namespace cewno.HPACKTool;
 
 public static partial class HuffmanTool
 {
+	/// <summary>
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将 <see cref="string"/> 编码
+	/// </summary>
+	/// <param name="data">编码前的数据</param>
+	/// <returns>编码后的缓冲区</returns>
 	public static byte[]? Encoder(string data)
 	{
 		return Encoder(System.Text.Encoding.ASCII.GetBytes(data));
 	}
-
+	/// <summary>
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将缓冲区内的 ascii 文本编码
+	/// </summary>
+	/// <param name="data">编码前的数据</param>
+	/// <returns>编码后的缓冲区</returns>
 	public static byte[]? Encoder(byte[] data)
 	{
 		if (data.Length == 0) return null;

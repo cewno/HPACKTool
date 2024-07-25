@@ -6,6 +6,13 @@ public static partial class IntegerTool
 {
 	#region wUInt
 
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(uint data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -25,7 +32,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(uint data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -45,7 +58,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(uint data, byte n, byte head, byte[] buffer, int offset)
 	{
 		int index = offset;
@@ -68,7 +89,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
-
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(uint data, byte n, byte head)
 	{
 		if (data < Nb[n])
@@ -92,7 +120,13 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wULong
-
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(ulong data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -112,7 +146,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(ulong data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -132,7 +172,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(ulong data, byte n, byte head, byte[] buffer, int offset)
 	{
 		int index = offset;
@@ -155,7 +203,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
-
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(ulong data, byte n, byte head)
 	{
 		if (data < Nb[n])
@@ -179,7 +234,13 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wUShort
-
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(ushort data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -199,7 +260,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(ushort data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -219,7 +286,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(ushort data, byte n, byte head, byte[] buffer, int offset)
 	{
 		int index = offset;
@@ -242,7 +317,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
-
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(ushort data, byte n, byte head)
 	{
 		if (data < Nb[n])
@@ -267,7 +349,13 @@ public static partial class IntegerTool
 
 
 	#region wByte
-
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(byte data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -286,7 +374,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(byte data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -305,7 +399,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(byte data, byte n, byte head, byte[] buffer, int offset)
 	{
 		int index = offset;
@@ -327,7 +429,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
-
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(byte data, byte n, byte head)
 	{
 		if (data < Nb[n])
@@ -353,6 +462,13 @@ public static partial class IntegerTool
 	#region wUInt128
 
 #if NET7_0_OR_GREATER
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(UInt128 data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -371,6 +487,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(UInt128 data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -389,6 +512,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(UInt128 data,byte n, byte head, byte[] buffer,int offset)
 	{
 		int index = offset;
@@ -410,6 +542,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(UInt128 data, byte n, byte head)
 	{
 		if (data < Nb[n])
@@ -435,7 +575,13 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wBigInteger
-
+	/// <summary>
+	/// 写入整数到异步io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="asyncIO">异步io</param>
 	public static void WriteUInteger(BigInteger data, byte n, byte head, IAsyncIO asyncIO)
 	{
 		if (data < Nb[n])
@@ -455,7 +601,13 @@ public static partial class IntegerTool
 			asyncIO.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到普通io
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="stream">普通io</param>
 	public static void WriteUInteger(BigInteger data, byte n, byte head, Stream stream)
 	{
 		if (data < Nb[n])
@@ -475,7 +627,15 @@ public static partial class IntegerTool
 			stream.WriteByte((byte)(data & 0b_01111111));
 		}
 	}
-
+	/// <summary>
+	/// 写入整数到缓冲区
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区偏移量</param>
+	/// <returns>写入的数据长度</returns>
 	public static int WriteUInteger(BigInteger data, byte n, byte head, byte[] buffer, int offset)
 	{
 		int index = offset;
@@ -498,7 +658,14 @@ public static partial class IntegerTool
 
 		return index - offset;
 	}
-
+	/// <summary>
+	/// 写入整数到一个新的缓冲区，基于<see cref="List{T}"/>实现
+	/// 这个方法比较慢
+	/// </summary>
+	/// <param name="data">整数</param>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="head">首位头数据</param>
+	/// <returns>新建立的缓冲区</returns>
 	public static byte[] WriteUInteger(BigInteger data, byte n, byte head)
 	{
 		if (data < Nb[n])

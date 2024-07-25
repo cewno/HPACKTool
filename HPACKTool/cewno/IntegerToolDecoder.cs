@@ -2,6 +2,9 @@ using System.Numerics;
 
 namespace cewno.HPACKTool;
 
+/// <summary>
+/// 这个类包含了一套用于解码和编码 HTTP2 中的整数类型的工具
+/// </summary>
 public static partial class IntegerTool
 {
 	private static readonly byte[] Nb =

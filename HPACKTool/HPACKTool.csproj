@@ -20,8 +20,9 @@
         <RepositoryType>git</RepositoryType>
         <PackageTags>http2;HPACK;hpack;</PackageTags>
         <SignAssembly>False</SignAssembly>
-        <GenerateDocumentationFile>False</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>1.0.0</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -31,6 +32,10 @@
 
     <ItemGroup>
       <None Include="..\LICENSE">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
+      <None Include="..\README.md">
         <Pack>True</Pack>
         <PackagePath>\</PackagePath>
       </None>
