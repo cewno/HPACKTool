@@ -2,7 +2,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace HPACKTool;
+namespace cewno.HPACKTool;
 
 
 public static partial class HuffmanTool

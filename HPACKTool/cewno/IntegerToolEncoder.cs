@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace HPACKTool;
+namespace cewno.HPACKTool;
 
 public static partial class IntegerTool
 {

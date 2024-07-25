@@ -1,4 +1,4 @@
-namespace HPACKTool;
+namespace cewno.HPACKTool;
 
 public interface IAsyncIO
 {
