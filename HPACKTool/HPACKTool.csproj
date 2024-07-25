@@ -1,9 +1,27 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net8.0;net6.0</TargetFrameworks>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+        <OutputType>Library</OutputType>
+        <AssemblyName>cewno.HPACKTool</AssemblyName>
+        <RootNamespace>cewno.HPACKTool</RootNamespace>
+        <Title>Tool for the HTPACK compression algorithm for http2</Title>
+        <Authors>cewno</Authors>
+        <Product>HPACKTool</Product>
+        <Description>Tool for the HTPACK compression algorithm for http2
+
+用于http2的HTPACK压缩算法的工具</Description>
+        <PackageProjectUrl>https://github.com/cewno/HPACKTool/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/cewno/HPACKTool/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageTags>http2;HPACK;hpack;</PackageTags>
+        <SignAssembly>False</SignAssembly>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -12,12 +30,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-      <PackageReference Include="xunit" Version="2.8.1" />
-      <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+      <None Include="..\LICENSE">
+        <Pack>True</Pack>
+        <PackagePath>\</PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

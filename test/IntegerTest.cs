@@ -1,4 +1,3 @@
-#if DEBUG
 using Xunit;
 using cewno.HPACKTool;
 
@@ -379,4 +378,3 @@ internal class TestReadIO : Stream, IAsyncIO
 	public override long Length { get; }
 	public override long Position { get; set; }
 }
-#endif

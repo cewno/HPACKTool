@@ -1,4 +1,4 @@
-#if DEBUG
+
 using Xunit;
 using Xunit.Abstractions;
 using cewno.HPACKTool;
@@ -132,4 +132,3 @@ public class HuffmanTest
     }
 
 }
-#endif
