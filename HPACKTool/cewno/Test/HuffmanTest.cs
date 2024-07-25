@@ -1,7 +1,7 @@
 #if DEBUG
 using Xunit;
 using Xunit.Abstractions;
-
+using cewno.HPACKTool;
 namespace HPACKTool.Test;
 
 public class HuffmanTest

@@ -1,5 +1,6 @@
 #if DEBUG
 using Xunit;
+using cewno.HPACKTool;
 
 namespace HPACKTool.Test;
 
