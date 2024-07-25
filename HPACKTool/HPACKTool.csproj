@@ -23,6 +23,7 @@
         <GenerateDocumentationFile>True</GenerateDocumentationFile>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <Version>1.0.0</Version>
+        <Copyright>Copyright 2024 cewno    https://github.com/cewno https://cewno.top</Copyright>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
