@@ -36,10 +36,25 @@ public static partial class HuffmanTool
 		0b01000000,
 		0b10000000
 	};
+
+	/// <summary>
+	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串并直接返回字符串
+	/// </summary>
+	/// <param name="data">已编码的数据</param>
+	/// <param name="offset">偏移量</param>
+	/// <returns>解码后的字符数组</returns>
+	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
+	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
+	/// <returns>解码后的字符串</returns>
+	public static string? DecoderToString(byte[] data, int offset = 0)
+	{
+		byte[]? decoder = Decoder(data, offset);
+		return decoder == null ? null : System.Text.Encoding.ASCII.GetString(decoder);
+	}
 	
 
 	/// <summary>
-	/// 解码HPACK算法中的Huffman算法压缩的字符串
+	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
 	/// <param name="offset">偏移量</param>
