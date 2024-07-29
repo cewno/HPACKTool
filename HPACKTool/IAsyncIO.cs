@@ -11,6 +11,11 @@ public interface IAsyncIO
 	/// <returns></returns>
 	public byte ReadOneByte();
 	/// <summary>
+	/// 读取一个字节但不移动至下一位
+	/// </summary>
+	/// <returns></returns>
+	public byte ReadOneByteNoNext();
+	/// <summary>
 	/// 将数据读取到缓冲区
 	/// </summary>
 	/// <param name="buffer">目标缓冲区</param>

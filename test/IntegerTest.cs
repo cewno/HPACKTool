@@ -352,6 +352,11 @@ internal class TestReadIO : Stream, IAsyncIO
 		return buffer[i++];
 	}
 
+	public byte ReadOneByteNoNext()
+	{
+		return buffer[i++];
+	}
+
 	public override int Read(byte[] buffer, int offset, int count)
 	{
 		throw new NotImplementedException();
