@@ -24,6 +24,13 @@ public interface IAsyncIO
 	/// <returns>读取的长度</returns>
 	public int Read(byte[] buffer,int offset,int length);
 	/// <summary>
+	/// 将指定长度的数据读取到缓冲区
+	/// </summary>
+	/// <param name="buffer">目标缓冲区</param>
+	/// <param name="offset">偏移量</param>
+	/// <param name="length">读取长度</param>
+	public void ReadOnlyLength(byte[] buffer,int offset,int length);
+	/// <summary>
 	/// 写入一个字节到流里
 	/// </summary>
 	/// <param name="data">要写入的数据</param>
