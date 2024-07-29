@@ -354,10 +354,15 @@ internal class TestReadIO : Stream, IAsyncIO
 
 	public byte ReadOneByteNoNext()
 	{
-		return buffer[i++];
+		return buffer[i];
 	}
 
 	public override int Read(byte[] buffer, int offset, int count)
+	{
+		throw new NotImplementedException();
+	}
+
+	public void ReadOnlyLength(byte[] buffer, int offset, int length)
 	{
 		throw new NotImplementedException();
 	}

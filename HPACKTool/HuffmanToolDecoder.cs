@@ -41,27 +41,52 @@ public static partial class HuffmanTool
 	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串并直接返回字符串
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
-	/// <param name="offset">偏移量</param>
 	/// <returns>解码后的字符数组</returns>
 	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
 	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
 	/// <returns>解码后的字符串</returns>
-	public static string? DecoderToString(byte[] data, int offset = 0)
+	public static string? DecoderToString(byte[] data)
 	{
-		byte[]? decoder = Decoder(data, offset);
+		byte[]? decoder = Decoder(data, 0, data.Length);
 		return decoder == null ? null : System.Text.Encoding.ASCII.GetString(decoder);
 	}
-	
+	/// <summary>
+	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串并直接返回字符串
+	/// </summary>
+	/// <param name="data">已编码的数据</param>
+	/// <param name="offset">偏移量</param>
+	/// <param name="length">数据长度</param>
+	/// <returns>解码后的字符数组</returns>
+	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
+	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
+	/// <returns>解码后的字符串</returns>
+	public static string? DecoderToString(byte[] data, int offset, int length)
+	{
+		byte[]? decoder = Decoder(data, offset, length);
+		return decoder == null ? null : System.Text.Encoding.ASCII.GetString(decoder);
+	}
 
 	/// <summary>
 	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
-	/// <param name="offset">偏移量</param>
 	/// <returns>解码后的字符数组</returns>
 	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
 	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
-	public static byte[]? Decoder(byte[] data, int offset = 0)
+	public static byte[]? Decoder(byte[] data)
+	{
+		return Decoder(data, 0, data.Length);
+	}
+	/// <summary>
+	/// 解码使用 HPACK 算法中的 Huffman 算法压缩的字符串
+	/// </summary>
+	/// <param name="data">已编码的数据</param>
+	/// <param name="offset">偏移量</param>
+	/// <param name="length">数据长度</param>
+	/// <returns>解码后的字符数组</returns>
+	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
+	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
+	public static byte[]? Decoder(byte[] data, int offset, int length)
 	{
 		if (data.Length == 0) return null;
 		//当前处在在的位反过来的索引    真实值 = 7 - i
@@ -87,7 +112,7 @@ public static partial class HuffmanTool
 			if (i != 0) return bbbf[--i];
 			i = 7;
 			//检测是否还有数据
-			if (i2 == data.Length - 1)
+			if (i2 == length - 1)
 			{
 				throw new HuffmanForHPACKEOF();
 			}
@@ -100,7 +125,7 @@ public static partial class HuffmanTool
 			if (i != 0) return bbbf[--i];
 			i = 7;
 			//检测是否还有数据
-			if (i2 == data.Length - 1)
+			if (i2 == length - 1)
 			{
 				throw new HuffmanForHPACKEOF();
 			}

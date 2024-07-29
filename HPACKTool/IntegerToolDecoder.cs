@@ -143,6 +143,48 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	///     从缓冲区中解码数字
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
+	public static uint ReadUInt(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			byte m = 0;
+			uint i = 0;
+			do
+			{
+				at = buffer[index++];
+				if (m == 28 && at > 0b_00001111) throw new OverflowException();
+				i |= (at & 0b_01111111) << m;
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			checked
+			{
+				rl = index;
+				return i + Nb[n];
+			}
+		}
+		else
+		{
+			rl = index;
+			return at;
+		}
+	}
 
 	#endregion
 
@@ -266,6 +308,48 @@ public static partial class IntegerTool
 		}
 		else
 		{
+			return at;
+		}
+	}
+	/// <summary>
+	///     从缓冲区中解码数字
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
+	public static ulong ReadULong(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			ushort m = 0;
+			ulong i = 0;
+			do
+			{
+				at = buffer[index++];
+				if (m == 63 && at > 0b_00000001) throw new OverflowException();
+				i |= (at & 0b_01111111) << m;
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			checked
+			{
+				rl = index;
+				return i + Nb[n];
+			}
+		}
+		else
+		{
+			rl = index;
 			return at;
 		}
 	}
@@ -395,6 +479,48 @@ public static partial class IntegerTool
 			return (ushort)at;
 		}
 	}
+	/// <summary>
+	///     从缓冲区中解码数字
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
+	public static ushort ReadUShort(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (uint)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			byte m = 0;
+			ushort i = 0;
+			do
+			{
+				at = buffer[index++];
+				if (m == 14 && at > 0b_00000011) throw new OverflowException();
+				i |= (ushort)((at & 0b_01111111) << m);
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			checked
+			{
+				rl = index;
+				return (ushort)(i + Nb[n]);
+			}
+		}
+		else
+		{
+			rl = index;
+			return (ushort)at;
+		}
+	}
 
 	#endregion
 
@@ -518,6 +644,48 @@ public static partial class IntegerTool
 		}
 		else
 		{
+			return (byte)at;
+		}
+	}
+	/// <summary>
+	///     从缓冲区中解码数字
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
+	public static byte ReadByte(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if (at == Nb[n])
+		{
+			byte m = 0;
+			byte i = 0;
+			do
+			{
+				at = buffer[index++];
+				if (m == 7 && at > 0b_00000001) throw new OverflowException();
+				i |= (byte)((at & 0b_01111111) << m);
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			checked
+			{
+				rl = index;
+				return (byte)(i + Nb[n]);
+			}
+		}
+		else
+		{
+			rl = index;
 			return (byte)at;
 		}
 	}
@@ -658,6 +826,51 @@ public static partial class IntegerTool
 			return at;
 		}
 	}
+	/// <summary>
+	/// 从缓冲区中解码数字
+	/// ！！！方法不提供大小检查，请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
+	public static UInt128 ReadUInt128(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			ushort m = 0;
+			UInt128 i = 0;
+			do
+			{
+				at = buffer[index++];
+				if (m == 126 && at > 0b_00000011)
+				{
+					throw new OverflowException();
+				}
+				i |= (UInt128)(at &  0b_01111111) << m;
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			checked
+			{
+				rl = index;
+				return i + Nb[n];
+			}
+		}
+		else
+		{
+			rl = index;
+			return at;
+		}
+	}
 #endif
 
 	#endregion
@@ -770,6 +983,44 @@ public static partial class IntegerTool
 		}
 		else
 		{
+			return at;
+		}
+	}
+	/// <summary>
+	///     从缓冲区中解码数字
+	///     ！！！请确保使用的返回类型的最大值大于所设定最大值
+	/// </summary>
+	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
+	/// <param name="buffer">缓冲区</param>
+	/// <param name="offset">缓冲区起始索引</param>
+	/// <returns>解码后的数字</returns>
+	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
+	public static BigInteger ReadBigInteger(byte n, byte[] buffer, out int rl, int offset = 0)
+	{
+		int index = offset;
+		uint at = (byte)(buffer[index++] & Nb[n]);
+		//	比如 n = 5 时 下面这种情况会进入if
+		//	  0   1   2   3   4   5   6   7
+		//	+---+---+---+---+---+---+---+---+
+		//	| ? | ? | ? | 1   1   1   1   1 |
+		//	+---+---+---+-------------------+
+		if ((Nb[n] & at) == Nb[n])
+		{
+			int m = 0;
+			BigInteger i = 0;
+			do
+			{
+				at = buffer[index++];
+				i |= (BigInteger)(at & 0b_01111111) << m;
+				m += 7;
+			} while ((at & 0b_10000000) == 0b_10000000);
+
+			rl = index;
+			return i + Nb[n];
+		}
+		else
+		{
+			rl = index;
 			return at;
 		}
 	}
