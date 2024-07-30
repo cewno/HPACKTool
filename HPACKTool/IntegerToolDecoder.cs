@@ -149,6 +149,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="uint" /> 类型的最大大小</exception>
@@ -317,6 +318,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
@@ -485,6 +487,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
@@ -653,6 +656,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
@@ -832,6 +836,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
@@ -992,6 +997,7 @@ public static partial class IntegerTool
 	/// </summary>
 	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
 	/// <param name="buffer">缓冲区</param>
+	/// <param name="rl">一个引用，会把读取完后的缓冲区索引写入到引用地址</param>
 	/// <param name="offset">缓冲区起始索引</param>
 	/// <returns>解码后的数字</returns>
 	/// <exception cref="OverflowException">数值超出 <see cref="ulong" /> 类型的最大大小</exception>
