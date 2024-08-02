@@ -112,7 +112,7 @@ public static partial class HuffmanTool
 			if (i != 0) return bbbf[--i];
 			i = 7;
 			//检测是否还有数据
-			if (i2 == length - 1)
+			if (i2 == length + offset - 1)
 			{
 				throw new HuffmanForHPACKEOF();
 			}
@@ -125,7 +125,7 @@ public static partial class HuffmanTool
 			if (i != 0) return bbbf[--i];
 			i = 7;
 			//检测是否还有数据
-			if (i2 == length - 1)
+			if (i2 == length + offset - 1)
 			{
 				throw new HuffmanForHPACKEOF();
 			}
