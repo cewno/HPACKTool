@@ -6,7 +6,7 @@ namespace cewno.HPACKTool;
 /// <summary>
 /// 用于解码string的工具类
 /// </summary>
-public static class StringTool
+public static partial class StringTool
 {
 	/// <summary>
 	/// 从异步流解码string
