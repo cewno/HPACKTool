@@ -136,7 +136,7 @@ public static partial class StringTool
 	/// 将字符串使用 Huffman 编码到普通流
 	/// </summary>
 	/// <param name="data">字符串</param>
-	/// <param name="asyncIo">普通流</param>
+	/// <param name="stream">普通流</param>
 	public static void EncoderToHuffman(string data, Stream stream)
 	{
 		byte[] bytes = HuffmanTool.Encoder(data);
@@ -152,7 +152,7 @@ public static partial class StringTool
 	/// 将二进制数据使用 Huffman 编码到普通流
 	/// </summary>
 	/// <param name="data"></param>
-	/// <param name="asyncIo">普通流</param>
+	/// <param name="stream">普通流</param>
 	public static void EncoderToHuffman(byte[] data,Stream stream)
 	{
 		data = HuffmanTool.Encoder(data);
