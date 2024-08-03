@@ -25,5 +25,5 @@ NuGet\Install-Package cewno.HPACKTool
 ```
 PackageReference:
 ```xml
-<PackageReference Include="cewno.HPACKTool" Version="2.1.0" />
+<PackageReference Include="cewno.HPACKTool" Version="3.0.0" />
 ```
