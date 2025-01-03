@@ -71,6 +71,7 @@ public static partial class HuffmanTool
 	///     解码使用 HPACK 算法中的 Huffman 算法压缩的字符串
 	/// </summary>
 	/// <param name="data">已编码的数据</param>
+	/// <param name="buffer">输出缓冲区</param>
 	/// <returns>解码后的字符数组</returns>
 	/// <exception cref="HuffmanForHPACKHaveEOSTagException">识别到不应出现的EOS标识</exception>
 	/// <exception cref="HuffmanForHPACKPaddingInaccuracyException">填充格式不正确</exception>
