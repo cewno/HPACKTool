@@ -1592,6 +1592,7 @@ public static partial class HuffmanTool
 		{
 			if (wi == resultLength) throw new IndexOutOfRangeException();
 
+#pragma warning disable CS8509 // switch 表达式不处理其输入类型的所有可能的值(它不是穷举)。例如，模式“0”未包含在内。
 			byte b = lastOffset switch
 			{
 				1 => (byte)(last | 0b_01111111),
@@ -1602,6 +1603,7 @@ public static partial class HuffmanTool
 				6 => (byte)(last | 0b_00000011),
 				7 => (byte)(last | 0b_00000001)
 			};
+#pragma warning restore CS8509 // switch 表达式不处理其输入类型的所有可能的值(它不是穷举)。例如，模式“0”未包含在内。
 			//tdata.Add(b);
 			result[wi++] = b;
 		}
