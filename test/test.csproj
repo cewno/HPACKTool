@@ -4,6 +4,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <TargetFrameworks>net8.0;net6.0;net9.0</TargetFrameworks>
+        <AssemblyName>cewno.HPACKTool.Test</AssemblyName>
+        <RootNamespace>cewno.HPACKTool.Test</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,9 +1,6 @@
-using System.Security.Cryptography;
-using cewno.HPACKTool;
 using Xunit;
-using Xunit.Sdk;
 
-namespace HPACKTool.Test;
+namespace cewno.HPACKTool.Test;
 
 public class StringTest
 {

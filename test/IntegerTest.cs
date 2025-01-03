@@ -1,7 +1,6 @@
 using Xunit;
-using cewno.HPACKTool;
 
-namespace HPACKTool.Test;
+namespace cewno.HPACKTool.Test;
 
 public class IntegerTest
 {
