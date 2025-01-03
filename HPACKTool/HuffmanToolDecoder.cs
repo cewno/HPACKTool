@@ -1491,16 +1491,14 @@ public static partial class HuffmanTool
 																							case 0:
 																							{
 																								chken();
-																								resultBuffer[wi++] =
-																									(byte)'!';
+																								resultBuffer[wi++] = (byte)'!';
 																								break;
 																							}
 																							//11111110|01
 																							case 1:
 																							{
 																								chken();
-																								resultBuffer[wi++] =
-																									(byte)'"';
+																								resultBuffer[wi++] = (byte)'"';
 																								break;
 																							}
 																						}
@@ -1518,16 +1516,14 @@ public static partial class HuffmanTool
 																							case 0:
 																							{
 																								chken();
-																								resultBuffer[wi++] =
-																									(byte)'(';
+																								resultBuffer[wi++] = (byte)'(';
 																								break;
 																							}
 																							//11111110|11
 																							case 1:
 																							{
 																								chken();
-																								resultBuffer[wi++] =
-																									(byte)')';
+																								resultBuffer[wi++] = (byte)')';
 																								break;
 																							}
 																						}
@@ -1557,8 +1553,7 @@ public static partial class HuffmanTool
 																							case 0:
 																							{
 																								chken();
-																								resultBuffer[wi++] =
-																									(byte)'?';
+																								resultBuffer[wi++] = (byte)'?';
 																								break;
 																							}
 																							//11111111|01
@@ -1566,26 +1561,20 @@ public static partial class HuffmanTool
 																							{
 																								t = nexto();
 																								if (t == -1) break;
-																								switch
-																									((t & data[i3]) >>
-																									 i)
+																								switch ((t & data[i3]) >> i)
 																								{
 																									//11111111|010
 																									case 0:
 																									{
 																										chken();
-																										resultBuffer[
-																												wi++] =
-																											(byte)'\'';
+																										resultBuffer[wi++] = (byte)'\'';
 																										break;
 																									}
 																									//11111111|011
 																									case 1:
 																									{
 																										chken();
-																										resultBuffer[
-																												wi++] =
-																											(byte)'+';
+																										resultBuffer[wi++] = (byte)'+';
 																										break;
 																									}
 																								}
@@ -1608,48 +1597,34 @@ public static partial class HuffmanTool
 																							{
 																								t = nextz();
 																								if (t == -1) break;
-																								switch
-																									((t & data[i3]) >>
-																									 i)
+																								switch ((t & data[i3]) >> i)
 																								{
 																									//11111111|100
 																									case 0:
 																									{
 																										chken();
-																										resultBuffer[
-																												wi++] =
-																											(byte)'|';
+																										resultBuffer[wi++] = (byte)'|';
 																										break;
 																									}
 																									//11111111|101
 																									case 1:
 																									{
 																										t = nexto();
-																										if (t == -1)
-																											break;
-																										switch ((t &
-																											 data[
-																												 i3]) >>
-																										 i)
+																										if (t == -1) break;
+																										switch ((t & data[i3]) >> i)
 																										{
 																											//11111111|1010
 																											case 0:
 																											{
 																												chken();
-																												resultBuffer
-																														[wi++] =
-																													(byte)
-																													'#';
+																												resultBuffer[wi++] = (byte)'#';
 																												break;
 																											}
 																											//11111111|1011
 																											case 1:
 																											{
 																												chken();
-																												resultBuffer
-																														[wi++] =
-																													(byte)
-																													'>';
+																												resultBuffer[wi++] = (byte)'>';
 																												break;
 																											}
 																										}
@@ -1665,55 +1640,34 @@ public static partial class HuffmanTool
 																							{
 																								t = nexto();
 																								if (t == -1) break;
-																								switch
-																									((t & data[i3]) >>
-																									 i)
+																								switch ((t & data[i3]) >> i)
 																								{
 																									//11111111|110
 																									case 0:
 																									{
 																										t = nextz();
-																										if (t == -1)
-																											break;
-																										switch ((t &
-																											 data[
-																												 i3]) >>
-																										 i)
+																										if (t == -1) break;
+																										switch ((t & data[i3]) >> i)
 																										{
 																											//11111111|1100
 																											case 0:
 																											{
-																												t =
-																													nextz();
-																												if (t ==
-																												 -1)
-																													break;
-																												switch
-																													((
-																														 t &
-																														 data
-																															 [i3]) >>
-																													 i)
+																												t = nextz();
+																												if (t == -1) break;
+																												switch ((t & data[i3]) >> i)
 																												{
 																													//11111111|11000
-																													case
-																														0:
+																													case 0:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															0;
+																														resultBuffer[wi++] = 0;
 																														break;
 																													}
 																													//11111111|11001
-																													case
-																														1:
+																													case 1:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															(byte)
-																															'$';
+																														resultBuffer[wi++] = (byte)'$';
 																														break;
 																													}
 																												}
@@ -1723,38 +1677,22 @@ public static partial class HuffmanTool
 																											//11111111|1101
 																											case 1:
 																											{
-																												t =
-																													nexto();
-																												if (t ==
-																												 -1)
-																													break;
-																												switch
-																													((
-																														 t &
-																														 data
-																															 [i3]) >>
-																													 i)
+																												t = nexto();
+																												if (t == -1) break;
+																												switch ((t & data[i3]) >> i)
 																												{
 																													//11111111|11010
-																													case
-																														0:
+																													case 0:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															(byte)
-																															'@';
+																														resultBuffer[wi++] = (byte)'@';
 																														break;
 																													}
 																													//11111111|11011
-																													case
-																														1:
+																													case 1:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															(byte)
-																															'[';
+																														resultBuffer[wi++] = (byte)'[';
 																														break;
 																													}
 																												}
@@ -1769,48 +1707,28 @@ public static partial class HuffmanTool
 																									case 1:
 																									{
 																										t = nexto();
-																										if (t == -1)
-																											break;
-																										switch ((t &
-																											 data[
-																												 i3]) >>
-																										 i)
+																										if (t == -1) break;
+																										switch ((t & data[i3]) >> i)
 																										{
 																											//11111111|1110
 																											case 0:
 																											{
-																												t =
-																													nextz();
-																												if (t ==
-																												 -1)
-																													break;
-																												switch
-																													((
-																														 t &
-																														 data
-																															 [i3]) >>
-																													 i)
+																												t = nextz();
+																												if (t == -1) break;
+																												switch ((t & data[i3]) >> i)
 																												{
 																													//11111111|11100
-																													case
-																														0:
+																													case 0:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															(byte)
-																															']';
+																														resultBuffer[wi++] = (byte)']';
 																														break;
 																													}
 																													//11111111|11101
-																													case
-																														1:
+																													case 1:
 																													{
 																														chken();
-																														resultBuffer
-																																[wi++] =
-																															(byte)
-																															'~';
+																														resultBuffer[wi++] = (byte)'~';
 																														break;
 																													}
 																												}
@@ -1820,55 +1738,29 @@ public static partial class HuffmanTool
 																											//11111111|1111
 																											case 1:
 																											{
-																												t =
-																													nexto();
-																												if (t ==
-																												 -1)
-																													break;
-																												switch
-																													((
-																														 t &
-																														 data
-																															 [i3]) >>
-																													 i)
+																												t = nexto();
+																												if (t == -1) break;
+																												switch ((t & data[i3]) >> i)
 																												{
 																													//11111111|11110
-																													case
-																														0:
+																													case 0:
 																													{
-																														t =
-																															nextz();
-																														if
-																															(t ==
-																															 -1)
-																															break;
-																														switch
-																															((
-																																 t &
-																																 data
-																																	 [i3]) >>
-																															 i)
+																														t = nextz();
+																														if (t == -1) break;
+																														switch ((t & data[i3]) >> i)
 																														{
 																															//11111111|111100
-																															case
-																																0:
+																															case 0:
 																															{
 																																chken();
-																																resultBuffer
-																																		[wi++] =
-																																	(byte)
-																																	'^';
+																																resultBuffer[wi++] = (byte)'^';
 																																break;
 																															}
 																															//11111111|111101
-																															case
-																																1:
+																															case 1:
 																															{
 																																chken();
-																																resultBuffer
-																																		[wi++] =
-																																	(byte)
-																																	'}';
+																																resultBuffer[wi++] = (byte)'}';
 																																break;
 																															}
 																														}
@@ -1876,59 +1768,31 @@ public static partial class HuffmanTool
 																														break;
 																													}
 																													//11111111|11111
-																													case
-																														1:
+																													case 1:
 																													{
-																														t =
-																															nexto();
-																														if
-																															(t ==
-																															 -1)
-																															break;
-																														switch
-																															((
-																																 t &
-																																 data
-																																	 [i3]) >>
-																															 i)
+																														t = nexto();
+																														if (t == -1) break;
+																														switch ((t & data[i3]) >> i)
 																														{
 																															//11111111|111110
-																															case
-																																0:
+																															case 0:
 																															{
-																																t =
-																																	nextz();
-																																if
-																																	(t ==
-																																	 -1)
-																																	break;
-																																switch
-																																	((
-																																		 t &
-																																		 data
-																																			 [i3]) >>
-																																	 i)
+																																t = nextz();
+																																if (t == -1) break;
+																																switch ((t & data[i3]) >> i)
 																																{
 																																	//11111111|1111100
-																																	case
-																																		0:
+																																	case 0:
 																																	{
 																																		chken();
-																																		resultBuffer
-																																				[wi++] =
-																																			(byte)
-																																			'<';
+																																		resultBuffer[wi++] = (byte)'<';
 																																		break;
 																																	}
 																																	//11111111|1111101
-																																	case
-																																		1:
+																																	case 1:
 																																	{
 																																		chken();
-																																		resultBuffer
-																																				[wi++] =
-																																			(byte)
-																																			'`';
+																																		resultBuffer[wi++] = (byte)'`';
 																																		break;
 																																	}
 																																}
@@ -1936,120 +1800,59 @@ public static partial class HuffmanTool
 																																break;
 																															}
 																															//11111111|111111
-																															case
-																																1:
+																															case 1:
 																															{
-																																t =
-																																	nexto();
-																																if
-																																	(t ==
-																																	 -1)
-																																	break;
-																																switch
-																																	((
-																																		 t &
-																																		 data
-																																			 [i3]) >>
-																																	 i)
+																																t = nexto();
+																																if (t == -1) break;
+																																switch ((t & data[i3]) >> i)
 																																{
 																																	//11111111|1111110
-																																	case
-																																		0:
+																																	case 0:
 																																	{
 																																		chken();
-																																		resultBuffer
-																																				[wi++] =
-																																			(byte)
-																																			'{';
+																																		resultBuffer[wi++] = (byte)'{';
 																																		break;
 																																	}
 																																	//11111111|1111111
-																																	case
-																																		1:
+																																	case 1:
 																																	{
-																																		t =
-																																			nexto();
-																																		if
-																																			(t ==
-																																			 -1)
-																																			break;
-																																		switch
-																																			((
-																																				 t &
-																																				 data
-																																					 [i3]) >>
-																																			 i)
+																																		t = nexto();
+																																		if (t == -1) break;
+																																		switch ((t & data[i3]) >> i)
 																																		{
 																																			//11111111|11111110|
-																																			case
-																																				0:
+																																			case 0:
 																																			{
-																																				t =
-																																					nextz();
-																																				if
-																																					(t ==
-																																					 -1)
-																																					break;
-																																				switch
-																																					((
-																																						 t &
-																																						 data
-																																							 [i3]) >>
-																																					 i)
+																																				t = nextz();
+																																				if (t == -1) break;
+																																				switch ((t & data[i3]) >> i)
 																																				{
 																																					//11111111|11111110|0
-																																					case
-																																						0:
+																																					case 0:
 																																					{
-																																						t =
-																																							nextz();
-																																						if
-																																							(t ==
-																																							 -1)
-																																							break;
-																																						switch
-																																							((
-																																								 t &
-																																								 data
-																																									 [i3]) >>
-																																							 i)
+																																						t = nextz();
+																																						if (t == -1) break;
+																																						switch ((t & data[i3]) >> i)
 																																						{
 																																							//11111111|11111110|00
-																																							case
-																																								0:
+																																							case 0:
 																																							{
-																																								t =
-																																									nextz();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nextz();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111110|000
-																																									case
-																																										0:
+																																									case 0:
 																																									{
 																																										chken();
-																																										resultBuffer
-																																												[wi++] =
-																																											(byte)
-																																											'\\';
+																																										resultBuffer[wi++] = (byte)'\\';
 																																										break;
 																																									}
 																																									//11111111|11111110|001
-																																									case
-																																										1:
+																																									case 1:
 																																									{
 																																										chken();
-																																										resultBuffer
-																																												[wi++] =
-																																											195;
+																																										resultBuffer[wi++] = 195;
 																																										break;
 																																									}
 																																								}
@@ -2057,67 +1860,38 @@ public static partial class HuffmanTool
 																																								break;
 																																							}
 																																							//11111111|11111110|01
-																																							case
-																																								1:
+																																							case 1:
 																																							{
-																																								t =
-																																									nexto();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nexto();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111110|010
-																																									case
-																																										0:
+																																									case 0:
 																																									{
 																																										chken();
-																																										resultBuffer
-																																												[wi++] =
-																																											208;
+																																										resultBuffer[wi++] = 208;
 																																										break;
 																																									}
 																																									//11111111|11111110|011
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111110|0110
-																																											case
-																																												0:
+																																											case 0:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													128;
+																																												resultBuffer[wi++] = 128;
 																																												break;
 																																											}
 																																											//11111111|11111110|0111
-																																											case
-																																												1:
+																																											case 1:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													130;
+																																												resultBuffer[wi++] = 130;
 																																												break;
 																																											}
 																																										}
@@ -2133,74 +1907,38 @@ public static partial class HuffmanTool
 																																						break;
 																																					}
 																																					//11111111|11111110|1
-																																					case
-																																						1:
+																																					case 1:
 																																					{
-																																						t =
-																																							nexto();
-																																						if
-																																							(t ==
-																																							 -1)
-																																							break;
-																																						switch
-																																							((
-																																								 t &
-																																								 data
-																																									 [i3]) >>
-																																							 i)
+																																						t = nexto();
+																																						if (t == -1) break;
+																																						switch ((t & data[i3]) >> i)
 																																						{
 																																							//11111111|11111110|10
-																																							case
-																																								0:
+																																							case 0:
 																																							{
-																																								t =
-																																									nextz();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nextz();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111110|100
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111110|1000
-																																											case
-																																												0:
+																																											case 0:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													131;
+																																												resultBuffer[wi++] = 131;
 																																												break;
 																																											}
 																																											//11111111|11111110|1001
-																																											case
-																																												1:
+																																											case 1:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													162;
+																																												resultBuffer[wi++] = 162;
 																																												break;
 																																											}
 																																										}
@@ -2208,40 +1946,24 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111110|101
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|111111110|1010
-																																											case
-																																												0:
+																																											case 0:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													184;
+																																												resultBuffer[wi++] = 184;
 																																												break;
 																																											}
 																																											//11111111|11111110|1011
-																																											case
-																																												1:
+																																											case 1:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													194;
+																																												resultBuffer[wi++] = 194;
 																																												break;
 																																											}
 																																										}
@@ -2253,57 +1975,31 @@ public static partial class HuffmanTool
 																																								break;
 																																							}
 																																							//11111111|11111110|11
-																																							case
-																																								1:
+																																							case 1:
 																																							{
-																																								t =
-																																									nexto();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nexto();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111110|110
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111110|1100
-																																											case
-																																												0:
+																																											case 0:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													224;
+																																												resultBuffer[wi++] = 224;
 																																												break;
 																																											}
 																																											//11111111|11111110|1101
-																																											case
-																																												1:
+																																											case 1:
 																																											{
 																																												chken();
-																																												resultBuffer
-																																														[wi++] =
-																																													226;
+																																												resultBuffer[wi++] = 226;
 																																												break;
 																																											}
 																																										}
@@ -2311,57 +2007,31 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111110|111
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111110|1110
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111110|11100
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															153;
+																																														resultBuffer[wi++] = 153;
 																																														break;
 																																													}
 																																													//11111111|11111110|11101
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															161;
+																																														resultBuffer[wi++] = 161;
 																																														break;
 																																													}
 																																												}
@@ -2369,40 +2039,24 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111110|1111
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111110|11110
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															167;
+																																														resultBuffer[wi++] = 167;
 																																														break;
 																																													}
 																																													//11111111|11111110|
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															172;
+																																														resultBuffer[wi++] = 172;
 																																														break;
 																																													}
 																																												}
@@ -2426,108 +2080,52 @@ public static partial class HuffmanTool
 																																				break;
 																																			}
 																																			//11111111|11111111
-																																			case
-																																				1:
+																																			case 1:
 																																			{
-																																				t =
-																																					nexto();
-																																				if
-																																					(t ==
-																																					 -1)
-																																					break;
-																																				switch
-																																					((
-																																						 t &
-																																						 data
-																																							 [i3]) >>
-																																					 i)
+																																				t = nexto();
+																																				if (t == -1) break;
+																																				switch ((t & data[i3]) >> i)
 																																				{
 																																					//11111111|11111111|0
-																																					case
-																																						0:
+																																					case 0:
 																																					{
-																																						t =
-																																							nextz();
-																																						if
-																																							(t ==
-																																							 -1)
-																																							break;
-																																						switch
-																																							((
-																																								 t &
-																																								 data
-																																									 [i3]) >>
-																																							 i)
+																																						t = nextz();
+																																						if (t == -1) break;
+																																						switch ((t & data[i3]) >> i)
 																																						{
 																																							//11111111|11111111|00
-																																							case
-																																								0:
+																																							case 0:
 																																							{
-																																								t =
-																																									nextz();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nextz();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111111|000
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|0000
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|00000
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															176;
+																																														resultBuffer[wi++] = 176;
 																																														break;
 																																													}
 																																													//11111111|11111111|00001
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															177;
+																																														resultBuffer[wi++] = 177;
 																																														break;
 																																													}
 																																												}
@@ -2535,40 +2133,24 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|0001
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|00010
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															179;
+																																														resultBuffer[wi++] = 179;
 																																														break;
 																																													}
 																																													//11111111|11111111|
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															209;
+																																														resultBuffer[wi++] = 209;
 																																														break;
 																																													}
 																																												}
@@ -2580,57 +2162,31 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111111|001
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|0010
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|00100
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															216;
+																																														resultBuffer[wi++] = 216;
 																																														break;
 																																													}
 																																													//11111111|11111111|
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															217;
+																																														resultBuffer[wi++] = 217;
 																																														break;
 																																													}
 																																												}
@@ -2638,40 +2194,24 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|0011
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|00110
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															227;
+																																														resultBuffer[wi++] = 227;
 																																														break;
 																																													}
 																																													//11111111|11111111|
-																																													case
-																																														1:
+																																													case 1:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															229;
+																																														resultBuffer[wi++] = 229;
 																																														break;
 																																													}
 																																												}
@@ -2687,101 +2227,52 @@ public static partial class HuffmanTool
 																																								break;
 																																							}
 																																							//11111111|11111111|01
-																																							case
-																																								1:
+																																							case 1:
 																																							{
-																																								t =
-																																									nexto();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nexto();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111111|010
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|0100
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|01000
-																																													case
-																																														0:
+																																													case 0:
 																																													{
 																																														chken();
-																																														resultBuffer
-																																																[wi++] =
-																																															230;
+																																														resultBuffer[wi++] = 230;
 																																														break;
 																																													}
 																																													//11111111|11111111|01001
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|010010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	129;
+																																																resultBuffer[wi++] = 129;
 																																																break;
 																																															}
 																																															//11111111|11111111|010011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	132;
+																																																resultBuffer[wi++] = 132;
 																																																break;
 																																															}
 																																														}
@@ -2793,57 +2284,31 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|0101
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|01010
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|010100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	133;
+																																																resultBuffer[wi++] = 133;
 																																																break;
 																																															}
 																																															//11111111|11111111|010101
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	134;
+																																																resultBuffer[wi++] = 134;
 																																																break;
 																																															}
 																																														}
@@ -2851,40 +2316,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|01011
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|010110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	136;
+																																																resultBuffer[wi++] = 136;
 																																																break;
 																																															}
 																																															//11111111|11111111|010111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	146;
+																																																resultBuffer[wi++] = 146;
 																																																break;
 																																															}
 																																														}
@@ -2900,74 +2349,38 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111111|011
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|0110
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|01100
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|011000
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	154;
+																																																resultBuffer[wi++] = 154;
 																																																break;
 																																															}
 																																															//11111111|11111111|011001
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	156;
+																																																resultBuffer[wi++] = 156;
 																																																break;
 																																															}
 																																														}
@@ -2975,40 +2388,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|01101
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|011010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	160;
+																																																resultBuffer[wi++] = 160;
 																																																break;
 																																															}
 																																															//11111111|11111111|011011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	163;
+																																																resultBuffer[wi++] = 163;
 																																																break;
 																																															}
 																																														}
@@ -3020,57 +2417,31 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|0111
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|01110
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|011100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	164;
+																																																resultBuffer[wi++] = 164;
 																																																break;
 																																															}
 																																															//11111111|11111111|
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	169;
+																																																resultBuffer[wi++] = 169;
 																																																break;
 																																															}
 																																														}
@@ -3078,40 +2449,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|01111
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|011110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	170;
+																																																resultBuffer[wi++] = 170;
 																																																break;
 																																															}
 																																															//11111111|11111111|011111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	173;
+																																																resultBuffer[wi++] = 173;
 																																																break;
 																																															}
 																																														}
@@ -3135,108 +2490,52 @@ public static partial class HuffmanTool
 																																						break;
 																																					}
 																																					//11111111|11111111|1
-																																					case
-																																						1:
+																																					case 1:
 																																					{
-																																						t =
-																																							nexto();
-																																						if
-																																							(t ==
-																																							 -1)
-																																							break;
-																																						switch
-																																							((
-																																								 t &
-																																								 data
-																																									 [i3]) >>
-																																							 i)
+																																						t = nexto();
+																																						if (t == -1) break;
+																																						switch ((t & data[i3]) >> i)
 																																						{
 																																							//11111111|11111111|10
-																																							case
-																																								0:
+																																							case 0:
 																																							{
-																																								t =
-																																									nextz();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nextz();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111111|100
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|1000
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|10000
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|100000
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	178;
+																																																resultBuffer[wi++] = 178;
 																																																break;
 																																															}
 																																															//11111111|11111111|100001
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	181;
+																																																resultBuffer[wi++] = 181;
 																																																break;
 																																															}
 																																														}
@@ -3244,40 +2543,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|10001
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|100010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	185;
+																																																resultBuffer[wi++] = 185;
 																																																break;
 																																															}
 																																															//11111111|11111111|100011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	186;
+																																																resultBuffer[wi++] = 186;
 																																																break;
 																																															}
 																																														}
@@ -3289,57 +2572,31 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|1001
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|10010
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|100100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	187;
+																																																resultBuffer[wi++] = 187;
 																																																break;
 																																															}
 																																															//11111111|11111111|
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	189;
+																																																resultBuffer[wi++] = 189;
 																																																break;
 																																															}
 																																														}
@@ -3347,40 +2604,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|10011
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|100110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	190;
+																																																resultBuffer[wi++] = 190;
 																																																break;
 																																															}
 																																															//11111111|11111111|100111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	196;
+																																																resultBuffer[wi++] = 196;
 																																																break;
 																																															}
 																																														}
@@ -3396,74 +2637,38 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111111|101
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|1010
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|10100
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|101000
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	198;
+																																																resultBuffer[wi++] = 198;
 																																																break;
 																																															}
 																																															//11111111|11111111|101001
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	228;
+																																																resultBuffer[wi++] = 228;
 																																																break;
 																																															}
 																																														}
@@ -3471,40 +2676,24 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|10101
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|101010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	232;
+																																																resultBuffer[wi++] = 232;
 																																																break;
 																																															}
 																																															//11111111|11111111|101011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
 																																																chken();
-																																																resultBuffer
-																																																		[wi++] =
-																																																	233;
+																																																resultBuffer[wi++] = 233;
 																																																break;
 																																															}
 																																														}
@@ -3516,74 +2705,38 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|1011
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|10110
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|101100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1011000
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			1;
+																																																		resultBuffer[wi++] = 1;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			135;
+																																																		resultBuffer[wi++] = 135;
 																																																		break;
 																																																	}
 																																																}
@@ -3591,40 +2744,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|101101
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1011010
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			137;
+																																																		resultBuffer[wi++] = 137;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011011
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			138;
+																																																		resultBuffer[wi++] = 138;
 																																																		break;
 																																																	}
 																																																}
@@ -3636,57 +2773,31 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|10111
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|101110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1011100
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			139;
+																																																		resultBuffer[wi++] = 139;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011101
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			140;
+																																																		resultBuffer[wi++] = 140;
 																																																		break;
 																																																	}
 																																																}
@@ -3694,40 +2805,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|101111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1011110
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			141;
+																																																		resultBuffer[wi++] = 141;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1011111
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			143;
+																																																		resultBuffer[wi++] = 143;
 																																																		break;
 																																																	}
 																																																}
@@ -3751,108 +2846,52 @@ public static partial class HuffmanTool
 																																								break;
 																																							}
 																																							//11111111|11111111|11
-																																							case
-																																								1:
+																																							case 1:
 																																							{
-																																								t =
-																																									nexto();
-																																								if
-																																									(t ==
-																																									 -1)
-																																									break;
-																																								switch
-																																									((
-																																										 t &
-																																										 data
-																																											 [i3]) >>
-																																									 i)
+																																								t = nexto();
+																																								if (t == -1) break;
+																																								switch ((t & data[i3]) >> i)
 																																								{
 																																									//11111111|11111111|110
-																																									case
-																																										0:
+																																									case 0:
 																																									{
-																																										t =
-																																											nextz();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nextz();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|1100
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|11000
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|110000
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1100000
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			147;
+																																																		resultBuffer[wi++] = 147;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100001
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			149;
+																																																		resultBuffer[wi++] = 149;
 																																																		break;
 																																																	}
 																																																}
@@ -3860,40 +2899,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|110001
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1100010
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			150;
+																																																		resultBuffer[wi++] = 150;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100011
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			151;
+																																																		resultBuffer[wi++] = 151;
 																																																		break;
 																																																	}
 																																																}
@@ -3905,57 +2928,31 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|11001
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|110010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1100100
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			152;
+																																																		resultBuffer[wi++] = 152;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			155;
+																																																		resultBuffer[wi++] = 155;
 																																																		break;
 																																																	}
 																																																}
@@ -3963,40 +2960,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|110011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1100110
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			157;
+																																																		resultBuffer[wi++] = 157;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1100111
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			158;
+																																																		resultBuffer[wi++] = 158;
 																																																		break;
 																																																	}
 																																																}
@@ -4012,74 +2993,38 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|1101
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|11010
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|110100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1101000
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			165;
+																																																		resultBuffer[wi++] = 165;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			166;
+																																																		resultBuffer[wi++] = 166;
 																																																		break;
 																																																	}
 																																																}
@@ -4087,40 +3032,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|110101
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1101010
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			168;
+																																																		resultBuffer[wi++] = 168;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1101011
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			174;
+																																																		resultBuffer[wi++] = 174;
 																																																		break;
 																																																	}
 																																																}
@@ -4132,57 +3061,31 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|11011
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|110110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1101100
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			175;
+																																																		resultBuffer[wi++] = 175;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|11011101
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			180;
+																																																		resultBuffer[wi++] = 180;
 																																																		break;
 																																																	}
 																																																}
@@ -4190,40 +3093,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|110111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1101110
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			182;
+																																																		resultBuffer[wi++] = 182;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			183;
+																																																		resultBuffer[wi++] = 183;
 																																																		break;
 																																																	}
 																																																}
@@ -4243,91 +3130,45 @@ public static partial class HuffmanTool
 																																										break;
 																																									}
 																																									//11111111|11111111|111
-																																									case
-																																										1:
+																																									case 1:
 																																									{
-																																										t =
-																																											nexto();
-																																										if
-																																											(t ==
-																																											 -1)
-																																											break;
-																																										switch
-																																											((
-																																												 t &
-																																												 data
-																																													 [i3]) >>
-																																											 i)
+																																										t = nexto();
+																																										if (t == -1) break;
+																																										switch ((t & data[i3]) >> i)
 																																										{
 																																											//11111111|11111111|1110
-																																											case
-																																												0:
+																																											case 0:
 																																											{
-																																												t =
-																																													nextz();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nextz();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|11100
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|111000
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1110000
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			188;
+																																																		resultBuffer[wi++] = 188;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110001
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			191;
+																																																		resultBuffer[wi++] = 191;
 																																																		break;
 																																																	}
 																																																}
@@ -4335,40 +3176,24 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|111001
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1110010
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			197;
+																																																		resultBuffer[wi++] = 197;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110011
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			231;
+																																																		resultBuffer[wi++] = 231;
 																																																		break;
 																																																	}
 																																																}
@@ -4380,89 +3205,45 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|11101
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|111010
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1110100
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
 																																																		chken();
-																																																		resultBuffer
-																																																				[wi++] =
-																																																			239;
+																																																		resultBuffer[wi++] = 239;
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110101
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11101010
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					9;
+																																																				resultBuffer[wi++] = 9;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11101011
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					142;
+																																																				resultBuffer[wi++] = 142;
 																																																				break;
 																																																			}
 																																																		}
@@ -4474,62 +3255,31 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|111011
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1110110
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
-																																																		t =
-																																																			nextz();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nextz();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11101100
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					144;
+																																																				resultBuffer[wi++] = 144;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					145;
+																																																				resultBuffer[wi++] = 145;
 																																																				break;
 																																																			}
 																																																		}
@@ -4537,45 +3287,24 @@ public static partial class HuffmanTool
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1110111
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11101110
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					148;
+																																																				resultBuffer[wi++] = 148;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11101111
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					159;
+																																																				resultBuffer[wi++] = 159;
 																																																				break;
 																																																			}
 																																																		}
@@ -4595,96 +3324,45 @@ public static partial class HuffmanTool
 																																												break;
 																																											}
 																																											//11111111|11111111|1111
-																																											case
-																																												1:
+																																											case 1:
 																																											{
-																																												t =
-																																													nexto();
-																																												if
-																																													(t ==
-																																													 -1)
-																																													break;
-																																												switch
-																																													((
-																																														 t &
-																																														 data
-																																															 [i3]) >>
-																																													 i)
+																																												t = nexto();
+																																												if (t == -1) break;
+																																												switch ((t & data[i3]) >> i)
 																																												{
 																																													//11111111|11111111|11110
-																																													case
-																																														0:
+																																													case 0:
 																																													{
-																																														t =
-																																															nextz();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nextz();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|111100
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1111000
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
-																																																		t =
-																																																			nextz();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nextz();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11110000
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					171;
+																																																				resultBuffer[wi++] = 171;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					206;
+																																																				resultBuffer[wi++] = 206;
 																																																				break;
 																																																			}
 																																																		}
@@ -4692,45 +3370,24 @@ public static partial class HuffmanTool
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1111001
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11110010
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					215;
+																																																				resultBuffer[wi++] = 215;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|1111011
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					225;
+																																																				resultBuffer[wi++] = 225;
 																																																				break;
 																																																			}
 																																																		}
@@ -4742,62 +3399,31 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|111101
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1111010
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
-																																																		t =
-																																																			nextz();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nextz();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11110100
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					236;
+																																																				resultBuffer[wi++] = 236;
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11110101
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
 																																																				chken();
-																																																				resultBuffer
-																																																					[
-																																																						wi
-																																																							++] =
-																																																					237;
+																																																				resultBuffer[wi++] = 237;
 																																																				break;
 																																																			}
 																																																		}
@@ -4805,63 +3431,31 @@ public static partial class HuffmanTool
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1111011
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11110110
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
-																																																				t =
-																																																					nextz();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nextz();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11110110|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
 																																																						chken();
-																																																						resultBuffer
-																																																							[
-																																																								wi
-																																																									++] =
-																																																							199;
+																																																						resultBuffer[wi++] = 199;
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
 																																																						chken();
-																																																						resultBuffer
-																																																							[
-																																																								wi
-																																																									++] =
-																																																							207;
+																																																						resultBuffer[wi++] = 207;
 																																																						break;
 																																																					}
 																																																				}
@@ -4869,45 +3463,24 @@ public static partial class HuffmanTool
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11110111
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
-																																																				t =
-																																																					nexto();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nexto();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11110111|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
 																																																						chken();
-																																																						resultBuffer
-																																																							[
-																																																								wi
-																																																									++] =
-																																																							234;
+																																																						resultBuffer[wi++] = 234;
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|111101111|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
 																																																						chken();
-																																																						resultBuffer
-																																																							[
-																																																								wi
-																																																									++] =
-																																																							235;
+																																																						resultBuffer[wi++] = 235;
 																																																						break;
 																																																					}
 																																																				}
@@ -4927,115 +3500,52 @@ public static partial class HuffmanTool
 																																														break;
 																																													}
 																																													//11111111|11111111|11111
-																																													case
-																																														1:
+																																													case 1:
 																																													{
-																																														t =
-																																															nexto();
-																																														if
-																																															(t ==
-																																															 -1)
-																																															break;
-																																														switch
-																																															((
-																																																 t &
-																																																 data
-																																																	 [i3]) >>
-																																															 i)
+																																														t = nexto();
+																																														if (t == -1) break;
+																																														switch ((t & data[i3]) >> i)
 																																														{
 																																															//11111111|11111111|111110
-																																															case
-																																																0:
+																																															case 0:
 																																															{
-																																																t =
-																																																	nextz();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nextz();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1111100
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
-																																																		t =
-																																																			nextz();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nextz();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11111000
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
-																																																				t =
-																																																					nextz();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nextz();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111000|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111000|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									192;
+																																																								resultBuffer[wi++] = 192;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111000|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									193;
+																																																								resultBuffer[wi++] = 193;
 																																																								break;
 																																																							}
 																																																						}
@@ -5043,45 +3553,24 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111000|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111000|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									200;
+																																																								resultBuffer[wi++] = 200;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111000|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									201;
+																																																								resultBuffer[wi++] = 201;
 																																																								break;
 																																																							}
 																																																						}
@@ -5093,63 +3582,31 @@ public static partial class HuffmanTool
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11111001
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
-																																																				t =
-																																																					nexto();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nexto();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111001|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111001|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									202;
+																																																								resultBuffer[wi++] = 202;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111001|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									205;
+																																																								resultBuffer[wi++] = 205;
 																																																								break;
 																																																							}
 																																																						}
@@ -5157,45 +3614,24 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|111111001|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111001|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									210;
+																																																								resultBuffer[wi++] = 210;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111001|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									213;
+																																																								resultBuffer[wi++] = 213;
 																																																								break;
 																																																							}
 																																																						}
@@ -5211,81 +3647,38 @@ public static partial class HuffmanTool
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1111101
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11111010
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
-																																																				t =
-																																																					nextz();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nextz();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111010|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111010|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									218;
+																																																								resultBuffer[wi++] = 218;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111010|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									219;
+																																																								resultBuffer[wi++] = 219;
 																																																								break;
 																																																							}
 																																																						}
@@ -5293,45 +3686,24 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111010|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111010|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									238;
+																																																								resultBuffer[wi++] = 238;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111010|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									240;
+																																																								resultBuffer[wi++] = 240;
 																																																								break;
 																																																							}
 																																																						}
@@ -5343,63 +3715,31 @@ public static partial class HuffmanTool
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11111011
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
-																																																				t =
-																																																					nexto();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nexto();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111011|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111011|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									242;
+																																																								resultBuffer[wi++] = 242;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111011|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									243;
+																																																								resultBuffer[wi++] = 243;
 																																																								break;
 																																																							}
 																																																						}
@@ -5407,75 +3747,38 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111011|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111011|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
 																																																								chken();
-																																																								resultBuffer
-																																																									[
-																																																										wi
-																																																											++] =
-																																																									255;
+																																																								resultBuffer[wi++] = 255;
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111011|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111011|110
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											203;
+																																																										resultBuffer[wi++] = 203;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111011|111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											204;
+																																																										resultBuffer[wi++] = 204;
 																																																										break;
 																																																									}
 																																																								}
@@ -5499,116 +3802,52 @@ public static partial class HuffmanTool
 																																																break;
 																																															}
 																																															//11111111|11111111|111111
-																																															case
-																																																1:
+																																															case 1:
 																																															{
-																																																t =
-																																																	nexto();
-																																																if
-																																																	(t ==
-																																																	 -1)
-																																																	break;
-																																																switch
-																																																	((
-																																																		 t &
-																																																		 data
-																																																			 [i3]) >>
-																																																	 i)
+																																																t = nexto();
+																																																if (t == -1) break;
+																																																switch ((t & data[i3]) >> i)
 																																																{
 																																																	//11111111|11111111|1111110
-																																																	case
-																																																		0:
+																																																	case 0:
 																																																	{
-																																																		t =
-																																																			nextz();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nextz();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11111100
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
-																																																				t =
-																																																					nextz();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nextz();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111100|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111100|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111100|000
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											211;
+																																																										resultBuffer[wi++] = 211;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|111111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											212;
+																																																										resultBuffer[wi++] = 212;
 																																																										break;
 																																																									}
 																																																								}
@@ -5616,45 +3855,24 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111100|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111100|010
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											214;
+																																																										resultBuffer[wi++] = 214;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|011
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											221;
+																																																										resultBuffer[wi++] = 221;
 																																																										break;
 																																																									}
 																																																								}
@@ -5666,63 +3884,31 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111100|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111100|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111100|100
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											222;
+																																																										resultBuffer[wi++] = 222;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|101
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											223;
+																																																										resultBuffer[wi++] = 223;
 																																																										break;
 																																																									}
 																																																								}
@@ -5730,45 +3916,24 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111100|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111100|110
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											241;
+																																																										resultBuffer[wi++] = 241;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111100|111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											244;
+																																																										resultBuffer[wi++] = 244;
 																																																										break;
 																																																									}
 																																																								}
@@ -5784,81 +3949,38 @@ public static partial class HuffmanTool
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11111101
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
-																																																				t =
-																																																					nexto();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nexto();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111101|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111101|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111101|000
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											245;
+																																																										resultBuffer[wi++] = 245;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|001
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											246;
+																																																										resultBuffer[wi++] = 246;
 																																																										break;
 																																																									}
 																																																								}
@@ -5866,45 +3988,24 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111101|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111101|010
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											247;
+																																																										resultBuffer[wi++] = 247;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|011
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											248;
+																																																										resultBuffer[wi++] = 248;
 																																																										break;
 																																																									}
 																																																								}
@@ -5916,63 +4017,31 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111101|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111101|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111101|100
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											250;
+																																																										resultBuffer[wi++] = 250;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|101
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											251;
+																																																										resultBuffer[wi++] = 251;
 																																																										break;
 																																																									}
 																																																								}
@@ -5980,45 +4049,24 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111101|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111101|110
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											252;
+																																																										resultBuffer[wi++] = 252;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111101|111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											253;
+																																																										resultBuffer[wi++] = 253;
 																																																										break;
 																																																									}
 																																																								}
@@ -6038,129 +4086,59 @@ public static partial class HuffmanTool
 																																																		break;
 																																																	}
 																																																	//11111111|11111111|1111111
-																																																	case
-																																																		1:
+																																																	case 1:
 																																																	{
-																																																		t =
-																																																			nexto();
-																																																		if
-																																																			(t ==
-																																																			 -1)
-																																																			break;
-																																																		switch
-																																																			((
-																																																				 t &
-																																																				 data
-																																																				 [
-																																																					 i3]) >>
-																																																			 i)
+																																																		t = nexto();
+																																																		if (t == -1) break;
+																																																		switch ((t & data[i3]) >> i)
 																																																		{
 																																																			//11111111|11111111|11111110
-																																																			case
-																																																				0:
+																																																			case 0:
 																																																			{
-																																																				t =
-																																																					nextz();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nextz();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111110|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111110|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111110|000
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
 																																																										chken();
-																																																										resultBuffer
-																																																											[
-																																																												wi
-																																																													++] =
-																																																											254;
+																																																										resultBuffer[wi++] = 254;
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111110|001
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|0010
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													2;
+																																																												resultBuffer[wi++] = 2;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0011
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													3;
+																																																												resultBuffer[wi++] = 3;
 																																																												break;
 																																																											}
 																																																										}
@@ -6172,63 +4150,31 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111110|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111110|010
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|0100
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													4;
+																																																												resultBuffer[wi++] = 4;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0101
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													5;
+																																																												resultBuffer[wi++] = 5;
 																																																												break;
 																																																											}
 																																																										}
@@ -6236,45 +4182,24 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111110|011
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|0110
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													6;
+																																																												resultBuffer[wi++] = 6;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|0111
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													7;
+																																																												resultBuffer[wi++] = 7;
 																																																												break;
 																																																											}
 																																																										}
@@ -6290,81 +4215,38 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|111111110|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111110|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111110|100
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|1000
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													8;
+																																																												resultBuffer[wi++] = 8;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1001
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													11;
+																																																												resultBuffer[wi++] = 11;
 																																																												break;
 																																																											}
 																																																										}
@@ -6372,46 +4254,25 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111110|101
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|1010
 																																																											//11111111|11111111|11111110|000
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													12;
+																																																												resultBuffer[wi++] = 12;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1011
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													14;
+																																																												resultBuffer[wi++] = 14;
 																																																												break;
 																																																											}
 																																																										}
@@ -6423,63 +4284,31 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111110|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111110|110
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|1100
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													15;
+																																																												resultBuffer[wi++] = 15;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1101
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													16;
+																																																												resultBuffer[wi++] = 16;
 																																																												break;
 																																																											}
 																																																										}
@@ -6487,45 +4316,24 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111110|111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111110|1110
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													17;
+																																																												resultBuffer[wi++] = 17;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111110|1111
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													18;
+																																																												resultBuffer[wi++] = 18;
 																																																												break;
 																																																											}
 																																																										}
@@ -6545,99 +4353,45 @@ public static partial class HuffmanTool
 																																																				break;
 																																																			}
 																																																			//11111111|11111111|11111111
-																																																			case
-																																																				1:
+																																																			case 1:
 																																																			{
-																																																				t =
-																																																					nexto();
-																																																				if
-																																																					(t ==
-																																																					 -1)
-																																																					break;
-																																																				switch
-																																																					((
-																																																						 t &
-																																																						 data
-																																																						 [
-																																																							 i3]) >>
-																																																					 i)
+																																																				t = nexto();
+																																																				if (t == -1) break;
+																																																				switch ((t & data[i3]) >> i)
 																																																				{
 																																																					//11111111|11111111|11111111|0
-																																																					case
-																																																						0:
+																																																					case 0:
 																																																					{
-																																																						t =
-																																																							nextz();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nextz();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111111|00
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111111|000
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|0000
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													19;
+																																																												resultBuffer[wi++] = 19;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0001
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													20;
+																																																												resultBuffer[wi++] = 20;
 																																																												break;
 																																																											}
 																																																										}
@@ -6645,45 +4399,24 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111111|001
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|0010
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													21;
+																																																												resultBuffer[wi++] = 21;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0011
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													23;
+																																																												resultBuffer[wi++] = 23;
 																																																												break;
 																																																											}
 																																																										}
@@ -6695,63 +4428,31 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111111|01
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111111|010
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|0100
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													24;
+																																																												resultBuffer[wi++] = 24;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0101
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													25;
+																																																												resultBuffer[wi++] = 25;
 																																																												break;
 																																																											}
 																																																										}
@@ -6759,45 +4460,24 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111111|011
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|0110
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													26;
+																																																												resultBuffer[wi++] = 26;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|0111
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													27;
+																																																												resultBuffer[wi++] = 27;
 																																																												break;
 																																																											}
 																																																										}
@@ -6813,81 +4493,38 @@ public static partial class HuffmanTool
 																																																						break;
 																																																					}
 																																																					//11111111|11111111|11111111|1
-																																																					case
-																																																						1:
+																																																					case 1:
 																																																					{
-																																																						t =
-																																																							nexto();
-																																																						if
-																																																							(t ==
-																																																							 -1)
-																																																							break;
-																																																						switch
-																																																							((
-																																																								 t &
-																																																								 data
-																																																								 [
-																																																									 i3]) >>
-																																																							 i)
+																																																						t = nexto();
+																																																						if (t == -1) break;
+																																																						switch ((t & data[i3]) >> i)
 																																																						{
 																																																							//11111111|11111111|11111111|10
-																																																							case
-																																																								0:
+																																																							case 0:
 																																																							{
-																																																								t =
-																																																									nextz();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nextz();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111111|100
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|1000
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													28;
+																																																												resultBuffer[wi++] = 28;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1001
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													29;
+																																																												resultBuffer[wi++] = 29;
 																																																												break;
 																																																											}
 																																																										}
@@ -6895,45 +4532,24 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111111|101
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|1010
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													30;
+																																																												resultBuffer[wi++] = 30;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1011
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													31;
+																																																												resultBuffer[wi++] = 31;
 																																																												break;
 																																																											}
 																																																										}
@@ -6945,63 +4561,31 @@ public static partial class HuffmanTool
 																																																								break;
 																																																							}
 																																																							//11111111|11111111|11111111|11
-																																																							case
-																																																								1:
+																																																							case 1:
 																																																							{
-																																																								t =
-																																																									nexto();
-																																																								if
-																																																									(t ==
-																																																									 -1)
-																																																									break;
-																																																								switch
-																																																									((
-																																																										 t &
-																																																										 data
-																																																										 [
-																																																											 i3]) >>
-																																																									 i)
+																																																								t = nexto();
+																																																								if (t == -1) break;
+																																																								switch ((t & data[i3]) >> i)
 																																																								{
 																																																									//11111111|11111111|11111111|110
-																																																									case
-																																																										0:
+																																																									case 0:
 																																																									{
-																																																										t =
-																																																											nextz();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nextz();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|1100
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													127;
+																																																												resultBuffer[wi++] = 127;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1101
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													220;
+																																																												resultBuffer[wi++] = 220;
 																																																												break;
 																																																											}
 																																																										}
@@ -7009,93 +4593,45 @@ public static partial class HuffmanTool
 																																																										break;
 																																																									}
 																																																									//11111111|11111111|11111111|111
-																																																									case
-																																																										1:
+																																																									case 1:
 																																																									{
-																																																										t =
-																																																											nexto();
-																																																										if
-																																																											(t ==
-																																																											 -1)
-																																																											break;
-																																																										switch
-																																																											((
-																																																												 t &
-																																																												 data
-																																																												 [
-																																																													 i3]) >>
-																																																											 i)
+																																																										t = nexto();
+																																																										if (t == -1) break;
+																																																										switch ((t & data[i3]) >> i)
 																																																										{
 																																																											//11111111|11111111|11111111|1110
-																																																											case
-																																																												0:
+																																																											case 0:
 																																																											{
 																																																												chken();
-																																																												resultBuffer
-																																																													[
-																																																														wi
-																																																															++] =
-																																																													249;
+																																																												resultBuffer[wi++] = 249;
 																																																												break;
 																																																											}
 																																																											//11111111|11111111|11111111|1111
-																																																											case
-																																																												1:
+																																																											case 1:
 																																																											{
-																																																												t =
-																																																													nexto();
-																																																												if
-																																																													(t ==
-																																																													 -1)
-																																																													break;
-																																																												switch
-																																																													((
-																																																														 t &
-																																																														 data
-																																																														 [
-																																																															 i3]) >>
-																																																													 i)
+																																																												t = nexto();
+																																																												if (t == -1) break;
+																																																												switch ((t & data[i3]) >> i)
 																																																												{
 																																																													//11111111|11111111|11111111|11110
-																																																													case
-																																																														0:
+																																																													case 0:
 																																																													{
-																																																														t =
-																																																															nextz();
-																																																														if
-																																																															(t ==
-																																																															 -1)
-																																																															break;
-																																																														switch
-																																																															((
-																																																																 t &
-																																																																 data
-																																																																 [
-																																																																	 i3]) >>
-																																																															 i)
+																																																														t = nextz();
+																																																														if (t == -1) break;
+																																																														switch ((t & data[i3]) >> i)
 																																																														{
 																																																															//11111111|11111111|11111111|111100
-																																																															case
-																																																																0:
+																																																															case 0:
 																																																															{
 																																																																chken();
-																																																																resultBuffer
-																																																																	[
-																																																																		wi
-																																																																			++] =
-																																																																	10;
+																																																																resultBuffer[wi++] = 10;
 																																																																break;
 																																																															}
 																																																															//11111111|11111111|11111111|111101
-																																																															case
-																																																																1:
+																																																															case 1:
 																																																															{
 																																																																chken();
-																																																																resultBuffer
-																																																																	[
-																																																																		wi
-																																																																			++] =
-																																																																	13;
+																																																																resultBuffer[wi++] = 13;
 																																																																break;
 																																																															}
 																																																														}
@@ -7103,42 +4639,23 @@ public static partial class HuffmanTool
 																																																														break;
 																																																													}
 																																																													//11111111|11111111|11111111|11111
-																																																													case
-																																																														1:
+																																																													case 1:
 																																																													{
-																																																														t =
-																																																															nexto();
-																																																														if
-																																																															(t ==
-																																																															 -1)
-																																																															break;
-																																																														switch
-																																																															((
-																																																																 t &
-																																																																 data
-																																																																 [
-																																																																	 i3]) >>
-																																																															 i)
+																																																														t = nexto();
+																																																														if (t == -1) break;
+																																																														switch ((t & data[i3]) >> i)
 																																																														{
 																																																															//11111111|11111111|11111111|111110
-																																																															case
-																																																																0:
+																																																															case 0:
 																																																															{
 																																																																chken();
-																																																																resultBuffer
-																																																																	[
-																																																																		wi
-																																																																			++] =
-																																																																	22;
+																																																																resultBuffer[wi++] = 22;
 																																																																break;
 																																																															}
 																																																															//11111111|11111111|11111111|111111
-																																																															case
-																																																																1:
+																																																															case 1:
 																																																															{
-																																																																throw
-																																																																	new
-																																																																		HuffmanForHPACKHaveEOSTagException();
+																																																																throw new HuffmanForHPACKHaveEOSTagException();
 																																																															}
 																																																														}
 
