@@ -14,7 +14,8 @@
         <Product>HPACKTool</Product>
         <Description>Tool for the HTPACK compression algorithm for http2
 
-用于http2的HTPACK压缩算法的工具</Description>
+            用于http2的HTPACK压缩算法的工具
+        </Description>
         <PackageProjectUrl>https://github.com/cewno/HPACKTool/</PackageProjectUrl>
         <RepositoryUrl>https://github.com/cewno/HPACKTool/</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
@@ -32,19 +33,19 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DebugSymbols>false</DebugSymbols>
-      <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
     </PropertyGroup>
 
     <ItemGroup>
-      <None Include="..\LICENSE">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-      <None Include="..\README.md">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
+        <None Include="..\LICENSE">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
+        <None Include="..\README.md">
+            <Pack>True</Pack>
+            <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>

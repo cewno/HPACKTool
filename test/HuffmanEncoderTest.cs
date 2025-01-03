@@ -25,8 +25,9 @@ public class HuffmanEncoderTest
 		outd = HuffmanTool.Encoder(str);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		Assert.Equal(data, outd);
-		OutputHelper.WriteLine((end - start) + "ms " + "ok");
+		OutputHelper.WriteLine(end - start + "ms " + "ok");
 	}
+
 	[Fact]
 	public void Test2()
 	{
@@ -44,8 +45,9 @@ public class HuffmanEncoderTest
 		outd = HuffmanTool.Encoder(str);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		Assert.Equal(data, outd);
-		OutputHelper.WriteLine((end - start) + "ms " + "ok");
+		OutputHelper.WriteLine(end - start + "ms " + "ok");
 	}
+
 	[Fact]
 	public void Test3()
 	{
@@ -58,8 +60,9 @@ public class HuffmanEncoderTest
 		outd = HuffmanTool.Encoder(str);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		Assert.Equal(data, outd);
-		OutputHelper.WriteLine((end - start) + "ms " + "ok");
+		OutputHelper.WriteLine(end - start + "ms " + "ok");
 	}
+
 	[Fact]
 	public void Test4()
 	{
@@ -72,8 +75,9 @@ public class HuffmanEncoderTest
 		outd = HuffmanTool.Encoder(str);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		Assert.Equal(data, outd);
-		OutputHelper.WriteLine((end - start) + "ms " + "ok");
+		OutputHelper.WriteLine(end - start + "ms " + "ok");
 	}
+
 	[Fact]
 	public void Test5()
 	{
@@ -85,7 +89,6 @@ public class HuffmanEncoderTest
 			0b_10101011, 0b_00100111, 0b_00001111, 0b_10110101, 0b_00101001, 0b_00011111, 0b_10010101, 0b_10000111,
 			0b_00110001, 0b_01100000, 0b_01100101, 0b_11000000, 0b_00000011, 0b_11101101, 0b_01001110, 0b_11100101,
 			0b_10110001, 0b_00000110, 0b_00111101, 0b_01010000, 0b_00000111
-
 		};
 		string str = "foo=ASDJKHQKBZXOQWEOPIUAXQWEOIU; max-age=3600; version=1";
 
@@ -96,6 +99,6 @@ public class HuffmanEncoderTest
 		outd = HuffmanTool.Encoder(str);
 		end = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 		Assert.Equal(data, outd);
-		OutputHelper.WriteLine((end - start) + "ms " + "ok");
+		OutputHelper.WriteLine(end - start + "ms " + "ok");
 	}
 }
