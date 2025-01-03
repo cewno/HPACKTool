@@ -3,891 +3,1625 @@ namespace cewno.HPACKTool;
 public static partial class HuffmanTool
 {
 	/// <summary>
-	/// 使用适用于 HTTP2 的 Huffman 压缩算法将 <see cref="string"/> 编码
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将 <see cref="string"/> 解码
 	/// </summary>
 	/// <param name="data">编码前的数据</param>
 	/// <returns>编码后的缓冲区</returns>
-	public static byte[]? Encoder(string data)
+	public static byte[] Encoder(string data)
 	{
-		return Encoder(System.Text.Encoding.ASCII.GetBytes(data));
+		return Encoder(System.Text.Encoding.ASCII.GetBytes(data)).ToArray();
 	}
 	/// <summary>
-	/// 使用适用于 HTTP2 的 Huffman 压缩算法将缓冲区内的 ascii 文本编码
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将缓冲区内的 ascii 文本解码到缓冲区
 	/// </summary>
-	/// <param name="data">编码前的数据</param>
-	/// <returns>编码后的缓冲区</returns>
-	public static byte[]? Encoder(byte[] data)
+	/// <param name="data">已编码数据</param>
+	/// <returns>包含结果的<see cref="Memory{T}"/></returns>
+	public static Memory<byte> Encoder(byte[] data)
 	{
-		if (data.Length == 0) return null;
-		List<byte> tdata = new List<byte>();
-		byte i = 0;
+		byte[] bytes = new byte[(int)(data.Length * 3.75)];
+		int encoder = Encoder(data, bytes);
+		return new Memory<byte>(bytes, 0, encoder);
+	}
+	
+	
+
+	/// <summary>
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将缓冲区内的 ascii 文本解码到缓冲区
+	/// </summary>
+	/// <param name="data">已编码数据</param>
+	/// <param name="re">结果缓冲区</param>
+	/// <returns>结果实际占用的长度</returns>
+	public static unsafe int Encoder(Span<byte> data, Span<byte> re)
+	{
+		fixed (byte* ptrd = data)
+		{
+			fixed (byte* ptrr = re)
+			{
+				return Encoder(ptrd, data.Length, ptrr, re.Length);
+			}
+		}
+	}
+	
+	
+	/// <summary>
+	/// 使用适用于 HTTP2 的 Huffman 压缩算法将缓冲区内的 ascii 文本解码到缓冲区
+	/// </summary>
+	/// <param name="data">已编码数据</param>
+	/// <param name="dataLength">已编码数据长度</param>
+	/// <param name="result">结果缓冲区</param>
+	/// <param name="resultLength">结果缓冲区最大长度</param>
+	/// <returns>结果实际占用的长度</returns>
+	/// <exception cref="IndexOutOfRangeException">当缓冲区太小时抛出</exception>
+	public static unsafe int Encoder(byte* data, int dataLength, byte* result, int resultLength)
+	{
+		if (dataLength == 0 || resultLength == 0) return -1;
+		//NoStackallocList tdata = new NoStackallocList(result);
+		//List<byte> tdata = new List<byte>();
+		//last 位长度
+		int lastOffset = 0;
+		//上一个未写入完成的 bit
 		byte last = 0;
+		//结果写入索引
+		int wi = 0;
 
 		//ASCll
-		void write(byte bitl, byte datal, params byte[] data)
+
+		for (int j = 0; j < dataLength; j++)
 		{
-			if (i == 0)
-			{
-				if (bitl % 8 == 0)
-				{
-					for (int j = 0; j < datal; j++) tdata.Add(data[j]);
-				}
-				else
-				{
-					int j = 0;
-					for (; j < datal - 1; j++) tdata.Add(data[j]);
+			byte at = data[j];
+			int starti = 0;
+			byte bytesl = 0;
+			byte bitl = 0;
 
-					last = data[j];
-					i = (byte)(bitl % 8);
-				}
-			}
-			else
-			{
-				byte alll = (byte)(i + bitl);
-				byte alldl = (byte)(alll / 8);
-				if (alll % 8 == 0)
-				{
-					byte nlast = last;
-					for (int j = 0; j < alldl; j++)
-					{
-						tdata.Add((byte)(nlast | (data[j] >> i)));
-						nlast = (byte)(data[j] << (8 - i));
-					}
-
-					i = 0;
-				}
-				else
-				{
-					byte nlast = last;
-					if (alldl == 0)
-					{
-						last |= (byte)(data[0] >> i);
-						i = (byte)(i + bitl);
-						return;
-					}
-					else
-					{
-						int j = 0;
-						for (; j < alldl; j++)
-						{
-							tdata.Add((byte)(nlast | (data[j] >> i)));
-							nlast = (byte)(data[j] << (8 - i));
-						}
-
-						if (datal > alldl)
-						{
-							nlast |= (byte)(data[j] >> i);
-						}
-					}
-
-					last = nlast;
-					i = (byte)(alll % 8);
-				}
-			}
-		}
-
-		void down()
-		{
-			switch (i)
-			{
-				case 1:
-					tdata.Add((byte)(last | 0b_01111111));
-					break;
-				case 2:
-					tdata.Add((byte)(last | 0b_00111111));
-					break;
-				case 3:
-					tdata.Add((byte)(last | 0b_00011111));
-					break;
-				case 4:
-					tdata.Add((byte)(last | 0b_00001111));
-					break;
-				case 5:
-					tdata.Add((byte)(last | 0b_00000111));
-					break;
-				case 6:
-					tdata.Add((byte)(last | 0b_00000011));
-					break;
-				case 7:
-					tdata.Add((byte)(last | 0b_00000001));
-					break;
-			}
-		}
-
-		foreach (byte c in data)
-			switch (c)
+			#region switch
+			switch (at)
 			{
 				case (byte)'0':
-					write(5, 1, 0b_00000000);
+					starti = 0;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'1':
-					write(5, 1, 0b_00001000);
+					starti = 1;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'2':
-					write(5, 1, 0b_00010000);
+					starti = 2;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'a':
-					write(5, 1, 0b_00011000);
+					starti = 3;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'c':
-					write(5, 1, 0b_00100000);
+					starti = 4;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'e':
-					write(5, 1, 0b_00101000);
+					starti = 5;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'i':
-					write(5, 1, 0b_00110000);
+					starti = 6;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'o':
-					write(5, 1, 0b_00111000);
+					starti = 7;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'s':
-					write(5, 1, 0b_01000000);
+					starti = 8;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)'t':
-					write(5, 1, 0b_01001000);
+					starti = 9;
+					bytesl = 1;
+					bitl = 5;
 					break;
 				case (byte)' ':
-					write(6, 1, 0b_01010000);
+					starti = 10;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'%':
-					write(6, 1, 0b_01010100);
+					starti = 11;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'-':
-					write(6, 1, 0b_01011000);
+					starti = 12;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'.':
-					write(6, 1, 0b_01011100);
+					starti = 13;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'/':
-					write(6, 1, 0b_01100000);
+					starti = 14;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'3':
-					write(6, 1, 0b_01100100);
+					starti = 15;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'4':
-					write(6, 1, 0b_01101000);
+					starti = 16;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'5':
-					write(6, 1, 0b_01101100);
+					starti = 17;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'6':
-					write(6, 1, 0b_01110000);
+					starti = 18;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'7':
-					write(6, 1, 0b_01110100);
+					starti = 19;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'8':
-					write(6, 1, 0b_01111000);
+					starti = 20;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'9':
-					write(6, 1, 0b_01111100);
+					starti = 21;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'=':
-					write(6, 1, 0b_10000000);
+					starti = 22;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'A':
-					write(6, 1, 0b_10000100);
+					starti = 23;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'_':
-					write(6, 1, 0b_10001000);
+					starti = 24;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'b':
-					write(6, 1, 0b_10001100);
+					starti = 25;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'d':
-					write(6, 1, 0b_10010000);
+					starti = 26;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'f':
-					write(6, 1, 0b_10010100);
+					starti = 27;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'g':
-					write(6, 1, 0b_10011000);
+					starti = 28;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'h':
-					write(6, 1, 0b_10011100);
+					starti = 29;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'l':
-					write(6, 1, 0b_10100000);
+					starti = 30;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'m':
-					write(6, 1, 0b_10100100);
+					starti = 31;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'n':
-					write(6, 1, 0b_10101000);
+					starti = 32;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'p':
-					write(6, 1, 0b_10101100);
+					starti = 33;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'r':
-					write(6, 1, 0b_10110000);
+					starti = 34;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)'u':
-					write(6, 1, 0b_10110100);
+					starti = 35;
+					bytesl = 1;
+					bitl = 6;
 					break;
 				case (byte)':':
-					write(7, 1, 0b_10111000);
+					starti = 36;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'B':
-					write(7, 1, 0b_10111010);
+					starti = 37;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'C':
-					write(7, 1, 0b_10111100);
+					starti = 38;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'D':
-					write(7, 1, 0b_10111110);
+					starti = 39;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'E':
-					write(7, 1, 0b_11000000);
+					starti = 40;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'F':
-					write(7, 1, 0b_11000010);
+					starti = 41;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'G':
-					write(7, 1, 0b_11000100);
+					starti = 42;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'H':
-					write(7, 1, 0b_11000110);
+					starti = 43;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'I':
-					write(7, 1, 0b_11001000);
+					starti = 44;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'J':
-					write(7, 1, 0b_11001010);
+					starti = 45;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'K':
-					write(7, 1, 0b_11001100);
+					starti = 46;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'L':
-					write(7, 1, 0b_11001110);
+					starti = 47;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'M':
-					write(7, 1, 0b_11010000);
+					starti = 48;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'N':
-					write(7, 1, 0b_11010010);
+					starti = 49;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'O':
-					write(7, 1, 0b_11010100);
+					starti = 50;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'P':
-					write(7, 1, 0b_11010110);
+					starti = 51;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'Q':
-					write(7, 1, 0b_11011000);
+					starti = 52;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'R':
-					write(7, 1, 0b_11011010);
+					starti = 53;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'S':
-					write(7, 1, 0b_11011100);
+					starti = 54;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'T':
-					write(7, 1, 0b_11011110);
+					starti = 55;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'U':
-					write(7, 1, 0b_11100000);
+					starti = 56;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'V':
-					write(7, 1, 0b_11100010);
+					starti = 57;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'W':
-					write(7, 1, 0b_11100100);
+					starti = 58;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'Y':
-					write(7, 1, 0b_11100110);
+					starti = 59;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'j':
-					write(7, 1, 0b_11101000);
+					starti = 60;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'k':
-					write(7, 1, 0b_11101010);
+					starti = 61;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'q':
-					write(7, 1, 0b_11101100);
+					starti = 62;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'v':
-					write(7, 1, 0b_11101110);
+					starti = 63;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'w':
-					write(7, 1, 0b_11110000);
+					starti = 64;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'x':
-					write(7, 1, 0b_11110010);
+					starti = 65;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'y':
-					write(7, 1, 0b_11110100);
+					starti = 66;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'z':
-					write(7, 1, 0b_11110110);
+					starti = 67;
+					bytesl = 1;
+					bitl = 7;
 					break;
 				case (byte)'&':
-					write(8, 1, 0b_11111000);
+					starti = 68;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)'*':
-					write(8, 1, 0b_11111001);
+					starti = 69;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)',':
-					write(8, 1, 0b_11111010);
+					starti = 70;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)';':
-					write(8, 1, 0b_11111011);
+					starti = 71;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)'X':
-					write(8, 1, 0b_11111100);
+					starti = 72;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)'Z':
-					write(8, 1, 0b_11111101);
+					starti = 73;
+					bytesl = 1;
+					bitl = 8;
 					break;
 				case (byte)'!':
-					write(10, 2, 0b_11111110, 0b_00000000);
+					starti = 74;
+					bytesl = 2;
+					bitl = 10;
 					break;
 				case (byte)'"':
-					write(10, 2, 0b_11111110, 0b_01000000);
+					starti = 76;
+					bytesl = 2;
+					bitl = 10;
 					break;
 				case (byte)'(':
-					write(10, 2, 0b_11111110, 0b_10000000);
+					starti = 78;
+					bytesl = 2;
+					bitl = 10;
 					break;
 				case (byte)')':
-					write(10, 2, 0b_11111110, 0b_11000000);
+					starti = 80;
+					bytesl = 2;
+					bitl = 10;
 					break;
 				case (byte)'?':
-					write(10, 2, 0b_11111111, 0b_00000000);
+					starti = 82;
+					bytesl = 2;
+					bitl = 10;
 					break;
 				case (byte)'\'':
-					write(11, 2, 0b_11111111, 0b_01000000);
+					starti = 84;
+					bytesl = 2;
+					bitl = 11;
 					break;
 				case (byte)'+':
-					write(11, 2, 0b_11111111, 0b_01100000);
+					starti = 86;
+					bytesl = 2;
+					bitl = 11;
 					break;
 				case (byte)'|':
-					write(11, 2, 0b_11111111, 0b_10000000);
+					starti = 88;
+					bytesl = 2;
+					bitl = 11;
 					break;
 				case (byte)'#':
-					write(12, 2, 0b_11111111, 0b_10100000);
+					starti = 90;
+					bytesl = 2;
+					bitl = 12;
 					break;
 				case (byte)'>':
-					write(12, 2, 0b_11111111, 0b_10110000);
+					starti = 92;
+					bytesl = 2;
+					bitl = 12;
 					break;
 				case 0:
-					write(13, 2, 0b_11111111, 0b_11000000);
+					starti = 94;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)'$':
-					write(13, 2, 0b_11111111, 0b_11001000);
+					starti = 96;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)'@':
-					write(13, 2, 0b_11111111, 0b_11010000);
+					starti = 98;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)'[':
-					write(13, 2, 0b_11111111, 0b_11011000);
+					starti = 100;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)']':
-					write(13, 2, 0b_11111111, 0b_11100000);
+					starti = 102;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)'~':
-					write(13, 2, 0b_11111111, 0b_11101000);
+					starti = 104;
+					bytesl = 2;
+					bitl = 13;
 					break;
 				case (byte)'^':
-					write(14, 2, 0b_11111111, 0b_11110000);
+					starti = 106;
+					bytesl = 2;
+					bitl = 14;
 					break;
 				case (byte)'}':
-					write(14, 2, 0b_11111111, 0b_11110100);
+					starti = 108;
+					bytesl = 2;
+					bitl = 14;
 					break;
 				case (byte)'<':
-					write(15, 2, 0b_11111111, 0b_11111000);
+					starti = 110;
+					bytesl = 2;
+					bitl = 15;
 					break;
 				case (byte)'`':
-					write(15, 2, 0b_11111111, 0b_11111010);
+					starti = 112;
+					bytesl = 2;
+					bitl = 15;
 					break;
 				case (byte)'{':
-					write(15, 2, 0b_11111111, 0b_11111100);
+					starti = 114;
+					bytesl = 2;
+					bitl = 15;
 					break;
 				case (byte)'\\':
-					write(19, 3, 0b_11111111, 0b_11111110, 0b_00000000);
+					starti = 116;
+					bytesl = 3;
+					bitl = 19;
 					break;
 				case 195:
-					write(19, 3, 0b_11111111, 0b_11111110, 0b_00100000);
+					starti = 119;
+					bytesl = 3;
+					bitl = 19;
 					break;
 				case 208:
-					write(19, 3, 0b_11111111, 0b_11111110, 0b_01000000);
+					starti = 122;
+					bytesl = 3;
+					bitl = 19;
 					break;
 				case 128:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_01100000);
+					starti = 125;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 130:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_01110000);
+					starti = 128;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 131:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_10000000);
+					starti = 131;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 162:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_10010000);
+					starti = 134;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 184:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_10100000);
+					starti = 137;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 194:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_10110000);
+					starti = 140;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 224:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_11000000);
+					starti = 143;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 226:
-					write(20, 3, 0b_11111111, 0b_11111110, 0b_11010000);
+					starti = 146;
+					bytesl = 3;
+					bitl = 20;
 					break;
 				case 153:
-					write(21, 3, 0b_11111111, 0b_11111110, 0b_11100000);
+					starti = 149;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 161:
-					write(21, 3, 0b_11111111, 0b_11111110, 0b_11101000);
+					starti = 152;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 167:
-					write(21, 3, 0b_11111111, 0b_11111110, 0b_11110000);
+					starti = 155;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 172:
-					write(21, 3, 0b_11111111, 0b_11111110, 0b_11111000);
+					starti = 158;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 176:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00000000);
+					starti = 161;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 177:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00001000);
+					starti = 164;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 179:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00010000);
+					starti = 167;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 209:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00011000);
+					starti = 170;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 216:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00100000);
+					starti = 173;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 217:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00101000);
+					starti = 176;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 227:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00110000);
+					starti = 179;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 229:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_00111000);
+					starti = 182;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 230:
-					write(21, 3, 0b_11111111, 0b_11111111, 0b_01000000);
+					starti = 185;
+					bytesl = 3;
+					bitl = 21;
 					break;
 				case 129:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01001000);
+					starti = 188;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 132:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01001100);
+					starti = 191;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 133:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01010000);
+					starti = 194;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 134:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01010100);
+					starti = 197;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 136:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01011000);
+					starti = 200;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 146:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01011100);
+					starti = 203;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 154:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01100000);
+					starti = 206;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 156:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01100100);
+					starti = 209;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 160:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01101000);
+					starti = 212;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 163:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01101100);
+					starti = 215;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 164:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01110000);
+					starti = 218;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 169:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01110100);
+					starti = 221;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 170:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01111000);
+					starti = 224;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 173:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_01111100);
+					starti = 227;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 178:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10000000);
+					starti = 230;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 181:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10000100);
+					starti = 233;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 185:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10001000);
+					starti = 236;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 186:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10001100);
+					starti = 239;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 187:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10010000);
+					starti = 242;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 189:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10010100);
+					starti = 245;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 190:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10011000);
+					starti = 248;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 196:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10011100);
+					starti = 251;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 198:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10100000);
+					starti = 254;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 228:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10100100);
+					starti = 257;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 232:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10101000);
+					starti = 260;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 233:
-					write(22, 3, 0b_11111111, 0b_11111111, 0b_10101100);
+					starti = 263;
+					bytesl = 3;
+					bitl = 22;
 					break;
 				case 1:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10110000);
+					starti = 266;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 135:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10110010);
+					starti = 269;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 137:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10110100);
+					starti = 272;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 138:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10110110);
+					starti = 275;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 139:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10111000);
+					starti = 278;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 140:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10111010);
+					starti = 281;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 141:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10111100);
+					starti = 284;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 143:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_10111110);
+					starti = 287;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 147:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11000000);
+					starti = 290;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 149:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11000010);
+					starti = 293;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 150:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11000100);
+					starti = 296;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 151:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11000110);
+					starti = 299;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 152:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11001000);
+					starti = 302;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 155:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11001010);
+					starti = 305;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 157:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11001100);
+					starti = 308;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 158:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11001110);
+					starti = 311;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 165:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11010000);
+					starti = 314;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 166:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11010010);
+					starti = 317;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 168:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11010100);
+					starti = 320;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 174:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11010110);
+					starti = 323;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 175:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11011000);
+					starti = 326;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 180:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11011010);
+					starti = 329;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 182:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11011100);
+					starti = 332;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 183:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11011110);
+					starti = 335;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 188:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11100000);
+					starti = 338;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 191:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11100010);
+					starti = 341;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 197:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11100100);
+					starti = 344;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 231:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11100110);
+					starti = 347;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 239:
-					write(23, 3, 0b_11111111, 0b_11111111, 0b_11101000);
+					starti = 350;
+					bytesl = 3;
+					bitl = 23;
 					break;
 				case 9:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101010);
+					starti = 353;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 142:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101011);
+					starti = 356;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 144:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101100);
+					starti = 359;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 145:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101101);
+					starti = 362;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 148:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101110);
+					starti = 365;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 159:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11101111);
+					starti = 368;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 171:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110000);
+					starti = 371;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 206:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110001);
+					starti = 374;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 215:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110010);
+					starti = 377;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 225:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110011);
+					starti = 380;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 236:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110100);
+					starti = 383;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 237:
-					write(24, 3, 0b_11111111, 0b_11111111, 0b_11110101);
+					starti = 386;
+					bytesl = 3;
+					bitl = 24;
 					break;
 				case 199:
-					write(25, 4, 0b_11111111, 0b_11111111, 0b_11110110, 0b_00000000);
+					starti = 389;
+					bytesl = 4;
+					bitl = 25;
 					break;
 				case 207:
-					write(25, 4, 0b_11111111, 0b_11111111, 0b_11110110, 0b_10000000);
+					starti = 393;
+					bytesl = 4;
+					bitl = 25;
 					break;
 				case 234:
-					write(25, 4, 0b_11111111, 0b_11111111, 0b_11110111, 0b_00000000);
+					starti = 397;
+					bytesl = 4;
+					bitl = 25;
 					break;
 				case 235:
-					write(25, 4, 0b_11111111, 0b_11111111, 0b_11110111, 0b_10000000);
+					starti = 401;
+					bytesl = 4;
+					bitl = 25;
 					break;
 				case 192:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111000, 0b_00000000);
+					starti = 405;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 193:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111000, 0b_01000000);
+					starti = 409;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 200:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111000, 0b_10000000);
+					starti = 413;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 201:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111000, 0b_11000000);
+					starti = 417;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 202:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111001, 0b_00000000);
+					starti = 421;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 205:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111001, 0b_01000000);
+					starti = 425;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 210:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111001, 0b_10000000);
+					starti = 429;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 213:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111001, 0b_11000000);
+					starti = 433;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 218:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111010, 0b_00000000);
+					starti = 437;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 219:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111010, 0b_01000000);
+					starti = 441;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 238:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111010, 0b_10000000);
+					starti = 445;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 240:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111010, 0b_11000000);
+					starti = 449;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 242:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111011, 0b_00000000);
+					starti = 453;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 243:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111011, 0b_01000000);
+					starti = 457;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 255:
-					write(26, 4, 0b_11111111, 0b_11111111, 0b_11111011, 0b_10000000);
+					starti = 461;
+					bytesl = 4;
+					bitl = 26;
 					break;
 				case 203:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111011, 0b_11000000);
+					starti = 465;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 204:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111011, 0b_11100000);
+					starti = 469;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 211:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_00000000);
+					starti = 473;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 212:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_00100000);
+					starti = 477;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 214:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_01000000);
+					starti = 481;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 221:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_01100000);
+					starti = 485;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 222:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_10000000);
+					starti = 489;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 223:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_10100000);
+					starti = 493;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 241:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_11000000);
+					starti = 497;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 244:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111100, 0b_11100000);
+					starti = 501;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 245:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_00000000);
+					starti = 505;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 246:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_00100000);
+					starti = 509;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 247:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_01000000);
+					starti = 513;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 248:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_01100000);
+					starti = 517;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 250:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_10000000);
+					starti = 521;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 251:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_10100000);
+					starti = 525;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 252:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_11000000);
+					starti = 529;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 253:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111101, 0b_11100000);
+					starti = 533;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 254:
-					write(27, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_00000000);
+					starti = 537;
+					bytesl = 4;
+					bitl = 27;
 					break;
 				case 2:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_00100000);
+					starti = 541;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 3:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_00110000);
+					starti = 545;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 4:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01000000);
+					starti = 549;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 5:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01010000);
+					starti = 553;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 6:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01100000);
+					starti = 557;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 7:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01110000);
+					starti = 561;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 8:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10000000);
+					starti = 565;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 11:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10010000);
+					starti = 569;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 12:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10100000);
+					starti = 573;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 14:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10110000);
+					starti = 577;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 15:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11000000);
+					starti = 581;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 16:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11010000);
+					starti = 585;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 17:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11100000);
+					starti = 589;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 18:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11110000);
+					starti = 593;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 19:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00000000);
+					starti = 597;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 20:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00010000);
+					starti = 601;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 21:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00100000);
+					starti = 605;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 23:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00110000);
+					starti = 609;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 24:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01000000);
+					starti = 613;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 25:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01010000);
+					starti = 617;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 26:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01100000);
+					starti = 621;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 27:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01110000);
+					starti = 625;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 28:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10000000);
+					starti = 629;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 29:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10010000);
+					starti = 633;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 30:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10100000);
+					starti = 637;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 31:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10110000);
+					starti = 641;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 127:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11000000);
+					starti = 645;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 220:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11010000);
+					starti = 649;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 249:
-					write(28, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11100000);
+					starti = 653;
+					bytesl = 4;
+					bitl = 28;
 					break;
 				case 10:
-					write(30, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11110000);
+					starti = 657;
+					bytesl = 4;
+					bitl = 30;
 					break;
 				case 13:
-					write(30, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11110100);
+					starti = 661;
+					bytesl = 4;
+					bitl = 30;
 					break;
 				case 22:
-					write(30, 4, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11111000);
+					starti = 665;
+					bytesl = 4;
+					bitl = 30;
 					break;
 			}
+			
+			#endregion
 
-		down();
-		return tdata.ToArray();
+			//无未写入完的位
+			if (lastOffset == 0)
+			{
+				//这次写入后无剩余位
+				if (bitl % 8 == 0)
+				{
+					for (int k = 0; k < bytesl; k++)
+					{
+						if (wi == resultLength)
+						{
+							throw new IndexOutOfRangeException();
+						}
+
+						result[wi++] = AllBytes[starti++];
+					}
+				}
+				//这次写入后有剩余位
+				else
+				{
+					for (int k = 0; k < (bytesl - 1); k++)
+					{
+						if (wi == resultLength)
+						{
+							throw new IndexOutOfRangeException();
+						}
+
+						result[wi++] = AllBytes[starti++];
+					}
+					last = AllBytes[starti];
+					lastOffset = bitl;
+				}
+			}
+			//上一次写入有未写入完的位
+			else
+			{
+				byte localLast = last;
+				int alstlength1 = lastOffset + bitl;
+			
+				//这次写入后无剩余位
+				if (alstlength1 % 8 == 0)
+				{
+					for (int i = 0; i < (alstlength1 / 8); i++)
+					{
+						if (wi == resultLength)
+						{
+							throw new IndexOutOfRangeException();
+						}
+
+						byte atbyte = AllBytes[starti++];
+						result[wi++] = (byte)(localLast | (atbyte >> lastOffset));
+						localLast = (byte)(atbyte << (8 - lastOffset));
+					}
+			
+					lastOffset = 0;
+				}
+				//这次写入后有剩余位
+				else
+				{
+					//与上一次写入的剩余位合并后不足一个字节
+					if (alstlength1 < 8)
+					{
+						last = (byte)(last | (AllBytes[starti] >> lastOffset));
+						lastOffset = alstlength1;
+					}
+					//与上一次写入的剩余位合并后至少有一个字节且有剩余位     无剩余位会在`这次写入后无剩余位`中被匹配
+					else
+					{
+						for (int i = 0; i < (alstlength1 / 8); i++)
+						{
+							if (wi == resultLength)
+							{
+								throw new IndexOutOfRangeException();
+							}
+
+							byte atbyte = AllBytes[starti++];
+							result[wi++] = (byte)(localLast | (atbyte >> lastOffset));
+							localLast = (byte)(atbyte << (8 - lastOffset));
+						}
+			
+						last = localLast;
+						lastOffset = alstlength1 % 8;
+					}
+				}
+			}
+			
+			
+			
+			// Span<byte> data1 = new Span<byte>(allbytes, starti, bytesl);
+			// if (lastOffset == 0)
+			// {
+			// 	if (bitl % 8 == 0)
+			// 	{
+			// 		for (int j1 = 0; j1 < bytesl; j1++) tdata.Add(data1[j1]);
+			// 	}
+			// 	else
+			// 	{
+			// 		int j2 = 0;
+			// 		for (; j2 < bytesl - 1; j2++) tdata.Add(data1[j2]);
+			//
+			// 		last = data1[j2];
+			// 		lastOffset = (byte)(bitl % 8);
+			// 	}
+			// }
+			// else
+			// {
+			// 	byte alll = (byte)(lastOffset + bitl);
+			// 	byte alldl = (byte)(alll / 8);
+			// 	if (alll % 8 == 0)
+			// 	{
+			// 		byte nlast = last;
+			// 		for (int j3 = 0; j3 < alldl; j3++)
+			// 		{
+			// 			tdata.Add((byte)(nlast | (data1[j3] >> lastOffset)));
+			// 			nlast = (byte)(data1[j3] << (8 - lastOffset));
+			// 		}
+			//
+			// 		lastOffset = 0;
+			// 	}
+			// 	else
+			// 	{
+			// 		byte nlast = last;
+			// 		if (alldl == 0)
+			// 		{
+			// 			last |= (byte)(data1[0] >> lastOffset);
+			// 			lastOffset = (byte)(lastOffset + bitl);
+			// 		}
+			// 		else
+			// 		{
+			// 			int j4 = 0;
+			// 			for (; j4 < alldl; j4++)
+			// 			{
+			// 				tdata.Add((byte)(nlast | (data1[j4] >> lastOffset)));
+			// 				nlast = (byte)(data1[j4] << (8 - lastOffset));
+			// 			}
+			//
+			// 			// if (bytesl > alldl)
+			// 			// {
+			// 			// 	nlast |= (byte)(data1[j4] >> lastOffset);
+			// 			// }
+			// 			
+			// 			last = nlast;
+			// 			lastOffset = (byte)(alll % 8);
+			// 		}
+			//
+			// 	}
+			// }
+		}
+
+		if (lastOffset != 0)
+		{
+			if (wi == resultLength)
+			{
+				throw new IndexOutOfRangeException();
+			}
+
+			byte b = lastOffset switch
+			{
+				1 => ((byte)(last | 0b_01111111)),
+				2 => ((byte)(last | 0b_00111111)),
+				3 => ((byte)(last | 0b_00011111)),
+				4 => ((byte)(last | 0b_00001111)),
+				5 => ((byte)(last | 0b_00000111)),
+				6 => ((byte)(last | 0b_00000011)),
+				7 => ((byte)(last | 0b_00000001)),
+			};
+			//tdata.Add(b);
+			result[wi++] = b;
+		}
+		
+
+		return wi;
 	}
+	
+	
+	
+	
+	private static readonly byte[] AllBytes =
+		new byte[]
+		{
+			0b_00000000, 0b_00001000, 0b_00010000, 0b_00011000, 0b_00100000, 0b_00101000, 0b_00110000, 0b_00111000,
+			0b_01000000, 0b_01001000, 0b_01010000, 0b_01010100, 0b_01011000, 0b_01011100, 0b_01100000, 0b_01100100,
+			0b_01101000, 0b_01101100, 0b_01110000, 0b_01110100, 0b_01111000, 0b_01111100, 0b_10000000, 0b_10000100,
+			0b_10001000, 0b_10001100, 0b_10010000, 0b_10010100, 0b_10011000, 0b_10011100, 0b_10100000, 0b_10100100,
+			0b_10101000, 0b_10101100, 0b_10110000, 0b_10110100, 0b_10111000, 0b_10111010, 0b_10111100, 0b_10111110,
+			0b_11000000, 0b_11000010, 0b_11000100, 0b_11000110, 0b_11001000, 0b_11001010, 0b_11001100, 0b_11001110,
+			0b_11010000, 0b_11010010, 0b_11010100, 0b_11010110, 0b_11011000, 0b_11011010, 0b_11011100, 0b_11011110,
+			0b_11100000, 0b_11100010, 0b_11100100, 0b_11100110, 0b_11101000, 0b_11101010, 0b_11101100, 0b_11101110,
+			0b_11110000, 0b_11110010, 0b_11110100, 0b_11110110, 0b_11111000, 0b_11111001, 0b_11111010, 0b_11111011,
+			0b_11111100, 0b_11111101, 0b_11111110, 0b_00000000, 0b_11111110, 0b_01000000, 0b_11111110, 0b_10000000,
+			0b_11111110, 0b_11000000, 0b_11111111, 0b_00000000, 0b_11111111, 0b_01000000, 0b_11111111, 0b_01100000,
+			0b_11111111, 0b_10000000, 0b_11111111, 0b_10100000, 0b_11111111, 0b_10110000, 0b_11111111, 0b_11000000,
+			0b_11111111, 0b_11001000, 0b_11111111, 0b_11010000, 0b_11111111, 0b_11011000, 0b_11111111, 0b_11100000,
+			0b_11111111, 0b_11101000, 0b_11111111, 0b_11110000, 0b_11111111, 0b_11110100, 0b_11111111, 0b_11111000,
+			0b_11111111, 0b_11111010, 0b_11111111, 0b_11111100, 0b_11111111, 0b_11111110, 0b_00000000, 0b_11111111,
+			0b_11111110, 0b_00100000, 0b_11111111, 0b_11111110, 0b_01000000, 0b_11111111, 0b_11111110, 0b_01100000,
+			0b_11111111, 0b_11111110, 0b_01110000, 0b_11111111, 0b_11111110, 0b_10000000, 0b_11111111, 0b_11111110,
+			0b_10010000, 0b_11111111, 0b_11111110, 0b_10100000, 0b_11111111, 0b_11111110, 0b_10110000, 0b_11111111,
+			0b_11111110, 0b_11000000, 0b_11111111, 0b_11111110, 0b_11010000, 0b_11111111, 0b_11111110, 0b_11100000,
+			0b_11111111, 0b_11111110, 0b_11101000, 0b_11111111, 0b_11111110, 0b_11110000, 0b_11111111, 0b_11111110,
+			0b_11111000, 0b_11111111, 0b_11111111, 0b_00000000, 0b_11111111, 0b_11111111, 0b_00001000, 0b_11111111,
+			0b_11111111, 0b_00010000, 0b_11111111, 0b_11111111, 0b_00011000, 0b_11111111, 0b_11111111, 0b_00100000,
+			0b_11111111, 0b_11111111, 0b_00101000, 0b_11111111, 0b_11111111, 0b_00110000, 0b_11111111, 0b_11111111,
+			0b_00111000, 0b_11111111, 0b_11111111, 0b_01000000, 0b_11111111, 0b_11111111, 0b_01001000, 0b_11111111,
+			0b_11111111, 0b_01001100, 0b_11111111, 0b_11111111, 0b_01010000, 0b_11111111, 0b_11111111, 0b_01010100,
+			0b_11111111, 0b_11111111, 0b_01011000, 0b_11111111, 0b_11111111, 0b_01011100, 0b_11111111, 0b_11111111,
+			0b_01100000, 0b_11111111, 0b_11111111, 0b_01100100, 0b_11111111, 0b_11111111, 0b_01101000, 0b_11111111,
+			0b_11111111, 0b_01101100, 0b_11111111, 0b_11111111, 0b_01110000, 0b_11111111, 0b_11111111, 0b_01110100,
+			0b_11111111, 0b_11111111, 0b_01111000, 0b_11111111, 0b_11111111, 0b_01111100, 0b_11111111, 0b_11111111,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_10000100, 0b_11111111, 0b_11111111, 0b_10001000, 0b_11111111,
+			0b_11111111, 0b_10001100, 0b_11111111, 0b_11111111, 0b_10010000, 0b_11111111, 0b_11111111, 0b_10010100,
+			0b_11111111, 0b_11111111, 0b_10011000, 0b_11111111, 0b_11111111, 0b_10011100, 0b_11111111, 0b_11111111,
+			0b_10100000, 0b_11111111, 0b_11111111, 0b_10100100, 0b_11111111, 0b_11111111, 0b_10101000, 0b_11111111,
+			0b_11111111, 0b_10101100, 0b_11111111, 0b_11111111, 0b_10110000, 0b_11111111, 0b_11111111, 0b_10110010,
+			0b_11111111, 0b_11111111, 0b_10110100, 0b_11111111, 0b_11111111, 0b_10110110, 0b_11111111, 0b_11111111,
+			0b_10111000, 0b_11111111, 0b_11111111, 0b_10111010, 0b_11111111, 0b_11111111, 0b_10111100, 0b_11111111,
+			0b_11111111, 0b_10111110, 0b_11111111, 0b_11111111, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11000010,
+			0b_11111111, 0b_11111111, 0b_11000100, 0b_11111111, 0b_11111111, 0b_11000110, 0b_11111111, 0b_11111111,
+			0b_11001000, 0b_11111111, 0b_11111111, 0b_11001010, 0b_11111111, 0b_11111111, 0b_11001100, 0b_11111111,
+			0b_11111111, 0b_11001110, 0b_11111111, 0b_11111111, 0b_11010000, 0b_11111111, 0b_11111111, 0b_11010010,
+			0b_11111111, 0b_11111111, 0b_11010100, 0b_11111111, 0b_11111111, 0b_11010110, 0b_11111111, 0b_11111111,
+			0b_11011000, 0b_11111111, 0b_11111111, 0b_11011010, 0b_11111111, 0b_11111111, 0b_11011100, 0b_11111111,
+			0b_11111111, 0b_11011110, 0b_11111111, 0b_11111111, 0b_11100000, 0b_11111111, 0b_11111111, 0b_11100010,
+			0b_11111111, 0b_11111111, 0b_11100100, 0b_11111111, 0b_11111111, 0b_11100110, 0b_11111111, 0b_11111111,
+			0b_11101000, 0b_11111111, 0b_11111111, 0b_11101010, 0b_11111111, 0b_11111111, 0b_11101011, 0b_11111111,
+			0b_11111111, 0b_11101100, 0b_11111111, 0b_11111111, 0b_11101101, 0b_11111111, 0b_11111111, 0b_11101110,
+			0b_11111111, 0b_11111111, 0b_11101111, 0b_11111111, 0b_11111111, 0b_11110000, 0b_11111111, 0b_11111111,
+			0b_11110001, 0b_11111111, 0b_11111111, 0b_11110010, 0b_11111111, 0b_11111111, 0b_11110011, 0b_11111111,
+			0b_11111111, 0b_11110100, 0b_11111111, 0b_11111111, 0b_11110101, 0b_11111111, 0b_11111111, 0b_11110110,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11110110, 0b_10000000, 0b_11111111, 0b_11111111, 0b_11110111,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11110111, 0b_10000000, 0b_11111111, 0b_11111111, 0b_11111000,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11111000, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111000,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111000, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111001,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11111001, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111001,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111001, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111010,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11111010, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111010,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111010, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111011,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11111011, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111011,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111011, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111011,
+			0b_11100000, 0b_11111111, 0b_11111111, 0b_11111100, 0b_00000000, 0b_11111111, 0b_11111111, 0b_11111100,
+			0b_00100000, 0b_11111111, 0b_11111111, 0b_11111100, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111100,
+			0b_01100000, 0b_11111111, 0b_11111111, 0b_11111100, 0b_10000000, 0b_11111111, 0b_11111111, 0b_11111100,
+			0b_10100000, 0b_11111111, 0b_11111111, 0b_11111100, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111100,
+			0b_11100000, 0b_11111111, 0b_11111111, 0b_11111101, 0b_00000000, 0b_11111111, 0b_11111111, 0b_11111101,
+			0b_00100000, 0b_11111111, 0b_11111111, 0b_11111101, 0b_01000000, 0b_11111111, 0b_11111111, 0b_11111101,
+			0b_01100000, 0b_11111111, 0b_11111111, 0b_11111101, 0b_10000000, 0b_11111111, 0b_11111111, 0b_11111101,
+			0b_10100000, 0b_11111111, 0b_11111111, 0b_11111101, 0b_11000000, 0b_11111111, 0b_11111111, 0b_11111101,
+			0b_11100000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_00000000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_00100000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_00110000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_01000000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01010000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_01100000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_01110000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10010000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_10100000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_10110000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_11000000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11010000, 0b_11111111, 0b_11111111, 0b_11111110,
+			0b_11100000, 0b_11111111, 0b_11111111, 0b_11111110, 0b_11110000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_00000000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00010000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_00100000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_00110000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_01000000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01010000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_01100000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_01110000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_10000000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10010000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_10100000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_10110000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_11000000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11010000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_11100000, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11110000, 0b_11111111, 0b_11111111, 0b_11111111,
+			0b_11110100, 0b_11111111, 0b_11111111, 0b_11111111, 0b_11111000,
+		};
 }

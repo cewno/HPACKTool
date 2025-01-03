@@ -1,3 +1,5 @@
+using System.Buffers;
+
 namespace cewno.HPACKTool;
 
 public static partial class StringTool
@@ -31,7 +33,7 @@ public static partial class StringTool
 	
 	
 	/// <summary>
-	/// 将字符串使用 Huffman 编码到缓冲区
+	/// 将<see cref="string"/>使用 Huffman 压缩后编码写入缓冲区
 	/// </summary>
 	/// <param name="data">字符串</param>
 	/// <returns>缓冲区</returns>
@@ -41,21 +43,22 @@ public static partial class StringTool
 	}
 
 	/// <summary>
-	/// 将二进制数据使用 Huffman 编码到缓冲区
+	/// 将二进制数据使用 Huffman 压缩后编码写入缓冲区
 	/// </summary>
 	/// <param name="data"></param>
 	/// <returns>缓冲区</returns>
 	public static byte[]? EncoderToHuffman(byte[] data)
 	{
-		data = HuffmanTool.Encoder(data);
-		if (data == null)
+		byte[] bytes = ArrayPool<byte>.Shared.Rent((int)(data.Length * 3.75));
+		int encoder = HuffmanTool.Encoder(data, bytes);
+		if (encoder <= 0)
 		{
 			return null;
 		}
-		byte[] lengthdata = IntegerTool.WriteUInteger((uint)data.Length, 7, 0b_10000000);
-		byte[] alldata = new byte[data.Length + lengthdata.Length];
+		byte[] lengthdata = IntegerTool.WriteUInteger((uint)encoder, 7, 0b_10000000);
+		byte[] alldata = new byte[encoder + lengthdata.Length];
 		Array.Copy(lengthdata, 0, alldata, 0, lengthdata.Length);
-		Array.Copy(data,0,alldata,lengthdata.Length,data.Length);
+		Array.Copy(bytes,0,alldata,lengthdata.Length,encoder);
 		return alldata;
 	}
 
