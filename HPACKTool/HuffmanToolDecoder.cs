@@ -4777,10 +4777,6 @@ public static partial class HuffmanTool
 
 				#endregion
 
-				Console.WriteLine($"{i2}, {wi}");
-
-				if (++lastwi != wi || i > wi * 4) Console.WriteLine();
-
 				have_zero = false;
 				if (t == -1)
 					if (oleight)
