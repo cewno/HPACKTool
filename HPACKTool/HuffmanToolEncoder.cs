@@ -1476,7 +1476,7 @@ public static partial class HuffmanTool
 					}
 
 					last = AllBytes[starti];
-					lastOffset = bitl;
+					lastOffset = bitl % 8;
 				}
 			}
 			//上一次写入有未写入完的位
