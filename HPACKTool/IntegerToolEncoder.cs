@@ -6,32 +6,7 @@ public static partial class IntegerTool
 {
 	#region wUInt
 
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(uint data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | (byte)data));
-		}
-		else
-		{
-			data -= Nb[n];
-			asyncIO.WriteByte((byte)(head | Nb[n]));
-			while (data > 0b_01111111)
-			{
-				asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-				data >>= 7;
-			}
-
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
+	
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
@@ -120,32 +95,7 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wULong
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(ulong data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | (byte)data));
-		}
-		else
-		{
-			data -= Nb[n];
-			asyncIO.WriteByte((byte)(head | Nb[n]));
-			while (data > 0b_01111111)
-			{
-				asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-				data >>= 7;
-			}
-
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
+	
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
@@ -234,32 +184,7 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wUShort
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(ushort data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | (byte)data));
-		}
-		else
-		{
-			data -= Nb[n];
-			asyncIO.WriteByte((byte)(head | Nb[n]));
-			while (data > 0b_01111111)
-			{
-				asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-				data >>= 7;
-			}
-
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
+	
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
@@ -349,31 +274,7 @@ public static partial class IntegerTool
 
 
 	#region wByte
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(byte data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | data));
-		}
-		else
-		{
-			data -= Nb[n];
-			// asyncIO.WriteByte((byte)(head | Nb[n]));// =false
-			// while (data > 0b_01111111)
-			// {
-			// 	asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-			// 	data >>= 7;
-			// }
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
+	
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
@@ -462,31 +363,7 @@ public static partial class IntegerTool
 	#region wUInt128
 
 #if NET7_0_OR_GREATER
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(UInt128 data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | (byte)data));
-		}
-		else
-		{
-			data -= Nb[n];
-			asyncIO.WriteByte((byte)(head | Nb[n]));
-			while (data > 0b_01111111)
-			{
-				asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-				data >>= 7;
-			}
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
+	
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
@@ -575,32 +452,7 @@ public static partial class IntegerTool
 	#endregion
 
 	#region wBigInteger
-	/// <summary>
-	/// 写入整数到异步io
-	/// </summary>
-	/// <param name="data">整数</param>
-	/// <param name="n">前缀长度,参见 <a href="https://www.rfc-editor.org/rfc/rfc7541.html#section-5.1/">RFC7541 第5.1节</a></param>
-	/// <param name="head">首位头数据</param>
-	/// <param name="asyncIO">异步io</param>
-	public static void WriteUInteger(BigInteger data, byte n, byte head, IAsyncIO asyncIO)
-	{
-		if (data < Nb[n])
-		{
-			asyncIO.WriteByte((byte)(head | (byte)data));
-		}
-		else
-		{
-			data -= Nb[n];
-			asyncIO.WriteByte((byte)(head | Nb[n]));
-			while (data > 0b_01111111)
-			{
-				asyncIO.WriteByte((byte)((data & 0b_01111111) | 0b_10000000));
-				data >>= 7;
-			}
 
-			asyncIO.WriteByte((byte)(data & 0b_01111111));
-		}
-	}
 	/// <summary>
 	/// 写入整数到普通io
 	/// </summary>
