@@ -40,18 +40,7 @@ public class StringTest
 
 	private static bool VerifyArray(byte[]? data1, byte[]? data2)
 	{
-		if (data1 == null && data2 == null) return true;
-		if ((data1 == null && data2 != null) || (data1 != null && data2 == null) || data1.Length != data2.Length) return false;
-		try
-		{
-			for (int i = 0; i < data1.Length; i++)
-				if (data1[i] != data2[i])
-					return false;
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
+		Assert.Equal(data1, data2);
 
 		return true;
 	}
