@@ -298,7 +298,7 @@ public static partial class IntegerTool
 			{
 				at = buffer[index++];
 				if (m == 63 && at > 0b_00000001) throw new OverflowException();
-				i |= (at & 0b_01111111) << m;
+				i += (((ulong)(at & 0b_01111111)) << m);
 				m += 7;
 			} while ((at & 0b_10000000) == 0b_10000000);
 
