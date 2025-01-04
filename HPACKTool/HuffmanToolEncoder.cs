@@ -1939,15 +1939,40 @@ public static partial class HuffmanTool
 					//与上一次写入的剩余位合并后至少有一个字节且有剩余位     无剩余位会在`这次写入后无剩余位`中被匹配
 					else
 					{
+						byte atbyte;
 						for (int i = 0; i < alstlength1 / 8; i++)
 						{
 							if (wi == resultLength) throw new IndexOutOfRangeException();
-
-							byte atbyte = AllBytes[starti++];
+							
+							atbyte = AllBytes[starti++];
 							result[wi++] = (byte)(localLast | (atbyte >> lastOffset));
 							localLast = (byte)(atbyte << (8 - lastOffset));
 						}
+						//从 Huffman 表读取对应数据的时候，
+						//因为上面是按照总可写入字节遍历并拼接写入的，
+						//部分时候会出现后面还有数据但没拼接到 localLast
+						//这个 if 检测并将剩余数据拼接
+						//比如以下情况
+						//lastOffset = 2
+						//localLast = 0b_000000??
+						//bytesl = 3
+						//bitl = 18
+						//alstlength1 = lastOffset + bitl = 20
+						//alstlength1 / 8 = 2
+						//
+						//  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19
+						//+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+						//[ ?   ? | 1   1   1   1   1   1 ] 1   1 | 1   1   1   1   1   1 ] 1   1 | 0   1 |
+						//+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
+						//
+						//由于 alstlength1 / 8 = 2
+						//for 只会循环两次，会漏掉最后两位数据
+						//
+						if (bytesl > alstlength1 / 8)  {
+							localLast |= (byte)(AllBytes[starti] >> lastOffset);
+						}
 
+						
 						last = localLast;
 						lastOffset = alstlength1 % 8;
 					}
